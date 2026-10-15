@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EQUALECT — Every Voice Counts</title>
+  <style>
+    /* ========== RESET & BASE ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #0b1a33;
+      --navy-light: #142b4a;
+      --purple: #6b4ee6;
+      --purple-soft: #f0ebff;
+      --teal: #0d9488;
+      --teal-soft: #e6f7f5;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --success: #059669;
+      --success-soft: #d1fae5;
+      --neutral-50: #f8fafc;
+      --neutral-100: #f1f5f9;
+      --neutral-200: #e2e8f0;
+      --neutral-300: #cbd5e1;
+      --neutral-400: #94a3b8;
+      --neutral-500: #64748b;
+      --neutral-600: #475569;
+      --neutral-700: #334155;
+      --neutral-800: #1e293b;
+      --neutral-900: #0f172a;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --radius-sm: 6px;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--neutral-50);
+      color: var(--neutral-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ========== TYPOGRAPHY ========== */
+    h1, h2, h3, h4 {
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); }
+    h3 { font-size: clamp(1.125rem, 2vw, 1.5rem); }
+    h4 { font-size: 1.125rem; }
+
+    p { color: var(--neutral-600); }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ========== LAYOUT ========== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    section:nth-child(even) {
+      background: var(--white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-header p {
+      font-size: 1.125rem;
+      margin-top: 0.75rem;
+    }
+
+    /* ========== NAVIGATION ========== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--neutral-200);
+      transition: box-shadow 0.3s;
+    }
+
+    .navbar.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--purple), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--neutral-600);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--purple);
+      background: var(--purple-soft);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--navy);
+      padding: 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .nav-toggle:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 1rem;
+        border-bottom: 1px solid var(--neutral-200);
+        box-shadow: var(--shadow-lg);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 0.75rem 1rem; }
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 50%, #1a3a5c 100%);
+      color: white;
+      padding: 6rem 0 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(107, 78, 230, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(13, 148, 136, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #a78bfa, #5eead4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: var(--font);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), #8b5cf6);
+      color: white;
+      box-shadow: 0 4px 14px rgba(107, 78, 230, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(107, 78, 230, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--purple);
+      border: 2px solid var(--purple);
+    }
+
+    .btn-outline:hover {
+      background: var(--purple-soft);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--neutral-600);
+      border: 1px solid var(--neutral-300);
+    }
+
+    .btn-ghost:hover {
+      background: var(--neutral-100);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #b91c1c;
+    }
+
+    .btn-sm {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8125rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orbit {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: spin 30s linear infinite;
+    }
+
+    .orbit-1 { width: 200px; height: 200px; }
+    .orbit-2 { width: 300px; height: 300px; animation-duration: 45s; animation-direction: reverse; }
+    .orbit-3 { width: 380px; height: 380px; animation-duration: 60s; }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .orbit-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      top: -7px;
+      left: 50%;
+      margin-left: -7px;
+    }
+
+    .dot-purple { background: #a78bfa; box-shadow: 0 0 12px #a78bfa; }
+    .dot-teal { background: #5eead4; box-shadow: 0 0 12px #5eead4; }
+    .dot-amber { background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
+    .dot-rose { background: #fb7185; box-shadow: 0 0 12px #fb7185; }
+    .dot-sky { background: #38bdf8; box-shadow: 0 0 12px #38bdf8; }
+
+    .hero-center {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      z-index: 2;
+      box-shadow: 0 0 40px rgba(107, 78, 230, 0.5);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .hero-visual { height: 280px; }
+    }
+
+    /* ========== INITIATIVE CARDS ========== */
+    .initiative-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .initiative-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      border: 1px solid var(--neutral-200);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .initiative-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--card-accent, var(--purple));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .initiative-card:hover::before,
+    .initiative-card:focus-within::before {
+      transform: scaleX(1);
+    }
+
+    .initiative-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--neutral-300);
+    }
+
+    .initiative-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      background: var(--icon-bg, var(--purple-soft));
+    }
+
+    .initiative-card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .initiative-card p {
+      font-size: 0.875rem;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+
+    .sdg-badges {
+      display: flex;
+      gap: 0.375rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .sdg-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .sdg-5 { background: #fce7f3; color: #be185d; }
+    .sdg-10 { background: #e0e7ff; color: #4338ca; }
+
+    .initiative-stats {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--neutral-100);
+    }
+
+    .initiative-count {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .initiative-pct {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--purple);
+    }
+
+    .initiative-label {
+      font-size: 0.75rem;
+      color: var(--neutral-500);
+      margin-left: auto;
+    }
+
+    /* ========== VOTING / PARTICIPANT SECTION ========== */
+    .voting-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .voting-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--neutral-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--neutral-100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .panel-header h3 {
+      font-size: 1rem;
+    }
+
+    .panel-body {
+      padding: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--neutral-700);
+      margin-bottom: 0.375rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      font-size: 0.9375rem;
+      font-family: var(--font);
+      border: 1.5px solid var(--neutral-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: var(--neutral-800);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(107, 78, 230, 0.15);
+    }
+
+    .form-group input.invalid,
+    .form-group select.invalid {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--danger);
+      margin-top: 0.25rem;
+      min-height: 1rem;
+      display: block;
+    }
+
+    .participant-list {
+      max-height: 420px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .participant-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--neutral-50);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--neutral-200);
+      transition: all 0.2s;
+      animation: fadeSlideIn 0.3s ease;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .participant-item:hover {
+      border-color: var(--neutral-300);
+      background: var(--white);
+    }
+
+    .participant-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .participant-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .participant-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--neutral-800);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .participant-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.125rem;
+      flex-wrap: wrap;
+    }
+
+    .group-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      background: var(--neutral-200);
+      color: var(--neutral-700);
+    }
+
+    .participant-initiative {
+      font-size: 0.6875rem;
+      color: var(--neutral-500);
+    }
+
+    .participant-actions {
+      display: flex;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--neutral-500);
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--neutral-200);
+      color: var(--neutral-800);
+    }
+
+    .icon-btn.danger:hover {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .icon-btn:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 1px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--neutral-500);
+    }
+
+    .empty-state-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: var(--neutral-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--neutral-400);
+    }
+
+    .empty-state h4 {
+      color: var(--neutral-700);
+      margin-bottom: 0.25rem;
+    }
+
+    .empty-state p {
+      font-size: 0.875rem;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* ========== RESULTS SECTION ========== */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .majority-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .majority-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(107, 78, 230, 0.4) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .majority-card.tie {
+      background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    }
+
+    .majority-card.empty {
+      background: var(--neutral-100);
+      color: var(--neutral-600);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .majority-card.empty::before { display: none; }
+
+    .majority-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .majority-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .majority-stats {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .majority-votes {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .majority-pct {
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    .majority-note {
+      font-size: 0.8125rem;
+      opacity: 0.75;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .majority-card.empty .majority-note {
+      border-top-color: var(--neutral-200);
+    }
+
+    .threshold-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    .threshold-met {
+      background: rgba(5, 150, 105, 0.15);
+      color: #34d399;
+    }
+
+    .threshold-pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+
+    .majority-card.empty .threshold-pending {
+      background: var(--accent-soft);
+      color: #92400e;
+    }
+
+    /* Vote bars */
+    .vote-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .vote-bar-item {
+      position: relative;
+    }
+
+    .vote-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .vote-bar-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--neutral-700);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      background: var(--neutral-200);
+      color: var(--neutral-600);
+      flex-shrink: 0;
+    }
+
+    .rank-badge.rank-1 {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+    }
+
+    .vote-bar-values {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--neutral-800);
+      white-space: nowrap;
+    }
+
+    .vote-bar-values span {
+      font-weight: 500;
+      color: var(--neutral-500);
+      margin-left: 0.25rem;
+    }
+
+    .vote-bar-track {
+      height: 12px;
+      background: var(--neutral-100);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .vote-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      width: 0%;
+      position: relative;
+    }
+
+    .vote-bar-fill.rank-1 {
+      background: linear-gradient(90deg, var(--purple), #8b5cf6);
+      box-shadow: 0 0 12px rgba(107, 78, 230, 0.4);
+    }
+
+    .vote-bar-fill.rank-2 { background: linear-gradient(90deg, var(--teal), #14b8a6); }
+    .vote-bar-fill.rank-3 { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .vote-bar-fill.rank-4 { background: linear-gradient(90deg, #64748b, #94a3b8); }
+
+    .vote-bar-fill.tie {
+      background: linear-gradient(90deg, #dc2626, #f87171);
+    }
+
+    /* ========== GROUP PARTICIPATION ========== */
+    .group-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .group-bar-item {
+      display: grid;
+      grid-template-columns: 160px 1fr 80px;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .group-bar-item {
+        grid-template-columns: 1fr;
+        gap: 0.375rem;
+      }
+    }
+
+    .group-bar-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--neutral-700);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .group-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .group-bar-track {
+      height: 10px;
+      background: var(--neutral-100);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .group-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      width: 0%;
+    }
+
+    .group-bar-count {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--neutral-800);
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      .group-bar-count { text-align: left; }
+    }
+
+    .group-bar-count span {
+      font-weight: 500;
+      color: var(--neutral-500);
+    }
+
+    /* Alert */
+    .alert {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      margin-top: 1.5rem;
+      border: 1px solid;
+      animation: fadeSlideIn 0.3s ease;
+    }
+
+    .alert-warning {
+      background: var(--accent-soft);
+      border-color: #fcd34d;
+      color: #92400e;
+    }
+
+    .alert-info {
+      background: var(--purple-soft);
+      border-color: #c4b5fd;
+      color: #5b21b6;
+    }
+
+    .alert-success {
+      background: var(--success-soft);
+      border-color: #6ee7b7;
+      color: #065f46;
+    }
+
+    .alert-danger {
+      background: var(--danger-soft);
+      border-color: #fca5a5;
+      color: #991b1b;
+    }
+
+    .alert-icon {
+      font-size: 1.125rem;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+
+    .alert-content strong {
+      display: block;
+      margin-bottom: 0.125rem;
+    }
+
+    /* ========== FAIRNESS SECTION ========== */
+    .fairness-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .fairness-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      border: 1px solid var(--neutral-200);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+
+    .fairness-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .fairness-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .fairness-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .fairness-card p {
+      font-size: 0.875rem;
+    }
+
+    /* ========== SDG SECTION ========== */
+    .sdg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .sdg-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sdg-card {
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .sdg-card-5 {
+      background: linear-gradient(135deg, #be185d, #ec4899);
+    }
+
+    .sdg-card-10 {
+      background: linear-gradient(135deg, #4338ca, #6366f1);
+    }
+
+    .sdg-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sdg-number {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+    }
+
+    .sdg-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .sdg-card p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9375rem;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer .logo {
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    footer h5 {
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer li {
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8125rem;
+    }
+
+    .sdg-pills {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .sdg-pill {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .sdg-pill-5 { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; }
+    .sdg-pill-10 { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+
+    /* ========== TOAST NOTIFICATIONS ========== */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 380px;
+    }
+
+    @media (max-width: 480px) {
+      .toast-container {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+      }
+    }
+
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow-xl);
+      border-left: 4px solid var(--neutral-400);
+      animation: toastIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      font-size: 0.875rem;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .toast.removing {
+      animation: toastOut 0.25s forwards;
+    }
+
+    @keyframes toastOut {
+      to { opacity: 0; transform: translateX(20px); }
+    }
+
+    .toast-success { border-left-color: var(--success); }
+    .toast-warning { border-left-color: var(--accent); }
+    .toast-error { border-left-color: var(--danger); }
+    .toast-info { border-left-color: var(--purple); }
+
+    .toast-icon { font-size: 1.125rem; line-height: 1.4; }
+    .toast-content { flex: 1; }
+    .toast-title { font-weight: 700; color: var(--neutral-800); margin-bottom: 0.125rem; }
+    .toast-message { color: var(--neutral-600); font-size: 0.8125rem; }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: var(--neutral-400);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.125rem;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .toast-close:hover { color: var(--neutral-700); }
+
+    /* ========== MODAL ========== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1.5rem;
+      animation: fadeIn 0.2s;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: var(--shadow-xl);
+      animation: modalIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .modal p {
+      margin-bottom: 1.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    /* ========== UTILITIES ========== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .demo-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent-soft);
+      border: 1px solid #fcd34d;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 1rem;
+    }
+
+    .demo-banner.hidden { display: none; }
+
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ========== SCROLLBAR ========== */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--neutral-100);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--neutral-300);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--neutral-400);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#home" class="logo" aria-label="EQUALECT home">
+        <span class="logo-mark" aria-hidden="true">EQ</span>
+        EQUALECT
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        ☰
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#initiatives">Initiatives</a></li>
+        <li><a href="#vote">Vote</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#fairness">Fairness</a></li>
+        <li><a href="#sdg">SDG Impact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="section-label" style="color: #a78bfa;">Community Decision Platform</div>
+        <h1>One Community.<br>Many Voices.<br><span>One Transparent Decision.</span></h1>
+        <p>EQUALECT uses majority rule to help a diverse community choose one equality initiative fairly — while ensuring women and underrepresented groups remain visible, not silenced by the largest group.</p>
+        <div class="hero-actions">
+          <a href="#vote" class="btn btn-primary">Start Simulating →</a>
+          <button class="btn btn-secondary" id="heroDemoBtn">Load Demo Community</button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-1"><span class="orbit-dot dot-purple"></span></div>
+        <div class="orbit orbit-2"><span class="orbit-dot dot-teal"></span></div>
+        <div class="orbit orbit-3"><span class="orbit-dot dot-amber"></span></div>
+        <div class="hero-center">🗳️</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== INITIATIVES ========== -->
+  <section id="initiatives">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">The Initiatives</div>
+        <h2>Four Paths to Equality</h2>
+        <p>Each initiative supports the UN Sustainable Development Goals. The community will select one.</p>
+      </div>
+      <div class="initiative-grid" id="initiativeGrid" role="list">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VOTE / PARTICIPANTS ========== -->
+  <section id="vote" style="background: var(--neutral-100);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Simulated Voting</div>
+        <h2>Add Community Participants</h2>
+        <p>Simulate a community by adding participants from different groups. Each participant votes for one initiative.</p>
+      </div>
+
+      <div class="voting-grid">
+        <!-- Add participant form -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>➕ Add Participant</h3>
+            <button class="btn btn-ghost btn-sm" id="loadDemoBtn">Load Demo</button>
+          </div>
+          <div class="panel-body">
+            <div id="demoBanner" class="demo-banner hidden">
+              <span>🧪</span> Demo data is simulated for demonstration.
+            </div>
+            <form id="participantForm" novalidate>
+              <div class="form-group">
+                <label for="participantName">Participant name or anonymous ID</label>
+                <input type="text" id="participantName" placeholder="e.g., Participant 01" autocomplete="off" aria-describedby="nameError">
+                <span class="field-error" id="nameError" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="participantGroup">Community group</label>
+                <select id="participantGroup" aria-describedby="groupError">
+                  <option value="">— Select group —</option>
+                  <option value="Women">Women</option>
+                  <option value="Youth">Youth</option>
+                  <option value="Persons with Disabilities">Persons with Disabilities</option>
+                  <option value="Low-income Workers">Low-income Workers</option>
+                  <option value="General Community">General Community</option>
+                </select>
+                <span class="field-error" id="groupError" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="participantInitiative">Selected initiative</label>
+                <select id="participantInitiative" aria-describedby="initiativeError">
+                  <option value="">— Select initiative —</option>
+                </select>
+                <span class="field-error" id="initiativeError" role="alert"></span>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Add Vote</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Participant list -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>👥 Participants <span id="participantCount" style="color: var(--purple); font-weight: 800;">0</span></h3>
+            <div class="btn-row">
+              <button class="btn btn-ghost btn-sm" id="resetBtn">Reset All</button>
+            </div>
+          </div>
+          <div class="panel-body" style="padding: 1rem;">
+            <div class="participant-list" id="participantList">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RESULTS ========== -->
+  <section id="results">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Live Results</div>
+        <h2>Current Community Choice</h2>
+        <p>Results update instantly as participants are added, changed, or removed.</p>
+      </div>
+
+      <div class="results-grid">
+        <!-- Majority card -->
+        <div>
+          <div class="majority-card empty" id="majorityCard" aria-live="polite">
+            <div class="majority-label" id="majorityLabel">CURRENT LEADER</div>
+            <div class="majority-name" id="majorityName">No votes yet</div>
+            <div class="majority-stats">
+              <div class="majority-votes" id="majorityVotes">—</div>
+              <div class="majority-pct" id="majorityPct"></div>
+            </div>
+            <div class="majority-note" id="majorityNote">
+              Add community participants to see the collective decision take shape.
+            </div>
+            <div class="threshold-status threshold-pending" id="thresholdStatus">
+              <span>⏳</span> Minimum participation required: 10 participants
+            </div>
+          </div>
+
+          <!-- Group participation -->
+          <div class="panel" style="margin-top: 1.5rem;">
+            <div class="panel-header">
+              <h3>🌍 Community Participation</h3>
+            </div>
+            <div class="panel-body">
+              <div class="group-bars" id="groupBars">
+                <!-- Rendered by JS -->
+              </div>
+              <div id="underrepAlert"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vote distribution -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3>📊 Vote Distribution</h3>
+            <span style="font-size:0.8125rem; color: var(--neutral-500);" id="totalVotesLabel">0 total votes</span>
+          </div>
+          <div class="panel-body">
+            <div class="vote-bars" id="voteBars">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAIRNESS ========== -->
+  <section id="fairness" style="background: var(--neutral-100);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Transparency</div>
+        <h2>How Fairness Works</h2>
+        <p>Majority rule provides a transparent way to aggregate preferences, while participation data and inclusion safeguards help reveal whether some groups are underrepresented.</p>
+      </div>
+      <div class="fairness-grid">
+        <div class="fairness-card">
+          <div class="fairness-icon" style="background: var(--purple-soft); color: var(--purple);" aria-hidden="true">✓</div>
+          <h4>One person, one vote</h4>
+          <p>Every participant gets exactly one vote. Votes are counted equally, regardless of group.</p>
+        </div>
+        <div class="fairness-card">
+          <div class="fairness-icon" style="background: var(--teal-soft); color: var(--teal);" aria-hidden="true">👁️</div>
+          <h4>Group participation visible</h4>
+          <p>Participation from each community group is displayed, so smaller groups remain visible.</p>
+        </div>
+        <div class="fairness-card">
+          <div class="fairness-icon" style="background: var(--accent-soft); color: #92400e;" aria-hidden="true">⚠️</div>
+          <h4>Underrepresentation monitored</h4>
+          <p>Warnings appear when a group has very low participation — but never secretly change the vote.</p>
+        </div>
+        <div class="fairness-card">
+          <div class="fairness-icon" style="background: var(--success-soft); color: var(--success);" aria-hidden="true">📋</div>
+          <h4>Minimum participation threshold</h4>
+          <p>A configurable threshold (10 participants) must be met before declaring a final decision.</p>
+        </div>
+        <div class="fairness-card">
+          <div class="fairness-icon" style="background: var(--danger-soft); color: var(--danger);" aria-hidden="true">⚖️</div>
+          <h4>Ties shown transparently</h4>
+          <p>If two initiatives have equal votes, a tie is displayed openly. No winner is invented.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SDG IMPACT ========== -->
+  <section id="sdg">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Global Goals</div>
+        <h2>SDG Impact</h2>
+        <p>EQUALECT connects directly to two United Nations Sustainable Development Goals.</p>
+      </div>
+      <div class="sdg-grid">
+        <div class="sdg-card sdg-card-5">
+          <div class="sdg-number">5</div>
+          <div class="sdg-name">Gender Equality</div>
+          <p>This application supports the participation and visibility of women's preferences in collective decision-making. The Women's Digital Skills Program and group-level participation tracking ensure women's voices are counted and seen.</p>
+        </div>
+        <div class="sdg-card sdg-card-10">
+          <div class="sdg-number">10</div>
+          <div class="sdg-name">Reduced Inequalities</div>
+          <p>By making participation differences visible and providing inclusion safeguards, the project works against smaller or underrepresented groups disappearing from the overall result. Transparency replaces silent exclusion.</p>
+        </div>
+      </div>
+
+      <!-- How majority rule works -->
+      <div class="panel" style="margin-top: 2rem;">
+        <div class="panel-header">
+          <h3>🗳️ How the Majority Rule Works</h3>
+        </div>
+        <div class="panel-body">
+          <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.625rem; font-size: 0.9375rem; color: var(--neutral-600);">
+            <li>Participants select one initiative.</li>
+            <li>JavaScript counts each vote.</li>
+            <li>Percentages are calculated from total votes.</li>
+            <li>The initiative with the most votes becomes the current majority choice.</li>
+            <li>If two or more initiatives have the same highest number of votes, the system displays a tie.</li>
+            <li>A minimum participation threshold (10 participants) must be met before declaring a final decision.</li>
+            <li>Group-level participation is displayed to make representation visible.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#home" class="logo">
+            <span class="logo-mark" aria-hidden="true">EQ</span>
+            EQUALECT
+          </a>
+          <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem; max-width: 300px;">
+            Every Voice Counts. Every Group Visible. A prototype for transparent community decision-making.
+          </p>
+        </div>
+        <div>
+          <h5>Navigate</h5>
+          <ul>
+            <li><a href="#initiatives">Initiatives</a></li>
+            <li><a href="#vote">Vote</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#fairness">Fairness</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>SDG Alignment</h5>
+          <ul>
+            <li><a href="#sdg">SDG 5 — Gender Equality</a></li>
+            <li><a href="#sdg">SDG 10 — Reduced Inequalities</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Prototype for community decision-making. Simulated data only.</span>
+        <div class="sdg-pills">
+          <span class="sdg-pill sdg-pill-5">SDG 5</span>
+          <span class="sdg-pill sdg-pill-10">SDG 10</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== TOAST CONTAINER ========== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ========== RESET MODAL ========== -->
+  <div class="modal-overlay" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+    <div class="modal">
+      <h3 id="resetModalTitle">Reset all simulated participants and votes?</h3>
+      <p>This will remove all participants, clear all votes, and return the simulation to an empty state. This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="cancelResetBtn">Cancel</button>
+        <button class="btn btn-danger" id="confirmResetBtn">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ============================================================
+       EQUALECT — Transparent Community Voting
+       All calculations derived from participant array.
+       ============================================================ */
+
+    // ---------- DATA ----------
+    const INITIATIVES = [
+      {
+        id: 'digital-skills',
+        name: "Women's Digital Skills Program",
+        description: 'Hands-on digital literacy and coding training designed for women and girls, opening pathways to tech careers and online participation.',
+        sdgs: ['SDG 5'],
+        icon: '💻',
+        color: '#6b4ee6',
+        iconBg: '#f0ebff'
+      },
+      {
+        id: 'accessible-learning',
+        name: 'Accessible Learning Center',
+        description: 'A fully accessible physical and digital learning hub for persons with disabilities, offering assistive technology and inclusive courses.',
+        sdgs: ['SDG 10'],
+        icon: '♿',
+        color: '#0d9488',
+        iconBg: '#e6f7f5'
+      },
+      {
+        id: 'inclusive-job-fair',
+        name: 'Inclusive Job Fair',
+        description: 'A large-scale job fair connecting underrepresented groups — women, youth, and persons with disabilities — with inclusive employers.',
+        sdgs: ['SDG 5', 'SDG 10'],
+        icon: '🤝',
+        color: '#f59e0b',
+        iconBg: '#fef3c7'
+      },
+      {
+        id: 'safe-transport',
+        name: 'Safe Public Transport Campaign',
+        description: 'Awareness and infrastructure campaign to make public transport safe and accessible for women, persons with disabilities, and low-income workers.',
+        sdgs: ['SDG 5', 'SDG 10'],
+        icon: '🚌',
+        color: '#dc2626',
+        iconBg: '#fee2e2'
+      }
+    ];
+
+    const GROUPS = [
+      { name: 'Women', color: '#6b4ee6' },
+      { name: 'Youth', color: '#0d9488' },
+      { name: 'Persons with Disabilities', color: '#f59e0b' },
+      { name: 'Low-income Workers', color: '#dc2626' },
+      { name: 'General Community', color: '#64748b' }
+    ];
+
+    const MIN_PARTICIPATION = 10;
+    const UNDERREP_THRESHOLD = 0.08; // 8% or fewer participants triggers warning
+
+    // ---------- STATE ----------
+    let participants = [];
+    let demoMode = false;
+    let nextId = 1;
+
+    // ---------- DOM REFS ----------
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
+
+    const navbar = $('#navbar');
+    const navToggle = $('#navToggle');
+    const navLinks = $('#navLinks');
+    const initiativeGrid = $('#initiativeGrid');
+    const participantForm = $('#participantForm');
+    const participantName = $('#participantName');
+    const participantGroup = $('#participantGroup');
+    const participantInitiative = $('#participantInitiative');
+    const participantList = $('#participantList');
+    const participantCount = $('#participantCount');
+    const totalVotesLabel = $('#totalVotesLabel');
+    const voteBars = $('#voteBars');
+    const majorityCard = $('#majorityCard');
+    const majorityLabel = $('#majorityLabel');
+    const majorityName = $('#majorityName');
+    const majorityVotes = $('#majorityVotes');
+    const majorityPct = $('#majorityPct');
+    const majorityNote = $('#majorityNote');
+    const thresholdStatus = $('#thresholdStatus');
+    const groupBars = $('#groupBars');
+    const underrepAlert = $('#underrepAlert');
+    const toastContainer = $('#toastContainer');
+    const resetModal = $('#resetModal');
+    const demoBanner = $('#demoBanner');
+
+    // ---------- INITIALIZATION ----------
+    function initializeApp() {
+      loadState();
+      populateInitiativeSelect();
+      renderInitiatives();
+      renderParticipants();
+      renderResults();
+      renderGroupParticipation();
+      bindEvents();
+      updateNavbar();
+    }
+
+    // ---------- LOCAL STORAGE ----------
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('equalect_state');
+        if (saved) {
+          const data = JSON.parse(saved);
+          participants = data.participants || [];
+          nextId = data.nextId || 1;
+          demoMode = data.demoMode || false;
+        }
+      } catch (e) {
+        // localStorage unavailable — run in memory
+        participants = [];
+        nextId = 1;
+        demoMode = false;
+      }
+      updateDemoBanner();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem('equalect_state', JSON.stringify({
+          participants,
+          nextId,
+          demoMode
+        }));
+      } catch (e) {
+        // silently fail — app still works in memory
+      }
+    }
+
+    // ---------- POPULATE SELECT ----------
+    function populateInitiativeSelect() {
+      participantInitiative.innerHTML = '<option value="">— Select initiative —</option>';
+      INITIATIVES.forEach(init => {
+        const opt = document.createElement('option');
+        opt.value = init.id;
+        opt.textContent = init.name;
+        participantInitiative.appendChild(opt);
+      });
+    }
+
+    // ---------- RENDER INITIATIVE CARDS ----------
+    function renderInitiatives() {
+      const results = calculateResults();
+      const total = participants.length;
+
+      initiativeGrid.innerHTML = INITIATIVES.map(init => {
+        const count = results.counts[init.id] || 0;
+        const pct = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
+        const sdgBadges = init.sdgs.map(s => {
+          const cls = s === 'SDG 5' ? 'sdg-5' : 'sdg-10';
+          return `<span class="sdg-badge ${cls}">${s}</span>`;
+        }).join('');
+
+        return `
+          <article class="initiative-card" role="listitem" style="--card-accent: ${init.color}; --icon-bg: ${init.iconBg};">
+            <div class="initiative-icon" aria-hidden="true">${init.icon}</div>
+            <h3>${init.name}</h3>
+            <p>${init.description}</p>
+            <div class="sdg-badges">${sdgBadges}</div>
+            <div class="initiative-stats">
+              <span class="initiative-count">${count}</span>
+              <span class="initiative-pct">${pct}%</span>
+              <span class="initiative-label">votes</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="quickVote('${init.id}')" aria-label="Vote for ${init.name}">
+              Vote for this
+            </button>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Quick vote: adds a participant with the initiative pre-selected
+    window.quickVote = function(initiativeId) {
+      const init = INITIATIVES.find(i => i.id === initiativeId);
+      participantInitiative.value = initiativeId;
+      // Scroll to form and focus name
+      document.getElementById('vote').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => participantName.focus(), 400);
+      showNotification('info', 'Initiative selected', `"${init.name}" is now pre-selected in the form below.`);
+    };
+
+    // ---------- RENDER PARTICIPANTS ----------
+    function renderParticipants() {
+      participantCount.textContent = participants.length;
+
+      if (participants.length === 0) {
+        participantList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon" aria-hidden="true">🗳️</div>
+            <h4>No participants yet</h4>
+            <p>Add community participants to see the collective decision take shape.</p>
+          </div>
+        `;
+        return;
+      }
+
+      participantList.innerHTML = participants.map(p => {
+        const init = INITIATIVES.find(i => i.id === p.initiative);
+        const groupColor = getGroupColor(p.group);
+        const initials = p.name.substring(0, 2).toUpperCase();
+
+        return `
+          <div class="participant-item" data-id="${p.id}">
+            <div class="participant-avatar" style="background: ${groupColor};" aria-hidden="true">${initials}</div>
+            <div class="participant-info">
+              <div class="participant-name">${escapeHtml(p.name)}</div>
+              <div class="participant-meta">
+                <span class="group-badge">${escapeHtml(p.group)}</span>
+                <span class="participant-initiative">→ ${init ? escapeHtml(init.name) : 'Unknown'}</span>
+              </div>
+            </div>
+            <div class="participant-actions">
+              <button class="icon-btn" onclick="changeVote(${p.id})" title="Change vote" aria-label="Change vote for ${escapeHtml(p.name)}">✏️</button>
+              <button class="icon-btn danger" onclick="removeParticipant(${p.id})" title="Remove vote" aria-label="Remove vote for ${escapeHtml(p.name)}">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ---------- CALCULATE RESULTS ----------
+    function calculateResults() {
+      const counts = {};
+      INITIATIVES.forEach(i => counts[i.id] = 0);
+      participants.forEach(p => {
+        if (counts[p.initiative] !== undefined) {
+          counts[p.initiative]++;
+        }
+      });
+
+      const total = participants.length;
+      const sorted = INITIATIVES.map(i => ({
+        ...i,
+        count: counts[i.id],
+        pct: total > 0 ? (counts[i.id] / total) * 100 : 0
+      })).sort((a, b) => b.count - a.count);
+
+      const maxCount = sorted[0]?.count || 0;
+      const leaders = sorted.filter(i => i.count === maxCount && maxCount > 0);
+      const isTie = leaders.length > 1 && maxCount > 0;
+
+      return { counts, total, sorted, maxCount, leaders, isTie };
+    }
+
+    // ---------- DETERMINE MAJORITY ----------
+    function determineMajority(results) {
+      if (results.total === 0) return { status: 'empty' };
+      if (results.isTie) return { status: 'tie', leaders: results.leaders };
+      if (results.maxCount === 0) return { status: 'empty' };
+      return { status: 'leader', leader: results.sorted[0] };
+    }
+
+    // ---------- CHECK THRESHOLD ----------
+    function checkParticipationThreshold() {
+      return participants.length >= MIN_PARTICIPATION;
+    }
+
+    // ---------- GROUP PARTICIPATION ----------
+    function calculateGroupParticipation() {
+      const counts = {};
+      GROUPS.forEach(g => counts[g.name] = 0);
+      participants.forEach(p => {
+        if (counts[p.group] !== undefined) counts[p.group]++;
+      });
+      const total = participants.length;
+      return GROUPS.map(g => ({
+        ...g,
+        count: counts[g.name],
+        pct: total > 0 ? (counts[g.name] / total) * 100 : 0
+      }));
+    }
+
+    // ---------- CHECK UNDERREPRESENTATION ----------
+    function checkUnderrepresentation() {
+      if (participants.length === 0) return null;
+      const groupData = calculateGroupParticipation();
+      const underrepresented = groupData.filter(g => g.pct > 0 && g.pct < UNDERREP_THRESHOLD * 100);
+      if (underrepresented.length === 0) return null;
+      return underrepresented;
+    }
+
+    // ---------- RENDER RESULTS ----------
+    function renderResults() {
+      const results = calculateResults();
+      const majority = determineMajority(results);
+      const thresholdMet = checkParticipationThreshold();
+
+      // --- Majority Card ---
+      if (majority.status === 'empty') {
+        majorityCard.className = 'majority-card empty';
+        majorityLabel.textContent = 'CURRENT LEADER';
+        majorityName.textContent = 'No votes yet';
+        majorityVotes.textContent = '—';
+        majorityPct.textContent = '';
+        majorityNote.textContent = 'Add community participants to see the collective decision take shape.';
+      } else if (majority.status === 'tie') {
+        majorityCard.className = 'majority-card tie';
+        majorityLabel.textContent = 'NO MAJORITY — TIE';
+        majorityName.textContent = majority.leaders.map(l => l.name).join(' & ');
+        majorityVotes.textContent = results.maxCount;
+        majorityPct.textContent = `${((results.maxCount / results.total) * 100).toFixed(1)}% each`;
+        majorityNote.textContent = 'The community is currently split between these initiatives. Additional participation or a defined tie-breaking process would be required.';
+      } else {
+        const leader = majority.leader;
+        const isFinal = thresholdMet;
+        majorityCard.className = 'majority-card';
+        majorityLabel.textContent = isFinal ? 'FINAL MAJORITY DECISION' : 'CURRENT LEADER';
+        majorityName.textContent = leader.name;
+        majorityVotes.textContent = leader.count;
+        majorityPct.textContent = `${leader.pct.toFixed(1)}%`;
+        majorityNote.textContent = isFinal
+          ? 'This is the current majority choice based on the simulated votes. The minimum participation threshold has been met.'
+          : 'This is the current leader. A minimum participation threshold must be met before declaring a final decision.';
+      }
+
+      // --- Threshold Status ---
+      if (thresholdMet) {
+        thresholdStatus.className = 'threshold-status threshold-met';
+        thresholdStatus.innerHTML = `<span>✓</span> Minimum participation threshold met (${participants.length}/${MIN_PARTICIPATION} participants). Eligible for final decision.`;
+      } else {
+        thresholdStatus.className = 'threshold-status threshold-pending';
+        const remaining = MIN_PARTICIPATION - participants.length;
+        thresholdStatus.innerHTML = `<span>⏳</span> Minimum participation required: ${MIN_PARTICIPATION} participants. ${remaining} more needed.`;
+      }
+
+      // --- Vote Bars ---
+      totalVotesLabel.textContent = `${results.total} total vote${results.total !== 1 ? 's' : ''}`;
+
+      voteBars.innerHTML = results.sorted.map((init, idx) => {
+        const rank = idx + 1;
+        const rankClass = rank === 1 && results.maxCount > 0 ? 'rank-1' : `rank-${Math.min(rank, 4)}`;
+        const isTieBar = results.isTie && results.leaders.some(l => l.id === init.id);
+        const barClass = isTieBar ? 'tie' : rankClass;
+
+        return `
+          <div class="vote-bar-item">
+            <div class="vote-bar-header">
+              <div class="vote-bar-name">
+                <span class="rank-badge ${rankClass}">${rank}</span>
+                <span>${init.icon} ${init.name}</span>
+              </div>
+              <div class="vote-bar-values">
+                ${init.count} <span>(${init.pct.toFixed(1)}%)</span>
+              </div>
+            </div>
+            <div class="vote-bar-track" role="progressbar" aria-valuenow="${init.pct.toFixed(1)}" aria-valuemin="0" aria-valuemax="100" aria-label="${init.name}: ${init.pct.toFixed(1)} percent">
+              <div class="vote-bar-fill ${barClass}" style="width: ${init.pct}%;"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ---------- RENDER GROUP PARTICIPATION ----------
+    function renderGroupParticipation() {
+      const groupData = calculateGroupParticipation();
+      const total = participants.length;
+
+      groupBars.innerHTML = groupData.map(g => {
+        const pct = total > 0 ? g.pct.toFixed(1) : '0.0';
+        return `
+          <div class="group-bar-item">
+            <div class="group-bar-label">
+              <span class="group-dot" style="background: ${g.color};"></span>
+              ${g.name}
+            </div>
+            <div class="group-bar-track">
+              <div class="group-bar-fill" style="width: ${g.pct}%; background: ${g.color};"></div>
+            </div>
+            <div class="group-bar-count">
+              ${g.count} <span>(${pct}%)</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Underrepresentation warning
+      const underrep = checkUnderrepresentation();
+      if (underrep && total > 0) {
+        const names = underrep.map(g => `${g.name} (${g.pct.toFixed(1)}%)`).join(', ');
+        underrepAlert.innerHTML = `
+          <div class="alert alert-warning" role="status">
+            <span class="alert-icon" aria-hidden="true">⚠️</span>
+            <div class="alert-content">
+              <strong>Participation Alert</strong>
+              ${names} ${underrep.length === 1 ? 'represents' : 'represent'} a small share of recorded participants.
+              The current result reflects the participants who voted, but may not fully represent ${underrep.length === 1 ? 'this group\'s' : 'these groups\''} preferences.
+            </div>
+          </div>
+        `;
+      } else if (total > 0) {
+        underrepAlert.innerHTML = `
+          <div class="alert alert-success" role="status">
+            <span class="alert-icon" aria-hidden="true">✓</span>
+            <div class="alert-content">
+              <strong>Participation Balanced</strong>
+              All community groups have adequate representation in the current simulation.
+            </div>
+          </div>
+        `;
+      } else {
+        underrepAlert.innerHTML = '';
+      }
+    }
+
+    // ---------- ADD PARTICIPANT ----------
+    function addParticipant(name, group, initiative) {
+      // Validation
+      let valid = true;
+      clearErrors();
+
+      if (!name || name.trim() === '') {
+        setError('nameError', 'Please enter a participant name or ID.');
+        participantName.classList.add('invalid');
+        valid = false;
+      }
+      if (!group) {
+        setError('groupError', 'No community group selected.');
+        participantGroup.classList.add('invalid');
+        valid = false;
+      }
+      if (!initiative) {
+        setError('initiativeError', 'Please select an initiative.');
+        participantInitiative.classList.add('invalid');
+        valid = false;
+      }
+      if (!valid) return false;
+
+      // Check duplicate name
+      if (participants.some(p => p.name.toLowerCase() === name.trim().toLowerCase())) {
+        setError('nameError', 'Participant already exists.');
+        participantName.classList.add('invalid');
+        showNotification('error', 'Duplicate participant', `"${name.trim()}" is already in the simulation.`);
+        return false;
+      }
+
+      participants.push({
+        id: nextId++,
+        name: name.trim(),
+        group,
+        initiative
+      });
+
+      saveState();
+      renderParticipants();
+      renderResults();
+      renderGroupParticipation();
+      renderInitiatives();
+      showNotification('success', 'Vote added', `${name.trim()} voted for "${INITIATIVES.find(i => i.id === initiative).name}".`);
+      return true;
+    }
+
+    // ---------- CHANGE VOTE ----------
+    window.changeVote = function(id) {
+      const participant = participants.find(p => p.id === id);
+      if (!participant) return;
+
+      // Populate form for editing
+      participantName.value = participant.name;
+      participantGroup.value = participant.group;
+      participantInitiative.value = participant.initiative;
+
+      // Remove the participant and let user re-add
+      participants = participants.filter(p => p.id !== id);
+      saveState();
+      renderParticipants();
+      renderResults();
+      renderGroupParticipation();
+      renderInitiatives();
+
+      document.getElementById('vote').scrollIntoView({ behavior: 'smooth' });
+      participantName.focus();
+      showNotification('info', 'Edit vote', `Update the form and click "Add Vote" to save changes for ${participant.name}.`);
+    };
+
+    // ---------- REMOVE PARTICIPANT ----------
+    window.removeParticipant = function(id) {
+      const participant = participants.find(p => p.id === id);
+      if (!participant) return;
+
+      participants = participants.filter(p => p.id !== id);
+      saveState();
+      renderParticipants();
+      renderResults();
+      renderGroupParticipation();
+      renderInitiatives();
+      showNotification('warning', 'Vote removed', `${participant.name}'s vote has been removed.`);
+    };
+
+    // ---------- RESET ----------
+    function resetVotes() {
+      participants = [];
+      nextId = 1;
+      demoMode = false;
+      saveState();
+      renderParticipants();
+      renderResults();
+      renderGroupParticipation();
+      renderInitiatives();
+      updateDemoBanner();
+      clearErrors();
+      participantForm.reset();
+      showNotification('info', 'All votes reset', 'The simulation has been cleared. Add participants to begin again.');
+    }
+
+    // ---------- LOAD DEMO DATA ----------
+    function loadDemoData() {
+      // Clear first
+      participants = [];
+      nextId = 1;
+
+      // Realistic distribution: 24 participants
+      // Women (7), Youth (5), Persons with Disabilities (2), Low-income Workers (4), General Community (6)
+      const demoParticipants = [
+        // Women — mostly digital skills
+        { name: 'Amina K.', group: 'Women', initiative: 'digital-skills' },
+        { name: 'Fatima R.', group: 'Women', initiative: 'digital-skills' },
+        { name: 'Zara M.', group: 'Women', initiative: 'digital-skills' },
+        { name: 'Nadia S.', group: 'Women', initiative: 'inclusive-job-fair' },
+        { name: 'Leila H.', group: 'Women', initiative: 'digital-skills' },
+        { name: 'Samira T.', group: 'Women', initiative: 'safe-transport' },
+        { name: 'Rania B.', group: 'Women', initiative: 'digital-skills' },
+        // Youth — mixed
+        { name: 'Omar J.', group: 'Youth', initiative: 'inclusive-job-fair' },
+        { name: 'Yusuf A.', group: 'Youth', initiative: 'inclusive-job-fair' },
+        { name: 'Lina D.', group: 'Youth', initiative: 'accessible-learning' },
+        { name: 'Khalid N.', group: 'Youth', initiative: 'inclusive-job-fair' },
+        { name: 'Hana P.', group: 'Youth', initiative: 'digital-skills' },
+        // Persons with Disabilities — accessible learning focus
+        { name: 'Participant 13', group: 'Persons with Disabilities', initiative: 'accessible-learning' },
+        { name: 'Participant 14', group: 'Persons with Disabilities', initiative: 'accessible-learning' },
+        // Low-income Workers — mixed
+        { name: 'Mariam W.', group: 'Low-income Workers', initiative: 'safe-transport' },
+        { name: 'Ahmed F.', group: 'Low-income Workers', initiative: 'inclusive-job-fair' },
+        { name: 'Sara L.', group: 'Low-income Workers', initiative: 'safe-transport' },
+        { name: 'Tariq Z.', group: 'Low-income Workers', initiative: 'accessible-learning' },
+        // General Community — mixed
+        { name: 'Chris B.', group: 'General Community', initiative: 'inclusive-job-fair' },
+        { name: 'Dana M.', group: 'General Community', initiative: 'digital-skills' },
+        { name: 'Alex R.', group: 'General Community', initiative: 'accessible-learning' },
+        { name: 'Jordan K.', group: 'General Community', initiative: 'safe-transport' },
+        { name: 'Taylor S.', group: 'General Community', initiative: 'inclusive-job-fair' },
+        { name: 'Morgan L.', group: 'General Community', initiative: 'digital-skills' }
+      ];
+
+      demoParticipants.forEach(p => {
+        participants.push({ id: nextId++, ...p });
+      });
+
+      demoMode = true;
+      saveState();
+      renderParticipants();
+      renderResults();
+      renderGroupParticipation();
+      renderInitiatives();
+      updateDemoBanner();
+      showNotification('info', 'Demo community loaded', `24 simulated participants across 5 community groups.`);
+    }
+
+    function updateDemoBanner() {
+      if (demoMode && participants.length > 0) {
+        demoBanner.classList.remove('hidden');
+      } else {
+        demoBanner.classList.add('hidden');
+      }
+    }
+
+    // ---------- NOTIFICATIONS (TOAST) ----------
+    function showNotification(type, title, message) {
+      const icons = { success: '✓', warning: '⚠️', error: '✕', info: 'ℹ️' };
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.setAttribute('role', 'status');
+      toast.innerHTML = `
+        <span class="toast-icon" aria-hidden="true">${icons[type] || 'ℹ️'}</span>
+        <div class="toast-content">
+          <div class="toast-title">${escapeHtml(title)}</div>
+          <div class="toast-message">${escapeHtml(message)}</div>
+        </div>
+        <button class="toast-close" aria-label="Dismiss notification">✕</button>
+      `;
+
+      toastContainer.appendChild(toast);
+
+      const closeBtn = toast.querySelector('.toast-close');
+      closeBtn.addEventListener('click', () => removeToast(toast));
+
+      setTimeout(() => removeToast(toast), 4500);
+    }
+
+    function removeToast(toast) {
+      if (!toast.parentNode) return;
+      toast.classList.add('removing');
+      setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 250);
+    }
+
+    // ---------- FORM VALIDATION HELPERS ----------
+    function setError(id, message) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = message;
+    }
+
+    function clearErrors() {
+      ['nameError', 'groupError', 'initiativeError'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '';
+      });
+      [participantName, participantGroup, participantInitiative].forEach(el => {
+        el.classList.remove('invalid');
+      });
+    }
+
+    // ---------- UTILITIES ----------
+    function getGroupColor(groupName) {
+      const g = GROUPS.find(g => g.name === groupName);
+      return g ? g.color : '#64748b';
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ---------- NAVBAR ----------
+    function updateNavbar() {
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+      });
+    }
+
+    // ---------- EVENT BINDINGS ----------
+    function bindEvents() {
+      // Nav toggle
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Close nav on link click (mobile)
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Form submit
+      participantForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const success = addParticipant(
+          participantName.value,
+          participantGroup.value,
+          participantInitiative.value
+        );
+        if (success) {
+          participantForm.reset();
+          clearErrors();
+          participantName.focus();
+        }
+      });
+
+      // Clear field errors on input
+      [participantName, participantGroup, participantInitiative].forEach(el => {
+        el.addEventListener('input', () => {
+          el.classList.remove('invalid');
+          const errorMap = {
+            participantName: 'nameError',
+            participantGroup: 'groupError',
+            participantInitiative: 'initiativeError'
+          };
+          const errorEl = document.getElementById(errorMap[el.id]);
+          if (errorEl) errorEl.textContent = '';
+        });
+      });
+
+      // Reset modal
+      $('#resetBtn').addEventListener('click', () => {
+        resetModal.classList.add('open');
+      });
+
+      $('#cancelResetBtn').addEventListener('click', () => {
+        resetModal.classList.remove('open');
+      });
+
+      $('#confirmResetBtn').addEventListener('click', () => {
+        resetModal.classList.remove('open');
+        resetVotes();
+      });
+
+      // Close modal on overlay click
+      resetModal.addEventListener('click', (e) => {
+        if (e.target === resetModal) {
+          resetModal.classList.remove('open');
+        }
+      });
+
+      // Close modal on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && resetModal.classList.contains('open')) {
+          resetModal.classList.remove('open');
+        }
+      });
+
+      // Demo buttons
+      $('#loadDemoBtn').addEventListener('click', loadDemoData);
+      $('#heroDemoBtn').addEventListener('click', () => {
+        loadDemoData();
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    // ---------- START ----------
+    initializeApp();
+  </script>
+</body>
+</html>

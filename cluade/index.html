@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EQUALECT — Every Voice Counts. Every Group Visible.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <a class="logo" href="#home" aria-label="EQUALECT home"><span class="mark" aria-hidden="true"></span>EQUALECT</a>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Toggle menu">Menu</button>
+  <nav id="menu" aria-label="Main">
+    <a href="#home">Home</a><a href="#initiatives">Initiatives</a><a href="#vote">Vote</a><a href="#results">Results</a><a href="#fairness">Fairness</a><a href="#sdg">SDG Impact</a>
+  </nav>
+</header>
+
+<main id="main">
+<section id="home" class="hero">
+  <div class="hero-text">
+    <p class="tag">Every Voice Counts. Every Group Visible.</p>
+    <h1>One Community.<br>Many Voices.<br>One Transparent Decision.</h1>
+    <p>A community has funding for one equality initiative. Majority rule picks the winner, while participation data shows which groups are, and are not, in the room.</p>
+    <a class="btn primary" href="#vote">Start Simulating</a>
+    <button class="btn ghost" data-act="demo">Load Demo Data</button>
+  </div>
+  <div class="orbit" aria-hidden="true">
+    <div class="core">1 community</div>
+    <span class="dot d1">W</span><span class="dot d2">Y</span><span class="dot d3">D</span><span class="dot d4">L</span><span class="dot d5">G</span>
+  </div>
+</section>
+
+<section id="initiatives" class="sec">
+  <h2>Choose one initiative</h2>
+  <p class="lead">Limited funding, four options. Each vote below updates live.</p>
+  <div class="grid" id="initiativeGrid"></div>
+</section>
+
+<section id="vote" class="sec alt">
+  <h2>Community simulator</h2>
+  <p class="lead">Add simulated participants. This is a prototype: no sign-in, no real people.</p>
+  <div class="two">
+    <form id="voteForm" class="card" novalidate>
+      <h3>Add participant</h3>
+      <label for="pName">Name or anonymous ID</label>
+      <input id="pName" autocomplete="off" placeholder="Leave blank for an automatic ID">
+      <label for="pGroup">Community group</label>
+      <select id="pGroup" aria-describedby="formMsg"></select>
+      <label for="pInit">Initiative</label>
+      <select id="pInit" aria-describedby="formMsg"></select>
+      <p id="formMsg" class="err" role="alert"></p>
+      <button class="btn primary" type="submit">Add vote</button>
+      <div class="row">
+        <button type="button" class="btn ghost" data-act="demo">Load Demo Data</button>
+        <button type="button" class="btn ghost" data-act="cleardemo">Clear Demo Data</button>
+      </div>
+      <label for="minP">Minimum participants for a final decision</label>
+      <input id="minP" type="number" min="1" max="100" value="10">
+    </form>
+    <div class="card">
+      <h3>Participants <span id="pCount" class="count">0</span></h3>
+      <ul id="pList" class="plist"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="sec">
+  <h2>Live results</h2>
+  <div id="decision" class="decision" aria-live="polite"></div>
+  <div class="two">
+    <div class="card"><h3>Vote distribution</h3><div id="bars"></div><p id="total" class="muted"></p></div>
+    <div class="card">
+      <h3>Community participation</h3>
+      <div id="groupBars"></div>
+      <div id="alerts" aria-live="polite"></div>
+      <p class="muted">Each bar shows a group's share of all participants. A short bar means that group may be under-heard, not that its votes count less.</p>
+    </div>
+  </div>
+</section>
+
+<section id="fairness" class="sec dark">
+  <h2>How fairness works</h2>
+  <ol class="rules">
+    <li>Every participant gets one vote.</li>
+    <li>Votes are counted equally.</li>
+    <li>The initiative with the most votes becomes the majority choice once the minimum participation threshold is met.</li>
+    <li>Group participation is displayed so smaller groups stay visible.</li>
+    <li>Underrepresentation warnings never secretly alter votes.</li>
+    <li>A tie is shown openly, not hidden.</li>
+    <li>The system does not claim the majority speaks for everyone when participation is limited.</li>
+  </ol>
+  <ul class="checks"><li>✓ One person, one vote</li><li>✓ Group participation visible</li><li>✓ Underrepresentation monitored</li><li>✓ Minimum participation threshold</li><li>✓ Ties shown transparently</li></ul>
+  <p class="quote">Majority rule provides a transparent way to aggregate preferences, while participation data and inclusion safeguards help reveal whether some groups are underrepresented.</p>
+</section>
+
+<section id="sdg" class="sec">
+  <h2>SDG documentation</h2>
+  <div class="two">
+    <article class="card sdg s5"><b>SDG 5</b><h3>Gender Equality</h3><p>Women's preferences are counted equally and their share of participation is shown, so their voice in collective decisions is visible.</p></article>
+    <article class="card sdg s10"><b>SDG 10</b><h3>Reduced Inequalities</h3><p>Participation gaps are made visible, with warnings that stop smaller or underrepresented groups from disappearing inside the overall result.</p></article>
+  </div>
+  <div class="card"><h3>How the majority rule works</h3>
+    <ol><li>Participants select one initiative.</li><li>JavaScript counts each vote.</li><li>Percentages are calculated from total votes.</li><li>The initiative with the most votes becomes the current majority choice.</li><li>If two or more initiatives share the highest count, a tie is displayed.</li><li>A minimum participation threshold can be required before a final decision.</li><li>Group-level participation is displayed to make representation visible.</li></ol>
+  </div>
+  <div class="center"><button class="btn danger" id="resetBtn">Reset All Votes</button> <button class="btn ghost" id="newBtn">Start New Vote</button></div>
+</section>
+</main>
+
+<footer><b>EQUALECT</b> · SDG 5 · SDG 10 · Prototype for community decision-making</footer>
+
+<div id="modal" class="modal" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <h3 id="mTitle">Reset all simulated participants and votes?</h3>
+    <p>This clears every participant and stored data. It cannot be undone.</p>
+    <div class="row"><button class="btn ghost" id="mCancel">Cancel</button><button class="btn danger" id="mOk">Reset</button></div>
+  </div>
+</div>
+<div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>

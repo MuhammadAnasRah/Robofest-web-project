@@ -1,0 +1,3132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0F172A" />
+<title>EQUALECT — Every Voice Counts. Every Group Visible.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   EQUALECT — Civic-tech voting dashboard
+   Editorial · data-driven · transparent
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px;}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{background:none;border:none;cursor:pointer;}
+ul,ol{list-style:none;}
+a{color:inherit;text-decoration:none;}
+
+:root{
+  --navy-950:#060b16;
+  --navy-900:#0b1222;
+  --navy-800:#0F172A;
+  --navy-700:#1c2740;
+  --navy-600:#2a3854;
+  --navy-500:#3d4d6d;
+
+  --indigo-700:#4338ca;
+  --indigo-600:#4F46E5;
+  --indigo-500:#6366f1;
+  --indigo-400:#818cf8;
+  --indigo-100:#e0e7ff;
+  --indigo-50:#eef2ff;
+
+  --teal-700:#0f766e;
+  --teal-600:#0d9488;
+  --teal-500:#14B8A6;
+  --teal-100:#ccfbf1;
+  --teal-50:#f0fdfa;
+
+  --amber-700:#b45309;
+  --amber-600:#d97706;
+  --amber-500:#F59E0B;
+  --amber-100:#fef3c7;
+  --amber-50:#fffbeb;
+
+  --rose-600:#e11d48;
+  --rose-500:#f43f5e;
+  --rose-100:#ffe4e6;
+
+  --green-700:#047857;
+  --green-600:#059669;
+  --green-500:#10B981;
+  --green-100:#d1fae5;
+  --green-50:#ecfdf5;
+
+  --red-600:#dc2626;
+  --red-500:#EF4444;
+  --red-100:#fee2e2;
+
+  --n-0:#ffffff;
+  --n-25:#fcfdff;
+  --n-50:#F8FAFC;
+  --n-100:#f1f5f9;
+  --n-150:#eaeff5;
+  --n-200:#e2e8f0;
+  --n-300:#cbd5e1;
+  --n-400:#94a3b8;
+  --n-500:#64748b;
+  --n-600:#475569;
+  --n-700:#334155;
+  --n-800:#1e293b;
+  --n-900:#0f172a;
+
+  --bg:var(--n-50);
+  --surface:#ffffff;
+  --border:#e6ebf2;
+  --border-2:#d5dde8;
+  --border-3:#b8c4d4;
+
+  --text:#0F172A;
+  --text-mute:#475569;
+  --text-soft:#64748b;
+  --text-faint:#94a3b8;
+
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:20px;--s-6:24px;
+  --s-7:32px;--s-8:40px;--s-9:48px;--s-10:64px;--s-11:88px;
+
+  --r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:20px;--r-2xl:28px;--r-full:999px;
+
+  --sh-1:0 1px 2px rgba(15,23,42,.04);
+  --sh-2:0 4px 14px -6px rgba(15,23,42,.08),0 2px 4px -2px rgba(15,23,42,.04);
+  --sh-3:0 12px 32px -12px rgba(15,23,42,.14),0 4px 8px -4px rgba(15,23,42,.05);
+  --sh-4:0 24px 56px -20px rgba(15,23,42,.22),0 8px 16px -8px rgba(15,23,42,.08);
+
+  --ease:cubic-bezier(.22,1,.36,1);
+  --t-fast:160ms var(--ease);
+  --t-med:280ms var(--ease);
+  --t-slow:480ms var(--ease);
+
+  --font-display:'Fraunces','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+
+  --fs-hero:clamp(2.6rem,6vw,4.6rem);
+  --fs-h2:clamp(1.85rem,3.6vw,2.6rem);
+  --fs-h3:clamp(1.1rem,1.6vw,1.3rem);
+  --fs-body:1rem;
+  --fs-small:.875rem;
+  --fs-label:.7rem;
+  --fs-stat:clamp(1.9rem,2.8vw,2.5rem);
+
+  --container:1240px;
+  --nav-h:64px;
+}
+
+body{
+  font-family:var(--font-sans);
+  font-size:var(--fs-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  font-feature-settings:'ss01','cv11';
+}
+
+/* Subtle grid background */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(15,23,42,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(15,23,42,.018) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;z-index:0;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:500;
+  line-height:1.12;
+  color:var(--navy-800);
+  letter-spacing:-.025em;
+  text-wrap:balance;
+}
+h1{font-size:var(--fs-hero);font-weight:400;letter-spacing:-.035em;}
+h2{font-size:var(--fs-h2);font-weight:500;}
+h3{font-size:var(--fs-h3);font-weight:600;}
+h4{font-size:1rem;font-weight:600;}
+
+p{color:var(--text-mute);text-wrap:pretty;}
+
+::selection{background:var(--indigo-400);color:#fff;}
+:focus{outline:none;}
+:focus-visible{outline:2px solid var(--indigo-600);outline-offset:3px;border-radius:6px;}
+
+.icon{width:1em;height:1em;display:inline-block;vertical-align:middle;flex-shrink:0;}
+
+/* ===================== LAYOUT ===================== */
+.container{max-width:var(--container);margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+.section{padding:var(--s-11) 0;position:relative;}
+.section-alt{background:linear-gradient(180deg,#ffffff 0%,var(--n-50) 100%);}
+
+.section-header{max-width:760px;margin:0 auto var(--s-9);text-align:center;}
+.section-header.left{text-align:left;margin-left:0;}
+
+.section-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);
+  font-size:var(--fs-label);
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--indigo-600);
+  margin-bottom:18px;
+}
+.section-label .num{
+  font-family:var(--font-mono);
+  font-weight:600;
+  color:var(--indigo-600);
+  padding-right:8px;
+  border-right:1px solid rgba(79,70,229,.25);
+}
+.section-label .icon{width:13px;height:13px;color:var(--indigo-600);}
+
+.section-header p{font-size:1.0625rem;margin-top:14px;line-height:1.65;max-width:640px;}
+.section-header.left p{margin-left:0;}
+
+/* ===================== REVEAL ===================== */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(16px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
+.reveal-stagger.is-visible > *{opacity:1;transform:translateY(0);}
+.reveal-stagger.is-visible > *:nth-child(1){transition-delay:.02s;}
+.reveal-stagger.is-visible > *:nth-child(2){transition-delay:.08s;}
+.reveal-stagger.is-visible > *:nth-child(3){transition-delay:.14s;}
+.reveal-stagger.is-visible > *:nth-child(4){transition-delay:.20s;}
+.reveal-stagger.is-visible > *:nth-child(5){transition-delay:.26s;}
+.reveal-stagger.is-visible > *:nth-child(6){transition-delay:.32s;}
+
+/* ===================== BUTTONS ===================== */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;padding:12px 20px;font-size:.9375rem;font-weight:600;
+  font-family:var(--font-sans);
+  border-radius:8px;cursor:pointer;
+  transition:transform var(--t-fast),box-shadow var(--t-med),background var(--t-med),color var(--t-med),border-color var(--t-med);
+  white-space:nowrap;user-select:none;line-height:1.2;
+  border:1px solid transparent;
+}
+.btn .icon{width:16px;height:16px;}
+.btn:focus-visible{outline:2px solid var(--indigo-600);outline-offset:3px;}
+.btn-lg{padding:15px 26px;font-size:1rem;border-radius:10px;}
+.btn-sm{padding:7px 12px;font-size:.8125rem;border-radius:6px;}
+.btn-sm .icon{width:14px;height:14px;}
+.btn-block{width:100%;}
+.btn-arrow{transition:transform var(--t-med);}
+.btn-primary:hover .btn-arrow{transform:translateX(3px);}
+
+.btn-primary{
+  background:var(--navy-800);color:#fff;
+  box-shadow:0 6px 16px -6px rgba(15,23,42,.4),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn-primary:hover{transform:translateY(-1px);background:var(--navy-700);box-shadow:0 10px 22px -8px rgba(15,23,42,.5);}
+
+.btn-accent{
+  background:var(--indigo-600);color:#fff;
+  box-shadow:0 6px 16px -6px rgba(79,70,229,.5);
+}
+.btn-accent:hover{transform:translateY(-1px);background:var(--indigo-700);}
+
+.btn-outline{background:#fff;color:var(--navy-800);border-color:var(--border-2);}
+.btn-outline:hover{background:var(--n-50);border-color:var(--navy-800);transform:translateY(-1px);}
+
+.btn-ghost{background:transparent;color:var(--n-700);border-color:var(--border);}
+.btn-ghost:hover{background:var(--n-50);border-color:var(--border-2);color:var(--navy-800);}
+
+.btn-danger{background:var(--red-600);color:#fff;}
+.btn-danger:hover{background:#b91c1c;transform:translateY(-1px);}
+
+/* ===================== NAVBAR ===================== */
+.navbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid transparent;
+  transition:box-shadow var(--t-med),background var(--t-med),border-color var(--t-med);
+}
+.navbar.scrolled{
+  box-shadow:0 1px 0 var(--border),0 4px 20px -8px rgba(15,23,42,.06);
+  background:rgba(255,255,255,.96);
+  border-bottom-color:var(--border);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-sans);font-weight:700;font-size:.9375rem;color:var(--navy-800);letter-spacing:.04em;}
+.logo-mark{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--navy-800);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.logo-mark::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 40%,rgba(99,102,241,.9) 100%);
+}
+.logo-mark svg{width:16px;height:16px;color:#fff;position:relative;z-index:1;}
+.logo-text{letter-spacing:.06em;}
+
+.nav-links{display:flex;gap:2px;}
+.nav-links a{
+  display:block;padding:7px 13px;font-size:.8125rem;font-weight:500;
+  color:var(--text-mute);border-radius:6px;transition:all var(--t-fast);
+  position:relative;
+}
+.nav-links a:hover{color:var(--navy-800);background:var(--n-100);}
+.nav-links a.active{color:var(--navy-800);background:var(--n-100);}
+.nav-links a.active::before{
+  content:'';position:absolute;left:13px;right:13px;bottom:2px;height:1.5px;
+  background:var(--indigo-600);border-radius:2px;
+}
+
+.nav-toggle{display:none;padding:8px;border-radius:6px;}
+.nav-toggle-bar{display:block;width:20px;height:1.5px;background:var(--navy-800);border-radius:2px;margin:4px 0;transition:all var(--t-med);}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+
+@media(max-width:880px){
+  .nav-toggle{display:block;}
+  .nav-links{
+    display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    background:#fff;flex-direction:column;padding:12px;gap:2px;
+    border-bottom:1px solid var(--border);box-shadow:var(--sh-3);
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:12px 14px;font-size:.9375rem;}
+  .nav-links a.active::before{left:14px;right:14px;}
+}
+
+/* ===================== HERO ===================== */
+.hero{
+  position:relative;
+  background:var(--navy-900);
+  color:#fff;padding:88px 0 100px;
+  overflow:hidden;isolation:isolate;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 80%);
+  -webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 80%);
+  pointer-events:none;z-index:0;
+}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:6px 12px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);margin-bottom:28px;
+}
+.hero-eyebrow .icon{width:12px;height:12px;color:#5eead4;}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.4s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7);}70%{box-shadow:0 0 0 8px rgba(74,222,128,0);}100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}}
+
+.hero-title{color:#fff;margin-bottom:22px;}
+.hero-title .line{display:block;}
+.hero-title .accent{
+  font-style:italic;font-weight:500;
+  background:linear-gradient(135deg,#a5b4fc 0%,#5eead4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-lede{
+  color:rgba(255,255,255,.72);
+  font-size:1.0625rem;max-width:540px;
+  margin-bottom:32px;line-height:1.7;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,auto);
+  gap:0;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:24px;
+  max-width:520px;
+}
+.hero-stat{padding-right:32px;border-right:1px solid rgba(255,255,255,.1);}
+.hero-stat:last-child{border-right:none;padding-right:0;padding-left:32px;}
+.hero-stat:first-child{padding-left:0;}
+.hero-stat-value{
+  font-family:var(--font-mono);font-size:1.5rem;font-weight:600;
+  color:#fff;line-height:1;letter-spacing:-.03em;
+}
+.hero-stat-label{
+  font-family:var(--font-mono);font-size:.6875rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-top:6px;
+}
+
+/* Hero network visual */
+.hero-visual{position:relative;height:480px;display:flex;align-items:center;justify-content:center;}
+.hero-network{position:absolute;inset:0;}
+.hero-network svg{width:100%;height:100%;overflow:visible;}
+.net-line{stroke:rgba(165,180,252,.22);stroke-width:1;stroke-dasharray:3 4;fill:none;}
+.net-line.active{stroke:rgba(165,180,252,.5);stroke-dasharray:none;animation:dashFlow 6s linear infinite;}
+@keyframes dashFlow{to{stroke-dashoffset:-100;}}
+.net-node{fill:#0b1222;stroke-width:1.5;}
+.net-node-a{stroke:#818cf8;}
+.net-node-b{stroke:#5eead4;}
+.net-node-c{stroke:#fbbf24;}
+.net-node-d{stroke:#fda4af;}
+.net-node-e{stroke:#a5b4fc;}
+.net-node-pulse{animation:nodePulse 4s ease-in-out infinite;}
+@keyframes nodePulse{0%,100%{opacity:.9;}50%{opacity:.4;}}
+.net-core{fill:url(#coreGrad);}
+.net-core-glow{fill:#4F46E5;opacity:.35;filter:blur(20px);}
+
+.hero-card{
+  position:relative;z-index:2;
+  width:100%;max-width:360px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:20px;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);
+  animation:floatY 8s ease-in-out infinite;
+}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+.hero-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);}
+.hero-card-head .live{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.14em;color:#4ade80;text-transform:uppercase;
+}
+.hero-card-head .live-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;}
+.hero-card-head .pill{
+  font-family:var(--font-mono);font-size:.625rem;font-weight:500;
+  padding:3px 8px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,.1);letter-spacing:.1em;
+}
+
+.hero-card-row{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;margin-bottom:10px;}
+.hero-card-row .row-icon{
+  width:22px;height:22px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-card-row .row-icon svg{width:12px;height:12px;}
+.hero-card-row .row-track{height:6px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;}
+.hero-card-row .row-fill{height:100%;border-radius:99px;animation:barIn 1.4s var(--ease) both;}
+@keyframes barIn{from{width:0 !important;}}
+.hero-card-row .row-pct{
+  font-family:var(--font-mono);font-size:.75rem;font-weight:600;
+  color:rgba(255,255,255,.85);min-width:32px;text-align:right;
+}
+
+.hero-card-foot{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);
+  font-family:var(--font-mono);font-size:.6875rem;
+  letter-spacing:.08em;color:rgba(255,255,255,.5);
+}
+.hero-card-foot strong{color:#fbbf24;font-weight:600;}
+
+@media(max-width:980px){
+  .hero{padding:64px 0 72px;}
+  .hero-grid{grid-template-columns:1fr;gap:52px;}
+  .hero-visual{height:400px;order:-1;}
+  .hero-stats{grid-template-columns:1fr;gap:16px;max-width:none;}
+  .hero-stat{padding-right:0;border-right:none;padding-left:0 !important;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:16px;}
+  .hero-stat:last-child{border-bottom:none;padding-bottom:0;}
+}
+
+/* ===================== INITIATIVES ===================== */
+.initiative-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+.initiative-card{
+  grid-column:span 3;
+  position:relative;background:var(--surface);
+  border-radius:12px;padding:24px;
+  border:1px solid var(--border);
+  transition:all var(--t-med);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.initiative-card:nth-child(1){grid-column:span 6;}
+.initiative-card:nth-child(2){grid-column:span 6;}
+.initiative-card:nth-child(3){grid-column:span 6;}
+.initiative-card:nth-child(4){grid-column:span 6;}
+@media(max-width:880px){
+  .initiative-card,
+  .initiative-card:nth-child(n){grid-column:span 12;}
+}
+
+.initiative-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--card-accent,var(--indigo-600));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform var(--t-slow);
+}
+.initiative-card:hover::before,.initiative-card:focus-within::before{transform:scaleX(1);}
+.initiative-card:hover{transform:translateY(-3px);border-color:var(--border-2);box-shadow:var(--sh-3);}
+.initiative-card.is-leading{
+  border-color:rgba(79,70,229,.35);
+  box-shadow:0 16px 40px -16px rgba(79,70,229,.24),0 0 0 1px rgba(79,70,229,.1);
+}
+.initiative-card.is-leading::before{transform:scaleX(1);}
+
+.initiative-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;}
+.initiative-icon{
+  width:48px;height:48px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--icon-bg,#eef2ff);
+  color:var(--card-accent,var(--indigo-600));
+  flex-shrink:0;
+  transition:transform var(--t-med);
+}
+.initiative-icon svg{width:22px;height:22px;stroke-width:1.75;}
+.initiative-card:hover .initiative-icon{transform:scale(1.06) rotate(-2deg);}
+
+.initiative-meta{flex:1;min-width:0;}
+.initiative-meta .idx{
+  font-family:var(--font-mono);font-size:.6875rem;
+  color:var(--text-faint);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:4px;
+}
+.initiative-card h3{
+  font-family:var(--font-sans);
+  font-size:1.0625rem;font-weight:700;
+  letter-spacing:-.015em;line-height:1.25;
+  color:var(--navy-800);margin-bottom:0;
+}
+
+.initiative-desc{
+  font-size:.875rem;line-height:1.6;flex:1;
+  margin-bottom:18px;color:var(--text-mute);
+}
+
+.sdg-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.sdg-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px;border-radius:4px;
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.06em;
+}
+.sdg-badge svg{width:10px;height:10px;}
+.sdg-5{background:#fce7f3;color:#be185d;}
+.sdg-10{background:var(--indigo-100);color:#4338ca;}
+
+.initiative-stats{
+  display:flex;align-items:baseline;gap:10px;
+  margin-bottom:14px;padding-top:16px;
+  border-top:1px solid var(--n-100);
+}
+.initiative-count{
+  font-family:var(--font-mono);font-size:1.5rem;font-weight:600;
+  color:var(--navy-800);line-height:1;
+  letter-spacing:-.02em;
+}
+.initiative-card.is-leading .initiative-count{color:var(--indigo-600);}
+.initiative-pct{
+  font-family:var(--font-mono);font-size:.8125rem;font-weight:500;
+  color:var(--indigo-600);
+}
+.initiative-label{
+  font-family:var(--font-mono);font-size:.6875rem;
+  color:var(--text-faint);letter-spacing:.1em;
+  text-transform:uppercase;margin-left:auto;
+}
+
+.initiative-card .btn{width:100%;}
+
+/* ===================== VOTING ===================== */
+.voting-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;align-items:start;}
+@media(max-width:900px){.voting-grid{grid-template-columns:1fr;}}
+
+.panel{
+  background:var(--surface);border-radius:12px;
+  border:1px solid var(--border);overflow:hidden;
+}
+.panel-header{
+  padding:20px 24px;border-bottom:1px solid var(--n-100);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;
+}
+.panel-header h3{
+  font-family:var(--font-sans);
+  font-size:.9375rem;font-weight:700;
+  letter-spacing:-.01em;display:flex;align-items:center;gap:10px;
+}
+.panel-header h3 .icon{width:16px;height:16px;color:var(--indigo-600);}
+.panel-hint{
+  font-family:var(--font-mono);font-size:.6875rem;
+  color:var(--text-faint);letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.panel-actions{display:flex;gap:8px;}
+.panel-body{padding:24px;}
+.panel-body-flush{padding:12px;}
+.panel-footnote{
+  display:flex;align-items:flex-start;gap:8px;
+  margin-top:16px;padding:12px 14px;
+  background:var(--indigo-50);border:1px solid rgba(79,70,229,.1);
+  border-radius:8px;font-size:.78rem;line-height:1.55;
+  color:var(--indigo-700);
+}
+.panel-footnote .icon{width:13px;height:13px;margin-top:2px;flex-shrink:0;}
+.panel-footnote strong{color:var(--indigo-700);font-weight:700;}
+
+.count-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:24px;height:20px;padding:0 7px;border-radius:4px;
+  background:var(--indigo-50);color:var(--indigo-600);
+  font-family:var(--font-mono);font-weight:600;font-size:.6875rem;
+}
+
+/* Form */
+.form-group{margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+.form-group label{
+  display:block;font-family:var(--font-mono);
+  font-size:.6875rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--n-600);margin-bottom:6px;
+}
+.form-group input,.form-group select{
+  width:100%;padding:11px 14px;font-size:.9375rem;
+  font-family:var(--font-sans);
+  border:1px solid var(--border-2);border-radius:8px;
+  background:#fff;color:var(--text);
+  transition:all var(--t-fast);
+}
+.form-group input::placeholder{color:var(--n-400);}
+.form-group input:hover,.form-group select:hover{border-color:var(--n-400);}
+.form-group input:focus,.form-group select:focus{
+  outline:none;border-color:var(--indigo-600);
+  box-shadow:0 0 0 3px rgba(79,70,229,.12);
+}
+.form-group input.invalid,.form-group select.invalid{
+  border-color:var(--red-500);box-shadow:0 0 0 3px rgba(239,68,68,.1);
+}
+.select-wrap{position:relative;}
+.select-wrap::after{
+  content:'';position:absolute;right:14px;top:50%;
+  width:6px;height:6px;border-right:1.5px solid var(--n-500);
+  border-bottom:1.5px solid var(--n-500);
+  transform:translateY(-70%) rotate(45deg);pointer-events:none;
+}
+.select-wrap select{appearance:none;-webkit-appearance:none;padding-right:36px;cursor:pointer;}
+.field-error{
+  font-size:.75rem;color:var(--red-600);margin-top:4px;
+  min-height:1rem;display:block;font-weight:500;
+  animation:errIn .2s;
+}
+@keyframes errIn{from{opacity:0;transform:translateY(-3px);}to{opacity:1;transform:translateY(0);}}
+
+.demo-banner{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;background:var(--amber-50);
+  border:1px solid #fde68a;border-radius:8px;
+  font-size:.8125rem;font-weight:500;color:var(--amber-700);
+  margin-bottom:16px;animation:errIn .3s;
+}
+.demo-banner.hidden{display:none;}
+.demo-banner .icon{width:14px;height:14px;flex-shrink:0;}
+.demo-banner-close{
+  margin-left:auto;color:var(--amber-700);opacity:.6;
+  padding:2px 6px;border-radius:4px;font-size:.875rem;
+  transition:opacity var(--t-fast);
+}
+.demo-banner-close:hover{opacity:1;background:rgba(217,119,6,.08);}
+
+/* Participant list */
+.participant-list{
+  max-height:440px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:4px;
+  padding-right:4px;
+}
+.participant-list::-webkit-scrollbar{width:6px;}
+.participant-list::-webkit-scrollbar-track{background:transparent;}
+.participant-list::-webkit-scrollbar-thumb{background:var(--n-300);border-radius:3px;}
+.participant-list::-webkit-scrollbar-thumb:hover{background:var(--n-400);}
+
+.participant-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;background:transparent;
+  border-radius:8px;border:1px solid transparent;
+  transition:all var(--t-fast);
+  animation:itemIn .35s var(--ease);
+}
+@keyframes itemIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.participant-item:hover{background:var(--n-50);border-color:var(--border);}
+.participant-item.removing{animation:itemOut .25s forwards;}
+@keyframes itemOut{to{opacity:0;transform:translateX(20px);height:0;padding:0;margin:0;}}
+
+.participant-avatar{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:600;
+  color:#fff;letter-spacing:-.02em;
+}
+.participant-info{flex:1;min-width:0;}
+.participant-name{
+  font-size:.875rem;font-weight:600;color:var(--n-800);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.participant-meta{
+  display:flex;align-items:center;gap:6px;margin-top:2px;
+  flex-wrap:wrap;
+}
+.group-badge{
+  display:inline-flex;align-items:center;padding:2px 7px;
+  border-radius:3px;font-family:var(--font-mono);
+  font-size:.625rem;font-weight:500;
+  background:var(--n-100);color:var(--n-600);
+  letter-spacing:.04em;
+}
+.participant-initiative{
+  font-size:.6875rem;color:var(--text-soft);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.participant-actions{display:flex;gap:2px;flex-shrink:0;}
+.icon-btn{
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  border-radius:6px;color:var(--n-400);transition:all var(--t-fast);
+}
+.icon-btn svg{width:14px;height:14px;stroke-width:1.75;}
+.icon-btn:hover{background:var(--n-100);color:var(--n-800);}
+.icon-btn.danger:hover{background:var(--red-100);color:var(--red-600);}
+
+/* Empty state */
+.empty-state{
+  text-align:center;padding:48px 20px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.empty-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--indigo-50);color:var(--indigo-600);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:6px;
+}
+.empty-icon svg{width:22px;height:22px;stroke-width:1.6;}
+.empty-state h4{
+  color:var(--n-800);font-family:var(--font-sans);
+  font-size:.9375rem;font-weight:700;letter-spacing:-.01em;
+}
+.empty-state p{
+  font-size:.875rem;max-width:320px;margin:0 auto;
+  line-height:1.55;color:var(--text-soft);
+}
+.empty-state .btn{margin-top:14px;}
+
+/* ===================== RESULTS ===================== */
+.section-results{
+  background:#fff;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+/* Stats */
+.stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin-bottom:32px;
+}
+@media(max-width:720px){.stats-row{grid-template-columns:1fr;}}
+
+.stat-card{
+  background:#fff;padding:22px 24px;
+  display:flex;align-items:center;gap:16px;
+  transition:background var(--t-med);
+}
+.stat-card:hover{background:var(--n-50);}
+.stat-icon{
+  width:40px;height:40px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--indigo-50);color:var(--indigo-600);
+  transition:all var(--t-med);
+}
+.stat-icon svg{width:18px;height:18px;stroke-width:1.75;}
+.stat-icon.teal{background:var(--teal-50);color:var(--teal-600);}
+.stat-icon.green{background:var(--green-50);color:var(--green-600);}
+.stat-icon.amber{background:var(--amber-50);color:var(--amber-600);}
+.stat-body{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.stat-value{
+  font-family:var(--font-mono);
+  font-size:var(--fs-stat);font-weight:600;
+  color:var(--navy-800);line-height:1;
+  letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.stat-label{
+  font-family:var(--font-mono);font-size:.6875rem;
+  font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-faint);
+}
+
+/* Results grid */
+.results-grid{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:24px;align-items:start;
+}
+@media(max-width:980px){.results-grid{grid-template-columns:1fr;}}
+.results-left{display:flex;flex-direction:column;gap:24px;}
+
+/* Majority card */
+.majority-card{
+  position:relative;
+  background:var(--navy-900);
+  color:#fff;border-radius:14px;
+  padding:28px;overflow:hidden;isolation:isolate;
+  transition:all var(--t-slow);
+}
+.majority-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(circle at 80% 20%,#000 0%,transparent 70%);
+  -webkit-mask-image:radial-gradient(circle at 80% 20%,#000 0%,transparent 70%);
+  pointer-events:none;
+}
+.majority-card::after{
+  content:'';
+  position:absolute;top:-80px;right:-80px;
+  width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(99,102,241,.35) 0%,transparent 70%);
+  filter:blur(30px);pointer-events:none;
+}
+.majority-card.empty{
+  background:#fff;color:var(--n-600);
+  border:1px solid var(--border);
+  box-shadow:var(--sh-1);
+}
+.majority-card.empty::before,.majority-card.empty::after{display:none;}
+.majority-card.tie{background:linear-gradient(140deg,#4c1d95 0%,#9f1239 100%);}
+.majority-card.tie::after{background:radial-gradient(circle,rgba(244,63,94,.5) 0%,transparent 70%);}
+.majority-card.is-final{background:linear-gradient(140deg,#064e3b 0%,#0b1222 100%);}
+.majority-card.is-final::after{background:radial-gradient(circle,rgba(16,185,129,.4) 0%,transparent 70%);}
+.majority-card.celebrate{animation:celebrate 1s var(--ease);}
+@keyframes celebrate{
+  0%{transform:scale(1);}
+  40%{transform:scale(1.012);box-shadow:0 0 0 4px rgba(79,70,229,.14);}
+  100%{transform:scale(1);}
+}
+.majority-card.threshold-pulse{animation:thresholdPulse 1.4s var(--ease);}
+@keyframes thresholdPulse{
+  0%{box-shadow:none;}
+  40%{box-shadow:0 0 0 6px rgba(16,185,129,.2),0 0 40px rgba(16,185,129,.3);}
+  100%{box-shadow:none;}
+}
+
+.majority-ribbon{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:5px 10px;border-radius:4px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+  margin-bottom:24px;position:relative;z-index:1;
+}
+.majority-card.empty .majority-ribbon{
+  background:var(--n-100);border-color:var(--n-200);color:var(--n-500);
+}
+.ribbon-icon{width:11px;height:11px;}
+.ribbon-icon svg{width:100%;height:100%;stroke-width:2;}
+
+.majority-body{position:relative;z-index:1;}
+.majority-name{
+  font-family:var(--font-display);
+  font-size:clamp(1.5rem,2.5vw,2rem);
+  font-weight:500;
+  color:#fff;line-height:1.15;
+  margin-bottom:22px;
+  letter-spacing:-.025em;
+  text-wrap:balance;
+}
+.majority-card.empty .majority-name{color:var(--n-700);font-weight:500;}
+
+.majority-stats{
+  display:flex;gap:0;
+  margin-bottom:18px;padding-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.majority-card.empty .majority-stats{border-bottom-color:var(--n-200);}
+.majority-stat{padding-right:32px;border-right:1px solid rgba(255,255,255,.1);}
+.majority-stat:last-child{border-right:none;padding-right:0;padding-left:32px;}
+.majority-stat:first-child{padding-left:0;}
+.majority-card.empty .majority-stat{border-right-color:var(--n-200);}
+.majority-stat-value{
+  font-family:var(--font-mono);
+  font-size:2rem;font-weight:600;
+  line-height:1;color:#fff;
+  letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.majority-card.empty .majority-stat-value{color:var(--n-400);}
+.majority-stat-label{
+  font-family:var(--font-mono);font-size:.6875rem;
+  text-transform:uppercase;letter-spacing:.14em;
+  font-weight:500;opacity:.55;margin-top:8px;
+}
+.majority-card.empty .majority-stat-label{opacity:1;color:var(--n-500);}
+
+.majority-subline{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:.8125rem;
+  color:rgba(255,255,255,.72);
+  margin-bottom:16px;position:relative;z-index:1;
+}
+.majority-card.empty .majority-subline{color:var(--n-500);}
+.majority-subline .icon{width:13px;height:13px;flex-shrink:0;color:#5eead4;}
+.majority-card.empty .majority-subline .icon{color:var(--n-400);}
+.majority-card.tie .majority-subline .icon{color:#fbbf24;}
+
+.majority-note{
+  font-size:.8125rem;opacity:.7;line-height:1.6;
+  padding-top:16px;border-top:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.85);
+  position:relative;z-index:1;
+}
+.majority-card.empty .majority-note{
+  color:var(--n-500);border-top-color:var(--n-200);opacity:1;
+}
+
+/* Threshold progress inside majority card */
+.threshold-wrap{
+  margin-top:20px;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.1);
+  position:relative;z-index:1;
+}
+.majority-card.empty .threshold-wrap{border-top-color:var(--n-200);}
+.threshold-head{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font-mono);font-size:.6875rem;
+  font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-bottom:10px;
+}
+.majority-card.empty .threshold-head{color:var(--n-500);}
+.threshold-count{font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.9);}
+.majority-card.empty .threshold-count{color:var(--n-700);}
+.threshold-track{
+  height:6px;background:rgba(255,255,255,.1);border-radius:99px;
+  overflow:hidden;position:relative;margin-bottom:10px;
+}
+.majority-card.empty .threshold-track{background:var(--n-200);}
+.threshold-fill{
+  height:100%;border-radius:99px;width:0%;
+  background:#F59E0B;
+  transition:width 700ms var(--ease),background 400ms var(--ease);
+}
+.threshold-fill.met{background:var(--green-500);}
+.threshold-status{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:.75rem;
+  color:#fbbf24;letter-spacing:.02em;
+}
+.majority-card.empty .threshold-status{color:var(--amber-600);}
+.threshold-status.met{color:#6ee7b7;}
+.threshold-status .icon{width:13px;height:13px;flex-shrink:0;}
+
+/* Vote distribution */
+.vote-panel .panel-body{padding:8px 12px 12px;}
+.vote-bars{display:flex;flex-direction:column;gap:2px;}
+
+.vote-bar-item{
+  padding:16px 14px;border-radius:10px;
+  transition:background var(--t-fast);
+  position:relative;
+  border-bottom:1px solid var(--n-100);
+}
+.vote-bar-item:last-child{border-bottom:none;}
+.vote-bar-item:hover{background:var(--n-50);}
+.vote-bar-item.leading{background:linear-gradient(90deg,rgba(79,70,229,.05),rgba(79,70,229,0));}
+.vote-bar-item.leading::before{
+  content:'';position:absolute;left:0;top:14px;bottom:14px;width:2px;
+  background:var(--indigo-600);border-radius:2px;
+}
+
+.vote-bar-header{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;margin-bottom:10px;
+}
+.vote-bar-name{
+  display:flex;align-items:center;gap:10px;
+  min-width:0;flex:1;
+  font-size:.9375rem;font-weight:600;color:var(--n-800);
+}
+.vote-bar-icon{
+  width:24px;height:24px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--icon-bg,var(--indigo-50));
+  color:var(--card-accent,var(--indigo-600));
+}
+.vote-bar-icon svg{width:13px;height:13px;stroke-width:1.75;}
+.vote-bar-name-text{
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.rank-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  font-family:var(--font-mono);font-size:.625rem;font-weight:600;
+  background:var(--n-100);color:var(--n-500);
+  border:1px solid var(--n-200);
+}
+.rank-badge.rank-1{background:#0F172A;color:#fff;border-color:#0F172A;}
+.rank-badge.rank-2{background:#475569;color:#fff;border-color:#475569;}
+.rank-badge.rank-3{background:#94a3b8;color:#fff;border-color:#94a3b8;}
+.rank-badge.rank-4{background:#cbd5e1;color:#334155;border-color:#cbd5e1;}
+.rank-badge.tie{background:#e11d48;color:#fff;border-color:#e11d48;}
+
+.vote-bar-values{
+  display:flex;align-items:baseline;gap:10px;
+  white-space:nowrap;font-variant-numeric:tabular-nums;
+  flex-shrink:0;
+}
+.vote-pct{
+  font-family:var(--font-mono);
+  font-size:1rem;font-weight:600;
+  color:var(--navy-800);letter-spacing:-.02em;
+}
+.vote-bar-item.leading .vote-pct{color:var(--indigo-600);}
+.vote-count{
+  font-family:var(--font-mono);
+  font-size:.75rem;font-weight:500;
+  color:var(--text-faint);
+}
+
+.vote-bar-track{
+  height:8px;background:var(--n-100);border-radius:99px;
+  overflow:hidden;position:relative;
+}
+.vote-bar-track::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(15,23,42,.028) 6px 7px);
+  pointer-events:none;
+}
+.vote-bar-fill{
+  height:100%;border-radius:99px;width:0%;
+  transition:width 700ms var(--ease);
+  position:relative;
+}
+.vote-bar-fill.rank-1{background:var(--indigo-600);}
+.vote-bar-fill.rank-2{background:var(--teal-600);}
+.vote-bar-fill.rank-3{background:var(--amber-600);}
+.vote-bar-fill.rank-4{background:var(--indigo-500);}
+.vote-bar-fill.tie{background:var(--rose-600);}
+.vote-bar-item.leading .vote-bar-fill{box-shadow:0 0 12px rgba(79,70,229,.3);}
+
+.vote-empty{
+  padding:52px 24px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.vote-empty-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--indigo-50);color:var(--indigo-600);
+  display:flex;align-items:center;justify-content:center;margin-bottom:4px;
+}
+.vote-empty-icon svg{width:22px;height:22px;stroke-width:1.6;}
+.vote-empty h4{
+  font-family:var(--font-sans);font-size:.9375rem;
+  font-weight:700;color:var(--n-800);letter-spacing:-.01em;
+}
+.vote-empty p{
+  font-size:.875rem;color:var(--text-soft);
+  max-width:300px;line-height:1.55;
+}
+.vote-empty .btn{margin-top:14px;}
+
+/* Community representation */
+.participation-panel .panel-body{padding:8px 12px 20px;}
+.group-bars{display:flex;flex-direction:column;gap:0;}
+
+.group-bar-item{
+  display:grid;grid-template-columns:180px 1fr 110px;
+  align-items:center;gap:16px;
+  padding:14px 12px;border-radius:8px;
+  transition:background var(--t-fast);
+  border-bottom:1px solid var(--n-100);
+}
+.group-bar-item:last-child{border-bottom:none;}
+.group-bar-item:hover{background:var(--n-50);}
+@media(max-width:640px){
+  .group-bar-item{grid-template-columns:1fr;gap:8px;padding:14px 8px;}
+}
+
+.group-bar-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:.8125rem;font-weight:600;color:var(--n-700);
+  line-height:1.3;
+}
+.group-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+  position:relative;
+}
+.group-dot.low::after{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  background:rgba(245,158,11,.18);
+  animation:pulseRing 2.4s ease-in-out infinite;
+}
+@keyframes pulseRing{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:.9;transform:scale(1.15);}}
+
+.group-bar-track{
+  height:8px;background:var(--n-100);border-radius:99px;
+  overflow:hidden;position:relative;
+}
+.group-bar-track::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(15,23,42,.028) 6px 7px);
+  pointer-events:none;
+}
+.group-bar-fill{
+  height:100%;border-radius:99px;width:0%;
+  transition:width 700ms var(--ease);
+}
+
+.group-bar-count{
+  font-family:var(--font-mono);font-size:.8125rem;font-weight:600;
+  color:var(--n-800);text-align:right;
+  font-variant-numeric:tabular-nums;
+  display:flex;align-items:baseline;gap:6px;justify-content:flex-end;
+}
+.group-bar-count .group-pct{color:var(--text-faint);font-weight:500;font-size:.75rem;}
+@media(max-width:640px){.group-bar-count{justify-content:flex-start;}}
+
+/* Gap callout */
+.gap-callout{
+  display:none;align-items:flex-start;gap:12px;
+  margin:16px 12px 0;padding:14px 16px;
+  background:var(--amber-50);
+  border:1px solid #fde68a;
+  border-radius:8px;
+  animation:errIn .3s var(--ease);
+}
+.gap-callout.show{display:flex;}
+.gap-callout-icon{
+  width:28px;height:28px;border-radius:6px;flex-shrink:0;
+  background:#fef3c7;color:var(--amber-600);
+  display:flex;align-items:center;justify-content:center;
+}
+.gap-callout-icon svg{width:15px;height:15px;stroke-width:2;}
+.gap-callout-body{flex:1;min-width:0;}
+.gap-callout-title{
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--amber-700);margin-bottom:4px;
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.gap-callout-title .group-name{color:#78350f;font-weight:700;}
+.gap-callout-text{
+  font-size:.78rem;color:#78350f;line-height:1.55;opacity:.85;
+}
+
+/* ===================== FAIRNESS ===================== */
+.fairness-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
+}
+.fairness-card{
+  background:#fff;padding:26px 24px;
+  transition:background var(--t-med);
+  position:relative;
+}
+.fairness-card:hover{background:var(--n-25);}
+.fairness-card .num{
+  font-family:var(--font-mono);font-size:.6875rem;
+  color:var(--text-faint);letter-spacing:.14em;
+  margin-bottom:14px;
+}
+.fairness-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.fairness-icon svg{width:17px;height:17px;stroke-width:1.75;}
+.fairness-card h4{
+  font-family:var(--font-sans);font-size:.9375rem;
+  font-weight:700;margin-bottom:8px;letter-spacing:-.01em;
+}
+.fairness-card p{font-size:.85rem;line-height:1.6;}
+
+/* ===================== SDG ===================== */
+.sdg-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin-bottom:20px;
+}
+@media(max-width:768px){.sdg-grid{grid-template-columns:1fr;}}
+.sdg-card{
+  background:#fff;padding:32px;
+  position:relative;overflow:hidden;
+  transition:background var(--t-med);
+}
+.sdg-card:hover{background:var(--n-25);}
+.sdg-card-head{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:20px;
+}
+.sdg-card-num{
+  font-family:var(--font-display);
+  font-size:2.5rem;font-weight:500;
+  line-height:1;letter-spacing:-.04em;
+}
+.sdg-card-5 .sdg-card-num{color:#be185d;}
+.sdg-card-10 .sdg-card-num{color:var(--indigo-600);}
+.sdg-card-tag{
+  font-family:var(--font-mono);font-size:.6875rem;
+  font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:4px 10px;border-radius:4px;
+}
+.sdg-card-5 .sdg-card-tag{background:#fce7f3;color:#be185d;}
+.sdg-card-10 .sdg-card-tag{background:var(--indigo-100);color:#4338ca;}
+.sdg-card h3{
+  font-family:var(--font-sans);font-size:1.0625rem;
+  font-weight:700;margin-bottom:12px;
+  color:var(--navy-800);letter-spacing:-.01em;
+}
+.sdg-card p{
+  font-size:.9375rem;line-height:1.65;
+  color:var(--text-mute);
+}
+
+.panel-how{margin-top:20px;}
+.how-list{display:flex;flex-direction:column;gap:14px;}
+.how-list li{
+  display:flex;gap:14px;align-items:flex-start;
+  font-size:.9375rem;color:var(--n-700);line-height:1.55;
+}
+.how-num{
+  flex-shrink:0;width:24px;height:24px;border-radius:50%;
+  background:var(--indigo-50);color:var(--indigo-600);
+  font-family:var(--font-mono);font-weight:600;font-size:.6875rem;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ===================== FINAL DECISION ===================== */
+.section-final{
+  background:var(--navy-900);color:#fff;
+  position:relative;overflow:hidden;
+}
+.section-final::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(circle at 50% 50%,#000 0%,transparent 75%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0%,transparent 75%);
+  pointer-events:none;
+}
+.final-inner{position:relative;z-index:1;max-width:820px;margin:0 auto;text-align:center;}
+.final-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-bottom:20px;
+}
+.final-label::before,.final-label::after{
+  content:'';width:32px;height:1px;background:rgba(255,255,255,.2);
+}
+.final-headline{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,4.4vw,3.2rem);
+  font-weight:400;color:#fff;
+  line-height:1.1;margin-bottom:20px;
+  letter-spacing:-.03em;
+  text-wrap:balance;
+}
+.final-headline .accent{
+  font-style:italic;font-weight:500;
+  background:linear-gradient(135deg,#a5b4fc 0%,#5eead4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.final-subtitle{
+  font-size:1rem;color:rgba(255,255,255,.7);
+  max-width:580px;margin:0 auto 36px;
+  line-height:1.65;
+}
+.final-card{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
+  gap:0;align-items:stretch;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;overflow:hidden;
+  margin-bottom:24px;
+}
+@media(max-width:680px){
+  .final-card{grid-template-columns:1fr;gap:1px;background:rgba(255,255,255,.08);}
+}
+.final-cell{
+  padding:24px 20px;text-align:center;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.final-cell:last-child{border-right:none;}
+@media(max-width:680px){.final-cell{border-right:none;}}
+.final-cell-value{
+  font-family:var(--font-mono);font-size:1.6rem;
+  font-weight:600;color:#fff;line-height:1;
+  letter-spacing:-.03em;margin-bottom:8px;
+}
+.final-cell-value.accent{color:#5eead4;}
+.final-cell-value.amber{color:#fbbf24;}
+.final-cell-label{
+  font-family:var(--font-mono);font-size:.6875rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+.final-cell-name{
+  font-family:var(--font-display);
+  font-size:1rem;font-weight:500;
+  color:#fff;line-height:1.3;
+  letter-spacing:-.02em;
+}
+.final-note{
+  font-family:var(--font-mono);font-size:.75rem;
+  color:rgba(255,255,255,.5);line-height:1.6;
+  max-width:600px;margin:0 auto;
+  padding-top:24px;border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* ===================== FOOTER ===================== */
+.site-footer{
+  background:var(--navy-950);color:rgba(255,255,255,.65);
+  padding:56px 0 24px;position:relative;overflow:hidden;
+}
+.site-footer::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(99,102,241,.35),rgba(20,184,166,.35),transparent);
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr;
+  gap:40px;margin-bottom:36px;
+}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:28px;}}
+.footer-brand .logo{color:#fff;margin-bottom:16px;font-family:var(--font-sans);}
+.logo-footer .logo-mark{background:#fff;}
+.logo-footer .logo-mark svg{color:var(--navy-900);}
+.logo-footer .logo-text{color:#fff;}
+.footer-tagline{
+  color:rgba(255,255,255,.85);font-size:.9375rem;
+  font-weight:600;margin-bottom:6px;
+}
+.footer-note{
+  color:rgba(255,255,255,.4);font-size:.8125rem;
+  max-width:300px;line-height:1.6;
+}
+.footer-col h4{
+  color:#fff;font-family:var(--font-mono);
+  font-size:.6875rem;font-weight:500;
+  text-transform:uppercase;letter-spacing:.14em;
+  margin-bottom:16px;
+}
+.footer-col li{margin-bottom:10px;}
+.footer-col a{
+  color:rgba(255,255,255,.55);font-size:.875rem;
+  transition:color var(--t-fast);
+}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:24px;
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:16px;
+  font-family:var(--font-mono);font-size:.75rem;
+  color:rgba(255,255,255,.4);
+}
+.sdg-pills{display:flex;gap:8px;}
+.sdg-pill{
+  padding:4px 10px;border-radius:4px;
+  font-family:var(--font-mono);font-size:.6875rem;
+  font-weight:600;letter-spacing:.06em;
+}
+.sdg-pill-5{background:rgba(236,72,153,.15);color:#f9a8d4;border:1px solid rgba(236,72,153,.25);}
+.sdg-pill-10{background:rgba(99,102,241,.15);color:#a5b4fc;border:1px solid rgba(99,102,241,.25);}
+
+/* ===================== TOASTS ===================== */
+.toast-container{
+  position:fixed;bottom:24px;right:24px;z-index:1000;
+  display:flex;flex-direction:column;gap:8px;
+  max-width:380px;pointer-events:none;
+}
+@media(max-width:520px){
+  .toast-container{left:16px;right:16px;bottom:16px;max-width:none;}
+}
+.toast{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:14px 16px;border-radius:10px;
+  background:#fff;
+  box-shadow:0 12px 32px rgba(15,23,42,.14),0 4px 8px rgba(15,23,42,.05);
+  border-left:3px solid var(--n-400);
+  animation:toastIn .4s var(--ease);
+  font-size:.875rem;
+  pointer-events:auto;position:relative;overflow:hidden;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(24px) scale(.96);}to{opacity:1;transform:translateX(0) scale(1);}}
+.toast.removing{animation:toastOut .3s forwards;}
+@keyframes toastOut{to{opacity:0;transform:translateX(24px);}}
+.toast-success{border-left-color:var(--green-500);}
+.toast-warning{border-left-color:var(--amber-500);}
+.toast-error{border-left-color:var(--red-500);}
+.toast-info{border-left-color:var(--indigo-600);}
+.toast-icon-wrap{
+  width:26px;height:26px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.toast-icon-wrap svg{width:13px;height:13px;stroke-width:2;}
+.toast-success .toast-icon-wrap{background:var(--green-100);color:var(--green-600);}
+.toast-warning .toast-icon-wrap{background:var(--amber-100);color:var(--amber-600);}
+.toast-error .toast-icon-wrap{background:var(--red-100);color:var(--red-600);}
+.toast-info .toast-icon-wrap{background:var(--indigo-100);color:var(--indigo-600);}
+.toast-content{flex:1;min-width:0;}
+.toast-title{
+  font-family:var(--font-mono);font-size:.6875rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-soft);margin-bottom:3px;
+}
+.toast-message{color:var(--n-800);font-size:.8125rem;line-height:1.5;}
+.toast-close{
+  color:var(--n-400);padding:2px 6px;border-radius:4px;
+  font-size:.8125rem;transition:all var(--t-fast);line-height:1;
+}
+.toast-close:hover{color:var(--n-700);background:var(--n-100);}
+.toast-progress{
+  position:absolute;bottom:0;left:0;height:2px;
+  background:currentColor;opacity:.25;
+  animation:toastProg 4.5s linear forwards;
+}
+.toast-success .toast-progress{color:var(--green-500);}
+.toast-warning .toast-progress{color:var(--amber-500);}
+.toast-error .toast-progress{color:var(--red-500);}
+.toast-info .toast-progress{color:var(--indigo-600);}
+@keyframes toastProg{from{width:100%;}to{width:0%;}}
+
+/* ===================== MODAL ===================== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(11,18,34,.7);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  z-index:2000;padding:20px;animation:fadeIn .2s;
+}
+.modal-overlay.open{display:flex;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal{
+  background:#fff;border-radius:14px;padding:28px;
+  max-width:440px;width:100%;
+  box-shadow:0 32px 80px rgba(0,0,0,.4);
+  animation:modalIn .35s var(--ease);text-align:center;
+}
+@keyframes modalIn{
+  from{opacity:0;transform:scale(.94) translateY(12px);}
+  to{opacity:1;transform:scale(1) translateY(0);}
+}
+.modal-icon{
+  width:52px;height:52px;border-radius:50%;
+  margin:0 auto 20px;
+  background:var(--amber-100);color:var(--amber-600);
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-icon svg{width:24px;height:24px;stroke-width:1.75;}
+.modal h3{
+  font-family:var(--font-display);
+  font-size:1.25rem;font-weight:500;
+  margin-bottom:12px;text-align:center;
+  letter-spacing:-.02em;
+}
+.modal p{
+  font-size:.9375rem;margin-bottom:24px;
+  text-align:center;line-height:1.6;
+  color:var(--text-mute);
+}
+.modal-actions{display:flex;gap:10px;justify-content:center;}
+
+/* ===================== UTILITIES ===================== */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+.hidden{display:none !important;}
+
+/* ===================== REDUCED MOTION ===================== */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .vote-bar-fill::after{display:none;}
+  .reveal,.reveal-stagger > *{opacity:1 !important;transform:none !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== ICON SPRITE ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="coreGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-vote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+  </symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+    <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+  </symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3v18"/><path d="M5 7l7-4 7 4"/><path d="M2 12h6"/><path d="M16 12h6"/>
+    <circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/>
+  </symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/>
+    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z"/>
+  </symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><polyline points="3 3 3 8 8 8"/>
+  </symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 3h6v6l4 10a2 2 0 0 1-2 3H7a2 2 0 0 1-2-3l4-10V3Z"/><line x1="9" y1="3" x2="15" y2="3"/>
+  </symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/>
+  </symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+    <rect x="8" y="2" width="8" height="4" rx="1"/>
+  </symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+  </symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </symbol>
+  <symbol id="i-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+  </symbol>
+  <symbol id="i-digital" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2"/>
+    <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    <polyline points="8 9 10 11 8 13"/><line x1="12" y1="13" x2="16" y2="13"/>
+  </symbol>
+  <symbol id="i-accessible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="4" r="2"/>
+    <path d="M19 13v-2a2 2 0 0 0-2-2h-4l-2-4-3 1"/>
+    <path d="M14 9l-1 6h3l2 5"/>
+    <path d="M8 12l-2 4h3"/>
+  </symbol>
+  <symbol id="i-jobfair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2"/>
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+    <path d="M2 13h20"/>
+  </symbol>
+  <symbol id="i-transport" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="14" rx="2"/>
+    <line x1="3" y1="10" x2="21" y2="10"/>
+    <circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/>
+    <line x1="6" y1="13" x2="9" y2="13"/><line x1="15" y1="13" x2="18" y2="13"/>
+  </symbol>
+</svg>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar" id="navbar" aria-label="Primary">
+  <div class="container nav-inner">
+    <a href="#home" class="logo" aria-label="EQUALECT home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 20V10l4-3 4 3v10"/><path d="M13 20V8l4-3 4 3v12"/><line x1="3" y1="20" x2="21" y2="20"/>
+        </svg>
+      </span>
+      <span class="logo-text">EQUALECT</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#initiatives" data-nav>Initiatives</a></li>
+      <li><a href="#vote" data-nav>Vote</a></li>
+      <li><a href="#results" data-nav>Results</a></li>
+      <li><a href="#representation" data-nav>Representation</a></li>
+      <li><a href="#fairness" data-nav>Fairness</a></li>
+      <li><a href="#sdg" data-nav>SDGs</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
+        Civic-Tech · SDG 5 &amp; SDG 10
+      </div>
+      <h1 class="hero-title">
+        <span class="line">One Community.</span>
+        <span class="line">Many Voices.</span>
+        <span class="line"><span class="accent">One Transparent Decision.</span></span>
+      </h1>
+      <p class="hero-lede">
+        EQUALECT demonstrates how a diverse community can use majority rule to select
+        one equality initiative — while making participation and representation visible,
+        not hidden behind the largest group.
+      </p>
+      <div class="hero-actions">
+        <a href="#vote" class="btn btn-accent btn-lg">
+          <span>Start Community Vote</span>
+          <svg class="icon btn-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+        <button class="btn btn-outline btn-lg" id="heroDemoBtn" type="button" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.2);">
+          <svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>
+          Load Demo Community
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">04</div>
+          <div class="hero-stat-label">Initiatives</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">05</div>
+          <div class="hero-stat-label">Groups</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">01</div>
+          <div class="hero-stat-label">Decision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-network">
+        <svg viewBox="0 0 500 480" preserveAspectRatio="xMidYMid meet">
+          <!-- Connector lines (from nodes to core) -->
+          <line class="net-line" x1="80" y1="80" x2="250" y2="240"/>
+          <line class="net-line active" x1="420" y1="90" x2="250" y2="240"/>
+          <line class="net-line" x1="60" y1="240" x2="250" y2="240"/>
+          <line class="net-line active" x1="440" y1="240" x2="250" y2="240"/>
+          <line class="net-line" x1="80" y1="400" x2="250" y2="240"/>
+          <line class="net-line active" x1="420" y1="400" x2="250" y2="240"/>
+
+          <!-- Peripheral nodes -->
+          <circle class="net-node net-node-a net-node-pulse" cx="80" cy="80" r="6"/>
+          <circle class="net-node net-node-b net-node-pulse" cx="420" cy="90" r="6" style="animation-delay:.4s"/>
+          <circle class="net-node net-node-c net-node-pulse" cx="60" cy="240" r="6" style="animation-delay:.8s"/>
+          <circle class="net-node net-node-d net-node-pulse" cx="440" cy="240" r="6" style="animation-delay:1.2s"/>
+          <circle class="net-node net-node-e net-node-pulse" cx="80" cy="400" r="6" style="animation-delay:1.6s"/>
+          <circle class="net-node net-node-a net-node-pulse" cx="420" cy="400" r="6" style="animation-delay:2s"/>
+
+          <!-- Small satellite dots -->
+          <circle class="net-node net-node-a" cx="140" cy="40" r="3" opacity=".6"/>
+          <circle class="net-node net-node-b" cx="360" cy="40" r="3" opacity=".6"/>
+          <circle class="net-node net-node-c" cx="30" cy="160" r="3" opacity=".6"/>
+          <circle class="net-node net-node-d" cx="470" cy="160" r="3" opacity=".6"/>
+
+          <!-- Core glow + core -->
+          <circle class="net-core-glow" cx="250" cy="240" r="60"/>
+          <circle class="net-core" cx="250" cy="240" r="36"/>
+          <circle cx="250" cy="240" r="44" fill="none" stroke="rgba(99,102,241,.4)" stroke-width="1" stroke-dasharray="2 4"/>
+          <circle cx="250" cy="240" r="56" fill="none" stroke="rgba(99,102,241,.2)" stroke-width="1" stroke-dasharray="2 4"/>
+
+          <!-- Checkmark in core -->
+          <polyline points="238 240 246 248 262 232" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <span class="live"><span class="live-dot"></span> LIVE TALLY</span>
+          <span class="pill">SIMULATED</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="row-icon" style="background:rgba(99,102,241,.18);color:#a5b4fc;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-digital"/></svg>
+          </span>
+          <div class="row-track"><div class="row-fill" style="width:46%;background:#4F46E5;"></div></div>
+          <span class="row-pct">46%</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="row-icon" style="background:rgba(20,184,166,.18);color:#5eead4;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-accessible"/></svg>
+          </span>
+          <div class="row-track"><div class="row-fill" style="width:28%;background:#0d9488;"></div></div>
+          <span class="row-pct">28%</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="row-icon" style="background:rgba(245,158,11,.18);color:#fbbf24;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-jobfair"/></svg>
+          </span>
+          <div class="row-track"><div class="row-fill" style="width:16%;background:#d97706;"></div></div>
+          <span class="row-pct">16%</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="row-icon" style="background:rgba(244,63,94,.18);color:#fda4af;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-transport"/></svg>
+          </span>
+          <div class="row-track"><div class="row-fill" style="width:10%;background:#e11d48;"></div></div>
+          <span class="row-pct">10%</span>
+        </div>
+        <div class="hero-card-foot">
+          <span>THRESHOLD</span>
+          <strong>10 / 10 ✓</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== INITIATIVES ===================== -->
+<section id="initiatives" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">
+        <span class="num">01</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-clipboard"/></svg>
+        Initiatives
+      </div>
+      <h2>Four paths to equality</h2>
+      <p>Each initiative supports the UN Sustainable Development Goals. The community will select one.</p>
+    </div>
+    <div class="initiative-grid reveal-stagger" id="initiativeGrid" role="list"></div>
+  </div>
+</section>
+
+<!-- ===================== VOTE ===================== -->
+<section id="vote" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">
+        <span class="num">02</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-vote"/></svg>
+        Simulated Voting
+      </div>
+      <h2>Add community participants</h2>
+      <p>Simulate a diverse community by adding participants from different groups. Each participant votes for one initiative.</p>
+    </div>
+
+    <div class="voting-grid reveal">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+            Add participant
+          </h3>
+          <div class="panel-actions">
+            <button class="btn btn-ghost btn-sm" id="loadDemoBtn" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>
+              Load Demo
+            </button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="demoBanner" class="demo-banner hidden" role="status">
+            <svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg>
+            <span>Demo data is simulated for demonstration.</span>
+            <button class="demo-banner-close" id="dismissDemo" aria-label="Dismiss demo notice" type="button">✕</button>
+          </div>
+
+          <form id="participantForm" novalidate>
+            <div class="form-group">
+              <label for="participantName">Name or anonymous ID</label>
+              <input type="text" id="participantName" placeholder="e.g., Participant 01" autocomplete="off" aria-describedby="nameError" />
+              <span class="field-error" id="nameError" role="alert"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="participantGroup">Community group</label>
+                <div class="select-wrap">
+                  <select id="participantGroup" aria-describedby="groupError">
+                    <option value="">— Select group —</option>
+                    <option value="Women">Women</option>
+                    <option value="Youth">Youth</option>
+                    <option value="Persons with Disabilities">Persons with Disabilities</option>
+                    <option value="Low-income Workers">Low-income Workers</option>
+                    <option value="General Community">General Community</option>
+                  </select>
+                </div>
+                <span class="field-error" id="groupError" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="participantInitiative">Initiative</label>
+                <div class="select-wrap">
+                  <select id="participantInitiative" aria-describedby="initiativeError"></select>
+                </div>
+                <span class="field-error" id="initiativeError" role="alert"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-accent btn-block" id="addVoteBtn">
+              <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+              <span>Add vote</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>
+            <svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>
+            Participants <span class="count-badge" id="participantCount">0</span>
+          </h3>
+          <div class="panel-actions">
+            <button class="btn btn-ghost btn-sm" id="resetBtn" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg>
+              Reset
+            </button>
+          </div>
+        </div>
+        <div class="panel-body panel-body-flush">
+          <div class="participant-list" id="participantList" aria-live="polite" aria-label="List of simulated participants"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTS ===================== -->
+<section id="results" class="section section-results">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">
+        <span class="num">03</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-bar-chart"/></svg>
+        Live Results
+      </div>
+      <h2>Current community choice</h2>
+      <p>Results update instantly as participants are added, changed, or removed.</p>
+    </div>
+
+    <div class="stats-row reveal" id="statsRow">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg aria-hidden="true"><use href="#i-users"/></svg>
+        </div>
+        <div class="stat-body">
+          <div class="stat-value" id="statParticipants">0</div>
+          <div class="stat-label">Participants</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon teal">
+          <svg aria-hidden="true"><use href="#i-vote"/></svg>
+        </div>
+        <div class="stat-body">
+          <div class="stat-value" id="statVotes">0</div>
+          <div class="stat-label">Total Votes</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon amber" id="statThresholdIcon">
+          <svg aria-hidden="true"><use href="#i-target"/></svg>
+        </div>
+        <div class="stat-body">
+          <div class="stat-value" id="statThreshold">0/10</div>
+          <div class="stat-label" id="statThresholdLabel">Threshold Pending</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="statusAlert" class="status-alert" role="status" aria-live="polite"></div>
+
+    <div class="results-grid reveal">
+      <div class="results-left">
+        <article class="majority-card empty" id="majorityCard" aria-live="polite">
+          <div class="majority-ribbon" id="majorityRibbon">
+            <span class="ribbon-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#i-trophy"/></svg>
+            </span>
+            <span id="majorityLabel">CURRENT MAJORITY</span>
+          </div>
+          <div class="majority-body">
+            <h3 class="majority-name" id="majorityName">Waiting for community input</h3>
+            <div class="majority-stats">
+              <div class="majority-stat">
+                <div class="majority-stat-value" id="majorityVotes">—</div>
+                <div class="majority-stat-label">Votes</div>
+              </div>
+              <div class="majority-stat">
+                <div class="majority-stat-value" id="majorityPct">—</div>
+                <div class="majority-stat-label">Share</div>
+              </div>
+            </div>
+            <div class="majority-subline" id="majoritySubline">
+              <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+              <span id="majoritySublineText">No votes recorded yet</span>
+            </div>
+            <p class="majority-note" id="majorityNote">
+              Add community participants to see the collective decision take shape.
+            </p>
+
+            <div class="threshold-wrap">
+              <div class="threshold-head">
+                <span>Participation</span>
+                <span class="threshold-count" id="thresholdCount">0 / 10</span>
+              </div>
+              <div class="threshold-track">
+                <div class="threshold-fill" id="thresholdFill" style="width:0%"></div>
+              </div>
+              <div class="threshold-status" id="thresholdStatus">
+                <svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>
+                <span id="thresholdStatusText">More participation needed</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="panel vote-panel" aria-live="polite">
+          <div class="panel-header">
+            <h3>
+              <svg class="icon" aria-hidden="true"><use href="#i-bar-chart"/></svg>
+              Vote distribution
+            </h3>
+            <span class="panel-hint" id="totalVotesLabel">0 votes</span>
+          </div>
+          <div class="panel-body">
+            <div class="vote-bars" id="voteBars"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel participation-panel" id="representation">
+        <div class="panel-header">
+          <h3>
+            <svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>
+            Community representation
+          </h3>
+          <span class="panel-hint">Group visibility</span>
+        </div>
+        <div class="panel-body">
+          <div class="group-bars" id="groupBars"></div>
+          <div class="gap-callout" id="gapCallout" role="status">
+            <div class="gap-callout-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"/></svg>
+            </div>
+            <div class="gap-callout-body">
+              <div class="gap-callout-title">
+                Representation gap:
+                <span class="group-name" id="gapGroupName">—</span>
+              </div>
+              <div class="gap-callout-text">
+                This group currently has low participation. Results reflect participating voters and may not fully represent their preferences.
+              </div>
+            </div>
+          </div>
+          <p class="panel-footnote">
+            <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+            <span>Representation is shown for transparency. It does <strong>not</strong> change how votes are counted.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAIRNESS ===================== -->
+<section id="fairness" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">
+        <span class="num">04</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
+        Transparency
+      </div>
+      <h2>How fairness works</h2>
+      <p>
+        Majority rule provides a transparent way to aggregate preferences, while
+        participation data and inclusion safeguards help reveal whether some groups
+        are underrepresented.
+      </p>
+    </div>
+    <div class="fairness-grid reveal-stagger">
+      <div class="fairness-card">
+        <div class="num">01</div>
+        <div class="fairness-icon" style="background:var(--indigo-50);color:var(--indigo-600);">
+          <svg aria-hidden="true"><use href="#i-check"/></svg>
+        </div>
+        <h4>One person, one vote</h4>
+        <p>Every participant gets exactly one vote, counted equally regardless of group.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="num">02</div>
+        <div class="fairness-icon" style="background:var(--teal-50);color:var(--teal-600);">
+          <svg aria-hidden="true"><use href="#i-eye"/></svg>
+        </div>
+        <h4>Group participation visible</h4>
+        <p>Participation from each community group is displayed, so smaller groups remain visible.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="num">03</div>
+        <div class="fairness-icon" style="background:var(--amber-50);color:var(--amber-600);">
+          <svg aria-hidden="true"><use href="#i-alert"/></svg>
+        </div>
+        <h4>Underrepresentation monitored</h4>
+        <p>Warnings appear when a group has low participation — but never change the vote count.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="num">04</div>
+        <div class="fairness-icon" style="background:var(--green-50);color:var(--green-600);">
+          <svg aria-hidden="true"><use href="#i-target"/></svg>
+        </div>
+        <h4>Participation threshold</h4>
+        <p>A minimum of 10 participants must be met before declaring a final community decision.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="num">05</div>
+        <div class="fairness-icon" style="background:var(--rose-100);color:var(--rose-600);">
+          <svg aria-hidden="true"><use href="#i-scale"/></svg>
+        </div>
+        <h4>Ties shown transparently</h4>
+        <p>If initiatives tie, the tie is displayed openly. No winner is ever invented.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="num">06</div>
+        <div class="fairness-icon" style="background:var(--indigo-100);color:var(--indigo-600);">
+          <svg aria-hidden="true"><use href="#i-search"/></svg>
+        </div>
+        <h4>No silent adjustments</h4>
+        <p>The safeguard provides visibility — it does not alter individual votes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SDG ===================== -->
+<section id="sdg" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">
+        <span class="num">05</span>
+        <svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>
+        Global Goals
+      </div>
+      <h2>SDG impact &amp; documentation</h2>
+      <p>EQUALECT connects directly to two United Nations Sustainable Development Goals.</p>
+    </div>
+
+    <div class="sdg-grid reveal-stagger">
+      <article class="sdg-card sdg-card-5">
+        <div class="sdg-card-head">
+          <span class="sdg-card-num">5</span>
+          <span class="sdg-card-tag">Gender Equality</span>
+        </div>
+        <h3>SDG 5 — Gender Equality</h3>
+        <p>
+          EQUALECT supports women's participation and visibility in collective decision-making.
+          The Women's Digital Skills Program and Safe Transport Campaign address digital access
+          and physical safety. Group-level participation tracking ensures women's voices are
+          counted and seen.
+        </p>
+      </article>
+
+      <article class="sdg-card sdg-card-10">
+        <div class="sdg-card-head">
+          <span class="sdg-card-num">10</span>
+          <span class="sdg-card-tag">Reduced Inequalities</span>
+        </div>
+        <h3>SDG 10 — Reduced Inequalities</h3>
+        <p>
+          By making participation differences visible and providing inclusion safeguards, the
+          project works against smaller or underrepresented groups disappearing from the overall
+          result. The Accessible Learning Center and Inclusive Job Fair directly reduce barriers
+          for people with disabilities and low-income workers.
+        </p>
+      </article>
+    </div>
+
+    <div class="panel panel-how reveal">
+      <div class="panel-header">
+        <h3>
+          <svg class="icon" aria-hidden="true"><use href="#i-clipboard"/></svg>
+          How the majority rule works
+        </h3>
+      </div>
+      <div class="panel-body">
+        <ol class="how-list">
+          <li><span class="how-num">1</span><span>Participants select one initiative.</span></li>
+          <li><span class="how-num">2</span><span>JavaScript counts each vote equally.</span></li>
+          <li><span class="how-num">3</span><span>Percentages are calculated from total votes.</span></li>
+          <li><span class="how-num">4</span><span>The initiative with the most votes becomes the current majority choice.</span></li>
+          <li><span class="how-num">5</span><span>If two or more initiatives tie, the system displays a tie — no winner is invented.</span></li>
+          <li><span class="how-num">6</span><span>A minimum participation threshold (10 participants) must be met before declaring a final decision.</span></li>
+          <li><span class="how-num">7</span><span>Group-level participation is displayed to make representation visible.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL DECISION ===================== -->
+<section id="final" class="section section-final">
+  <div class="container">
+    <div class="final-inner reveal">
+      <div class="final-label">Community Decision</div>
+      <h2 class="final-headline" id="finalHeadline">
+        Waiting for community input
+      </h2>
+      <p class="final-subtitle" id="finalSubtitle">
+        The community has not yet reached the minimum participation threshold to declare
+        a final majority decision. Add participants or load the demo community to begin.
+      </p>
+      <div class="final-card">
+        <div class="final-cell">
+          <div class="final-cell-name" id="finalInitiativeName">—</div>
+          <div class="final-cell-label" style="margin-top:10px;">Current Leader</div>
+        </div>
+        <div class="final-cell">
+          <div class="final-cell-value" id="finalVotes">0</div>
+          <div class="final-cell-label">Votes</div>
+        </div>
+        <div class="final-cell">
+          <div class="final-cell-value accent" id="finalPct">0%</div>
+          <div class="final-cell-label">Share</div>
+        </div>
+      </div>
+      <div class="final-note" id="finalNote">
+        Representation safeguards ensure smaller groups remain visible. The system never
+        manipulates votes — it reveals patterns.
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo logo-footer">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 20V10l4-3 4 3v10"/><path d="M13 20V8l4-3 4 3v12"/><line x1="3" y1="20" x2="21" y2="20"/>
+            </svg>
+          </span>
+          <span class="logo-text">EQUALECT</span>
+        </a>
+        <p class="footer-tagline">Every Voice Counts. Every Group Visible.</p>
+        <p class="footer-note">Prototype for community decision-making. Simulated data only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#initiatives">Initiatives</a></li>
+          <li><a href="#vote">Vote</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#fairness">Fairness</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>SDG Alignment</h4>
+        <ul>
+          <li><a href="#sdg">SDG 5 — Gender Equality</a></li>
+          <li><a href="#sdg">SDG 10 — Reduced Inequalities</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> EQUALECT · Civic Tech Prototype</span>
+      <div class="sdg-pills">
+        <span class="sdg-pill sdg-pill-5">SDG 5</span>
+        <span class="sdg-pill sdg-pill-10">SDG 10</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== TOASTS ===================== -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+<!-- ===================== RESET MODAL ===================== -->
+<div class="modal-overlay" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle" aria-describedby="resetModalDesc">
+  <div class="modal" role="document">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"/></svg>
+    </div>
+    <h3 id="resetModalTitle">Start a new community vote?</h3>
+    <p id="resetModalDesc">
+      This will remove the current simulated participants and results. The action cannot be undone.
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelResetBtn" type="button">Cancel</button>
+      <button class="btn btn-danger" id="confirmResetBtn" type="button">Reset Vote</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   EQUALECT — Application logic
+   Structure: state · storage · calculations · rendering ·
+   animations · events · init
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  /* ---------- ICON STRINGS (inline SVG snippets) ---------- */
+  const ICON = {
+    digital: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-digital"/></svg>',
+    accessible: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-accessible"/></svg>',
+    jobfair: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-jobfair"/></svg>',
+    transport: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-transport"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><use href="#i-check"/></svg>',
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-alert"/></svg>',
+    error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"/></svg>',
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-info"/></svg>',
+    trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-trophy"/></svg>',
+    scale: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-scale"/></svg>',
+    users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-users"/></svg>',
+    vote: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-vote"/></svg>',
+    target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><use href="#i-target"/></svg>'
+  };
+
+  /* ---------- DATA ---------- */
+  const INITIATIVES = [
+    { id:'digital-skills', name:"Women's Digital Skills Program",
+      description:"Digital literacy and coding training designed for women and girls — opening pathways to tech careers and online participation.",
+      sdgs:['SDG 5'], icon: ICON.digital, color:'#4F46E5', iconBg:'#eef2ff' },
+    { id:'accessible-learning', name:'Accessible Learning Center',
+      description:'A fully accessible learning hub for persons with disabilities, with assistive technology and inclusive courses for underserved learners.',
+      sdgs:['SDG 10'], icon: ICON.accessible, color:'#0d9488', iconBg:'#f0fdfa' },
+    { id:'inclusive-job-fair', name:'Inclusive Job Fair',
+      description:'Connecting underrepresented groups — women, youth, persons with disabilities — with inclusive employers and employment opportunities.',
+      sdgs:['SDG 5','SDG 10'], icon: ICON.jobfair, color:'#d97706', iconBg:'#fffbeb' },
+    { id:'safe-transport', name:'Safe Public Transport Campaign',
+      description:'Making public transport safer and more accessible for women, persons with disabilities, and low-income workers.',
+      sdgs:['SDG 5','SDG 10'], icon: ICON.transport, color:'#e11d48', iconBg:'#fff1f2' }
+  ];
+
+  const GROUPS = [
+    { name:'Women', color:'#4F46E5' },
+    { name:'Youth', color:'#0d9488' },
+    { name:'Persons with Disabilities', color:'#d97706' },
+    { name:'Low-income Workers', color:'#e11d48' },
+    { name:'General Community', color:'#64748b' }
+  ];
+
+  const MIN_PARTICIPATION = 10;
+  const UNDERREP_THRESHOLD = 0.08;
+  const STORAGE_KEY = 'equalect_state_v4';
+
+  /* ---------- STATE ---------- */
+  let participants = [];
+  let demoMode = false;
+  let nextId = 1;
+  let previousLeaderId = null;
+  let thresholdReachedAnnounced = false;
+
+  /* ---------- DOM ---------- */
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => document.querySelectorAll(s);
+
+  const navbar = $('#navbar');
+  const navToggle = $('#navToggle');
+  const navLinks = $('#navLinks');
+  const initiativeGrid = $('#initiativeGrid');
+  const participantForm = $('#participantForm');
+  const participantName = $('#participantName');
+  const participantGroup = $('#participantGroup');
+  const participantInitiative = $('#participantInitiative');
+  const participantList = $('#participantList');
+  const participantCount = $('#participantCount');
+  const totalVotesLabel = $('#totalVotesLabel');
+  const voteBars = $('#voteBars');
+  const majorityCard = $('#majorityCard');
+  const majorityLabel = $('#majorityLabel');
+  const majorityName = $('#majorityName');
+  const majorityVotes = $('#majorityVotes');
+  const majorityPct = $('#majorityPct');
+  const majorityNote = $('#majorityNote');
+  const majoritySublineText = $('#majoritySublineText');
+  const thresholdStatus = $('#thresholdStatus');
+  const thresholdStatusText = $('#thresholdStatusText');
+  const thresholdCount = $('#thresholdCount');
+  const thresholdFill = $('#thresholdFill');
+  const groupBars = $('#groupBars');
+  const gapCallout = $('#gapCallout');
+  const gapGroupName = $('#gapGroupName');
+  const statusAlert = $('#statusAlert');
+  const toastContainer = $('#toastContainer');
+  const resetModal = $('#resetModal');
+  const demoBanner = $('#demoBanner');
+  const heroDemoBtn = $('#heroDemoBtn');
+  const loadDemoBtn = $('#loadDemoBtn');
+  const resetBtn = $('#resetBtn');
+  const cancelResetBtn = $('#cancelResetBtn');
+  const confirmResetBtn = $('#confirmResetBtn');
+  const dismissDemo = $('#dismissDemo');
+  const yearEl = $('#year');
+  const statParticipants = $('#statParticipants');
+  const statVotes = $('#statVotes');
+  const statThreshold = $('#statThreshold');
+  const statThresholdLabel = $('#statThresholdLabel');
+  const statThresholdIcon = $('#statThresholdIcon');
+  const finalHeadline = $('#finalHeadline');
+  const finalSubtitle = $('#finalSubtitle');
+  const finalInitiativeName = $('#finalInitiativeName');
+  const finalVotes = $('#finalVotes');
+  const finalPct = $('#finalPct');
+  const finalNote = $('#finalNote');
+
+  /* ===================== ANIMATION HELPERS ===================== */
+
+  function tweenNumber(el, target, opts) {
+    if (!el) return;
+    const options = opts || {};
+    const suffix = options.suffix || '';
+    const decimals = options.decimals || 0;
+    const currentText = String(el.textContent).replace(/[^\d.-]/g, '');
+    const from = parseFloat(currentText) || 0;
+    const to = Number(target) || 0;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced || Math.abs(to - from) < 0.001) {
+      el.textContent = to.toFixed(decimals) + suffix;
+      return;
+    }
+    const duration = 520;
+    const start = performance.now();
+    function step(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = (from + (to - from) * eased).toFixed(decimals) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ===================== STORAGE ===================== */
+
+  function loadState() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        participants = Array.isArray(data.participants) ? data.participants : [];
+        nextId = data.nextId || (participants.length + 1);
+        demoMode = !!data.demoMode;
+        thresholdReachedAnnounced = participants.length >= MIN_PARTICIPATION;
+      }
+    } catch (e) { participants = []; nextId = 1; demoMode = false; }
+  }
+
+  function saveState() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ participants, nextId, demoMode })); }
+    catch (e) { /* run in memory */ }
+  }
+
+  /* ===================== CALCULATIONS ===================== */
+
+  function calculateResults() {
+    const counts = {};
+    INITIATIVES.forEach(i => counts[i.id] = 0);
+    participants.forEach(p => { if (counts[p.initiative] !== undefined) counts[p.initiative]++; });
+
+    const total = participants.length;
+    const sorted = INITIATIVES.map(i => ({
+      ...i, count: counts[i.id],
+      pct: total > 0 ? (counts[i.id] / total) * 100 : 0
+    })).sort((a, b) => b.count - a.count);
+
+    const maxCount = sorted[0]?.count || 0;
+    const leaders = sorted.filter(i => i.count === maxCount && maxCount > 0);
+    const isTie = leaders.length > 1 && maxCount > 0;
+    const leaderId = (!isTie && maxCount > 0) ? sorted[0].id : null;
+    const runnerUpCount = sorted[1]?.count || 0;
+
+    return { counts, total, sorted, maxCount, leaders, isTie, leaderId, runnerUpCount };
+  }
+
+  function calculateRepresentation() {
+    const counts = {};
+    GROUPS.forEach(g => counts[g.name] = 0);
+    participants.forEach(p => { if (counts[p.group] !== undefined) counts[p.group]++; });
+    const total = participants.length;
+    return GROUPS.map(g => ({
+      ...g, count: counts[g.name],
+      pct: total > 0 ? (counts[g.name] / total) * 100 : 0
+    }));
+  }
+
+  function checkThreshold() { return participants.length >= MIN_PARTICIPATION; }
+
+  function checkUnderrepresentation() {
+    if (participants.length === 0) return null;
+    const data = calculateRepresentation();
+    const low = data.filter(g => g.pct > 0 && g.pct < UNDERREP_THRESHOLD * 100);
+    return low.length > 0 ? low : null;
+  }
+
+  /* ===================== RENDER — INITIATIVES ===================== */
+
+  function renderInitiatives() {
+    const results = calculateResults();
+    const total = participants.length;
+
+    initiativeGrid.innerHTML = INITIATIVES.map((init, idx) => {
+      const count = results.counts[init.id] || 0;
+      const pct = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
+      const sdgBadges = init.sdgs.map(s => {
+        const cls = s === 'SDG 5' ? 'sdg-5' : 'sdg-10';
+        return `<span class="sdg-badge ${cls}">${s}</span>`;
+      }).join('');
+      const isLeading = init.id === results.leaderId && total > 0;
+      const idxStr = String(idx + 1).padStart(2, '0');
+
+      return `
+        <article class="initiative-card ${isLeading ? 'is-leading' : ''}" role="listitem"
+                 style="--card-accent:${init.color};--icon-bg:${init.iconBg};">
+          <div class="initiative-head">
+            <div class="initiative-icon" aria-hidden="true">${init.icon}</div>
+            <div class="initiative-meta">
+              <div class="idx">${idxStr} · Initiative</div>
+              <h3>${escapeHtml(init.name)}</h3>
+            </div>
+          </div>
+          <p class="initiative-desc">${escapeHtml(init.description)}</p>
+          <div class="sdg-badges">${sdgBadges}</div>
+          <div class="initiative-stats">
+            <span class="initiative-count" data-count="${init.id}">${count}</span>
+            <span class="initiative-pct">${pct}%</span>
+            <span class="initiative-label">votes</span>
+          </div>
+          <button class="btn btn-outline btn-sm" data-quick-vote="${init.id}" type="button"
+                  aria-label="Vote for ${escapeHtml(init.name)}">
+            ${ICON.vote}
+            <span>Vote for this</span>
+          </button>
+        </article>
+      `;
+    }).join('');
+
+    initiativeGrid.querySelectorAll('[data-quick-vote]').forEach(btn => {
+      btn.addEventListener('click', () => quickVote(btn.getAttribute('data-quick-vote')));
+    });
+
+    setupRevealObserver();
+  }
+
+  function quickVote(initiativeId) {
+    const init = INITIATIVES.find(i => i.id === initiativeId);
+    if (!init) return;
+    participantInitiative.value = initiativeId;
+    document.getElementById('vote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => participantName.focus(), 500);
+    showToast('info', 'Initiative pre-selected', `"${init.name}" is now selected in the form.`);
+  }
+
+  /* ===================== RENDER — PARTICIPANTS ===================== */
+
+  function renderParticipants() {
+    participantCount.textContent = participants.length;
+
+    if (participants.length === 0) {
+      participantList.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">${ICON.users}</div>
+          <h4>No participants yet</h4>
+          <p>Add participants or load the demo community to see the collective decision take shape.</p>
+        </div>
+      `;
+      return;
+    }
+
+    participantList.innerHTML = participants.map(p => {
+      const init = INITIATIVES.find(i => i.id === p.initiative);
+      const groupColor = getGroupColor(p.group);
+      const initials = p.name.substring(0, 2).toUpperCase();
+
+      return `
+        <div class="participant-item" data-id="${p.id}">
+          <div class="participant-avatar" style="background:${groupColor};" aria-hidden="true">${escapeHtml(initials)}</div>
+          <div class="participant-info">
+            <div class="participant-name">${escapeHtml(p.name)}</div>
+            <div class="participant-meta">
+              <span class="group-badge">${escapeHtml(p.group)}</span>
+              <span class="participant-initiative">${init ? escapeHtml(init.name) : 'Unknown'}</span>
+            </div>
+          </div>
+          <div class="participant-actions">
+            <button class="icon-btn" data-action="edit" data-id="${p.id}" title="Change vote" aria-label="Change vote for ${escapeHtml(p.name)}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#i-edit"/></svg>
+            </button>
+            <button class="icon-btn danger" data-action="remove" data-id="${p.id}" title="Remove participant" aria-label="Remove participant ${escapeHtml(p.name)}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><use href="#i-x"/></svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    participantList.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.getAttribute('data-id'), 10);
+        const action = btn.getAttribute('data-action');
+        if (action === 'edit') changeVote(id);
+        else if (action === 'remove') removeParticipant(id);
+      });
+    });
+  }
+
+  /* ===================== RENDER — RESULTS ===================== */
+
+  function renderResults() {
+    const results = calculateResults();
+    const thresholdMet = checkThreshold();
+
+    /* Statistics */
+    tweenNumber(statParticipants, results.total);
+    tweenNumber(statVotes, results.total);
+    tweenNumber(statThreshold, participants.length, { suffix: '/10' });
+
+    if (thresholdMet) {
+      statThresholdLabel.textContent = 'Threshold Reached';
+      statThresholdIcon.className = 'stat-icon green';
+      statThresholdIcon.innerHTML = ICON.check;
+    } else {
+      statThresholdLabel.textContent = 'Threshold Pending';
+      statThresholdIcon.className = 'stat-icon amber';
+      statThresholdIcon.innerHTML = ICON.target;
+    }
+
+    /* Majority card */
+    if (results.total === 0) {
+      majorityCard.className = 'majority-card empty';
+      majorityLabel.textContent = 'CURRENT MAJORITY';
+      majorityName.textContent = 'Waiting for community input';
+      majorityVotes.textContent = '—';
+      majorityPct.textContent = '—';
+      majoritySublineText.textContent = 'No votes recorded yet';
+      majorityNote.textContent = 'Add community participants to see the collective decision take shape.';
+    } else if (results.isTie) {
+      majorityCard.className = 'majority-card tie';
+      majorityLabel.textContent = 'NO MAJORITY — TIED';
+      majorityName.textContent = results.leaders.map(l => l.name).join(' · ');
+      tweenNumber(majorityVotes, results.maxCount);
+      majorityPct.textContent = `${((results.maxCount / results.total) * 100).toFixed(1)}%`;
+      majoritySublineText.textContent = `Currently tied at ${results.maxCount} vote${results.maxCount !== 1 ? 's' : ''} each`;
+      majorityNote.textContent = 'The community is currently split between these initiatives. Additional participation or a defined tie-breaking process would be required.';
+    } else {
+      const leader = results.sorted[0];
+      const isFinal = thresholdMet;
+      const margin = leader.count - results.runnerUpCount;
+
+      majorityCard.className = 'majority-card' + (isFinal ? ' is-final' : '');
+
+      if (previousLeaderId !== null && previousLeaderId !== leader.id && results.total > 0) {
+        majorityCard.classList.add('celebrate');
+        setTimeout(() => majorityCard.classList.remove('celebrate'), 1000);
+      }
+
+      majorityLabel.textContent = isFinal ? 'FINAL MAJORITY' : 'CURRENT MAJORITY';
+      majorityName.textContent = leader.name;
+      tweenNumber(majorityVotes, leader.count);
+      tweenNumber(majorityPct, leader.pct, { suffix: '%', decimals: 1 });
+      majoritySublineText.textContent = margin > 0
+        ? `Leading by ${margin} vote${margin !== 1 ? 's' : ''}`
+        : 'Leading by a single vote';
+      majorityNote.textContent = isFinal
+        ? 'This is the majority choice based on simulated votes. The minimum participation threshold has been met.'
+        : 'This is the current leader. A minimum participation threshold must be met before declaring a final decision.';
+
+      previousLeaderId = leader.id;
+    }
+    if (results.total === 0) previousLeaderId = null;
+
+    /* Threshold progress */
+    const pctThreshold = Math.min(100, (participants.length / MIN_PARTICIPATION) * 100);
+    thresholdCount.textContent = `${participants.length} / ${MIN_PARTICIPATION}`;
+    thresholdFill.style.width = pctThreshold + '%';
+
+    if (thresholdMet) {
+      thresholdFill.classList.add('met');
+      thresholdStatus.classList.add('met');
+      thresholdStatusText.textContent = 'Threshold reached — eligible for final decision';
+      if (!thresholdReachedAnnounced && results.total > 0) {
+        thresholdReachedAnnounced = true;
+        majorityCard.classList.add('threshold-pulse');
+        setTimeout(() => majorityCard.classList.remove('threshold-pulse'), 1400);
+        showToast('success', 'Threshold reached',
+          `Minimum of ${MIN_PARTICIPATION} participants achieved. The current leader can be declared.`);
+      }
+    } else {
+      thresholdFill.classList.remove('met');
+      thresholdStatus.classList.remove('met');
+      const remaining = MIN_PARTICIPATION - participants.length;
+      thresholdStatusText.textContent = `More participation needed — ${remaining} more participant${remaining !== 1 ? 's' : ''}`;
+      thresholdReachedAnnounced = false;
+    }
+
+    /* Vote bars */
+    totalVotesLabel.textContent = `${results.total} vote${results.total !== 1 ? 's' : ''}`;
+
+    if (results.total === 0) {
+      voteBars.innerHTML = `
+        <div class="vote-empty">
+          <div class="vote-empty-icon">${ICON.vote}</div>
+          <h4>No community votes yet</h4>
+          <p>Add participants or load the demo community to see the collective decision take shape.</p>
+          <button class="btn btn-accent btn-sm" type="button" id="emptyAddBtn">
+            ${ICON.users}
+            <span>Add first participant</span>
+          </button>
+        </div>
+      `;
+      const btn = document.getElementById('emptyAddBtn');
+      if (btn) btn.addEventListener('click', () => {
+        document.getElementById('vote').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => participantName.focus(), 500);
+      });
+    } else {
+      voteBars.innerHTML = results.sorted.map((init, idx) => {
+        const rank = idx + 1;
+        const isLeading = init.id === results.leaderId;
+        const isTieBar = results.isTie && results.leaders.some(l => l.id === init.id);
+        const barClass = isTieBar ? 'tie' : `rank-${Math.min(rank, 4)}`;
+        const rankClass = isTieBar ? 'tie' : `rank-${Math.min(rank, 4)}`;
+
+        return `
+          <div class="vote-bar-item ${isLeading ? 'leading' : ''}">
+            <div class="vote-bar-header">
+              <div class="vote-bar-name">
+                <span class="vote-bar-icon" style="--icon-bg:${init.iconBg};--card-accent:${init.color};">
+                  ${init.icon}
+                </span>
+                <span class="vote-bar-name-text">${escapeHtml(init.name)}</span>
+                <span class="rank-badge ${rankClass}">${isTieBar ? '=' : rank}</span>
+              </div>
+              <div class="vote-bar-values">
+                <span class="vote-pct" data-bar-pct="${init.id}">${init.pct.toFixed(1)}%</span>
+                <span class="vote-count" data-bar-count="${init.id}">${init.count} vote${init.count !== 1 ? 's' : ''}</span>
+              </div>
+            </div>
+            <div class="vote-bar-track" role="progressbar"
+                 aria-valuenow="${init.pct.toFixed(1)}" aria-valuemin="0" aria-valuemax="100"
+                 aria-valuetext="${init.pct.toFixed(1)} percent, ${init.count} votes"
+                 aria-label="${escapeHtml(init.name)}">
+              <div class="vote-bar-fill ${barClass}" style="width:${init.pct}%;"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderStatusAlert(results, thresholdMet);
+    renderFinalDecision(results, thresholdMet);
+  }
+
+  /* ===================== RENDER — STATUS ALERT ===================== */
+
+  function renderStatusAlert(results, thresholdMet) {
+    const alerts = [];
+    if (results.total > 0 && !thresholdMet) {
+      const remaining = MIN_PARTICIPATION - results.total;
+      alerts.push(`
+        <div style="display:flex;gap:12px;padding:16px 20px;border-radius:10px;background:var(--indigo-50);border:1px solid rgba(79,70,229,.15);color:var(--indigo-700);font-size:.85rem;align-items:flex-start;margin-bottom:24px;">
+          <span style="flex-shrink:0;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;">${ICON.info}</span>
+          <div><strong style="display:block;margin-bottom:2px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;">More participation needed</strong>${remaining} more participant${remaining !== 1 ? 's' : ''} required before a final community decision can be declared.</div>
+        </div>
+      `);
+    }
+    statusAlert.innerHTML = alerts.join('');
+  }
+
+  /* ===================== RENDER — REPRESENTATION ===================== */
+
+  function renderRepresentation() {
+    const groupData = calculateRepresentation();
+    const total = participants.length;
+    const underrep = checkUnderrepresentation();
+
+    if (total === 0) {
+      groupBars.innerHTML = `
+        <div class="empty-state" style="padding:36px 20px;">
+          <div class="empty-icon" style="background:var(--teal-50);color:var(--teal-600);">${ICON.users}</div>
+          <h4>No participants yet</h4>
+          <p>Group participation will appear here as participants are added.</p>
+        </div>
+      `;
+      gapCallout.classList.remove('show');
+      return;
+    }
+
+    const lowGroupNames = new Set((underrep || []).map(g => g.name));
+
+    groupBars.innerHTML = groupData.map(g => {
+      const pct = total > 0 ? g.pct.toFixed(1) : '0.0';
+      const isLow = lowGroupNames.has(g.name);
+      return `
+        <div class="group-bar-item">
+          <div class="group-bar-label">
+            <span class="group-dot ${isLow ? 'low' : ''}" style="background:${g.color};"></span>
+            ${escapeHtml(g.name)}
+          </div>
+          <div class="group-bar-track">
+            <div class="group-bar-fill" style="width:${g.pct}%;background:${g.color};"></div>
+          </div>
+          <div class="group-bar-count">
+            ${g.count}
+            <span class="group-pct">(${pct}%)</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    if (underrep && underrep.length > 0) {
+      const names = underrep.map(g => g.name).join(', ');
+      gapGroupName.textContent = names;
+      gapCallout.classList.add('show');
+    } else {
+      gapCallout.classList.remove('show');
+    }
+  }
+
+  /* ===================== RENDER — FINAL DECISION ===================== */
+
+  function renderFinalDecision(results, thresholdMet) {
+    if (results.total === 0) {
+      finalHeadline.textContent = 'Waiting for community input';
+      finalSubtitle.textContent = 'The community has not yet recorded any votes. Add participants or load the demo community to begin.';
+      finalInitiativeName.textContent = '—';
+      finalVotes.textContent = '0';
+      finalPct.textContent = '0%';
+      finalNote.textContent = 'Representation safeguards ensure smaller groups remain visible. The system never manipulates votes — it reveals patterns.';
+      return;
+    }
+
+    if (results.isTie) {
+      finalHeadline.innerHTML = 'The community <span class="accent">has no majority.</span>';
+      finalSubtitle.textContent = `${results.leaders.map(l => l.name).join(' and ')} are currently tied with ${results.maxCount} votes each. Additional participation or a defined tie-breaking process would be required.`;
+      finalInitiativeName.textContent = 'TIED';
+      finalVotes.textContent = results.maxCount;
+      finalPct.textContent = `${((results.maxCount / results.total) * 100).toFixed(1)}%`;
+      finalNote.textContent = 'The system does not invent a winner when there is a tie. All tied initiatives are shown openly.';
+      return;
+    }
+
+    const leader = results.sorted[0];
+
+    if (thresholdMet) {
+      finalHeadline.innerHTML = `The community selected <span class="accent">${escapeHtml(leader.name)}</span>`;
+      finalSubtitle.textContent = `With ${leader.count} vote${leader.count !== 1 ? 's' : ''} (${leader.pct.toFixed(1)}% of total), this initiative is the current majority choice. The minimum participation threshold of ${MIN_PARTICIPATION} participants has been met.`;
+      finalNote.textContent = 'This result reflects the participants who voted. Representation data is displayed above so smaller groups remain visible.';
+    } else {
+      finalHeadline.innerHTML = `Current leader: <span class="accent">${escapeHtml(leader.name)}</span>`;
+      const remaining = MIN_PARTICIPATION - results.total;
+      finalSubtitle.textContent = `Currently leading with ${leader.count} vote${leader.count !== 1 ? 's' : ''} (${leader.pct.toFixed(1)}%). ${remaining} more participant${remaining !== 1 ? 's' : ''} required before declaring a final community decision.`;
+      finalNote.textContent = 'The current leader is provisional until the participation threshold is reached. The system does not declare a final decision prematurely.';
+    }
+
+    finalInitiativeName.textContent = leader.name;
+    tweenNumber(finalVotes, leader.count);
+    tweenNumber(finalPct, leader.pct, { suffix: '%', decimals: 1 });
+  }
+
+  /* ===================== ACTIONS ===================== */
+
+  function addParticipant(name, group, initiative) {
+    let valid = true;
+    clearErrors();
+
+    if (!name || name.trim() === '') { setError('nameError', 'Please enter a participant name or ID.'); participantName.classList.add('invalid'); valid = false; }
+    if (!group) { setError('groupError', 'No community group selected.'); participantGroup.classList.add('invalid'); valid = false; }
+    if (!initiative) { setError('initiativeError', 'Please select an initiative.'); participantInitiative.classList.add('invalid'); valid = false; }
+    if (!valid) return false;
+
+    if (participants.some(p => p.name.toLowerCase() === name.trim().toLowerCase())) {
+      setError('nameError', 'Participant already exists.');
+      participantName.classList.add('invalid');
+      showToast('error', 'Duplicate participant', `"${name.trim()}" is already in the simulation.`);
+      return false;
+    }
+
+    participants.push({ id: nextId++, name: name.trim(), group, initiative });
+    saveState();
+    renderAll();
+    const init = INITIATIVES.find(i => i.id === initiative);
+    showToast('success', 'Vote recorded', `${name.trim()} voted for "${init.name}".`);
+    return true;
+  }
+
+  function changeVote(id) {
+    const participant = participants.find(p => p.id === id);
+    if (!participant) return;
+
+    participantName.value = participant.name;
+    participantGroup.value = participant.group;
+    participantInitiative.value = participant.initiative;
+
+    const item = participantList.querySelector(`[data-id="${id}"]`);
+    if (item) item.classList.add('removing');
+
+    setTimeout(() => {
+      participants = participants.filter(p => p.id !== id);
+      saveState();
+      renderAll();
+      document.getElementById('vote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => participantName.focus(), 450);
+      showToast('info', 'Editing vote', `Update the form and click "Add vote" to save changes for ${participant.name}.`);
+    }, 220);
+  }
+
+  function removeParticipant(id) {
+    const participant = participants.find(p => p.id === id);
+    if (!participant) return;
+
+    const item = participantList.querySelector(`[data-id="${id}"]`);
+    if (item) item.classList.add('removing');
+
+    setTimeout(() => {
+      participants = participants.filter(p => p.id !== id);
+      saveState();
+      renderAll();
+      showToast('warning', 'Participant removed', `${participant.name}'s vote has been removed.`);
+    }, 220);
+  }
+
+  function resetVotes() {
+    participants = [];
+    nextId = 1;
+    demoMode = false;
+    previousLeaderId = null;
+    thresholdReachedAnnounced = false;
+    saveState();
+    clearErrors();
+    participantForm.reset();
+    renderAll();
+    updateDemoBanner();
+    showToast('info', 'Community reset', 'All participants and votes have been cleared.');
+  }
+
+  function loadDemoData() {
+    participants = [];
+    nextId = 1;
+
+    const demoParticipants = [
+      { name:'Amina K.', group:'Women', initiative:'digital-skills' },
+      { name:'Fatima R.', group:'Women', initiative:'digital-skills' },
+      { name:'Zara M.', group:'Women', initiative:'digital-skills' },
+      { name:'Nadia S.', group:'Women', initiative:'inclusive-job-fair' },
+      { name:'Leila H.', group:'Women', initiative:'digital-skills' },
+      { name:'Samira T.', group:'Women', initiative:'safe-transport' },
+      { name:'Rania B.', group:'Women', initiative:'digital-skills' },
+      { name:'Omar J.', group:'Youth', initiative:'inclusive-job-fair' },
+      { name:'Yusuf A.', group:'Youth', initiative:'inclusive-job-fair' },
+      { name:'Lina D.', group:'Youth', initiative:'accessible-learning' },
+      { name:'Khalid N.', group:'Youth', initiative:'inclusive-job-fair' },
+      { name:'Hana P.', group:'Youth', initiative:'digital-skills' },
+      { name:'Participant 13', group:'Persons with Disabilities', initiative:'accessible-learning' },
+      { name:'Participant 14', group:'Persons with Disabilities', initiative:'accessible-learning' },
+      { name:'Mariam W.', group:'Low-income Workers', initiative:'safe-transport' },
+      { name:'Ahmed F.', group:'Low-income Workers', initiative:'inclusive-job-fair' },
+      { name:'Sara L.', group:'Low-income Workers', initiative:'safe-transport' },
+      { name:'Tariq Z.', group:'Low-income Workers', initiative:'accessible-learning' },
+      { name:'Chris B.', group:'General Community', initiative:'inclusive-job-fair' },
+      { name:'Dana M.', group:'General Community', initiative:'digital-skills' },
+      { name:'Alex R.', group:'General Community', initiative:'accessible-learning' },
+      { name:'Jordan K.', group:'General Community', initiative:'safe-transport' },
+      { name:'Taylor S.', group:'General Community', initiative:'inclusive-job-fair' },
+      { name:'Morgan L.', group:'General Community', initiative:'digital-skills' }
+    ];
+
+    demoParticipants.forEach(p => { participants.push({ id: nextId++, ...p }); });
+    demoMode = true;
+    saveState();
+    renderAll();
+    updateDemoBanner();
+    showToast('info', 'Demo community loaded', `${participants.length} simulated participants across 5 community groups.`);
+  }
+
+  function updateDemoBanner() {
+    if (demoMode && participants.length > 0) demoBanner.classList.remove('hidden');
+    else demoBanner.classList.add('hidden');
+  }
+
+  function renderAll() {
+    renderInitiatives();
+    renderParticipants();
+    renderResults();
+    renderRepresentation();
+    updateDemoBanner();
+  }
+
+  /* ===================== TOASTS ===================== */
+
+  function showToast(type, title, message) {
+    const icons = { success: ICON.check, warning: ICON.warning, error: ICON.error, info: ICON.info };
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'status');
+    toast.innerHTML = `
+      <div class="toast-icon-wrap">${icons[type] || ICON.info}</div>
+      <div class="toast-content">
+        <div class="toast-title">${escapeHtml(title)}</div>
+        <div class="toast-message">${escapeHtml(message)}</div>
+      </div>
+      <button class="toast-close" aria-label="Dismiss notification" type="button">✕</button>
+      <div class="toast-progress"></div>
+    `;
+    toastContainer.appendChild(toast);
+
+    const closeBtn = toast.querySelector('.toast-close');
+    const dismiss = () => removeToast(toast);
+    closeBtn.addEventListener('click', dismiss);
+
+    const timer = setTimeout(dismiss, 4500);
+    toast.addEventListener('mouseenter', () => clearTimeout(timer));
+    toast.addEventListener('mouseleave', () => setTimeout(dismiss, 1800));
+  }
+
+  function removeToast(toast) {
+    if (!toast.parentNode) return;
+    toast.classList.add('removing');
+    setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+  }
+
+  /* ===================== FORM VALIDATION ===================== */
+
+  function setError(id, message) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = message;
+  }
+  function clearErrors() {
+    ['nameError', 'groupError', 'initiativeError'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+    [participantName, participantGroup, participantInitiative].forEach(el => el.classList.remove('invalid'));
+  }
+
+  /* ===================== HELPERS ===================== */
+
+  function getGroupColor(name) { const g = GROUPS.find(g => g.name === name); return g ? g.color : '#64748b'; }
+  function escapeHtml(str) { const d = document.createElement('div'); d.textContent = String(str); return d.innerHTML; }
+
+  function populateInitiativeSelect() {
+    participantInitiative.innerHTML = '<option value="">— Select initiative —</option>';
+    INITIATIVES.forEach(init => {
+      const opt = document.createElement('option');
+      opt.value = init.id;
+      opt.textContent = init.name;
+      participantInitiative.appendChild(opt);
+    });
+  }
+
+  /* ===================== NAV ===================== */
+
+  function toggleNav() {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  }
+  function closeNav() {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  /* ===================== REVEAL ===================== */
+
+  let revealObserver = null;
+  function setupRevealObserver() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    }
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+      if (!el.classList.contains('is-visible')) revealObserver.observe(el);
+    });
+  }
+
+  /* ===================== ACTIVE NAV ===================== */
+
+  function setupActiveNavObserver() {
+    if (!('IntersectionObserver' in window)) return;
+    const sections = ['home','initiatives','vote','results','representation','fairness','sdg','final']
+      .map(id => document.getElementById(id)).filter(Boolean);
+    const navAnchors = Array.from(navLinks.querySelectorAll('a[data-nav]'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navAnchors.forEach(a => {
+          const target = a.getAttribute('href');
+          a.classList.toggle('active', target === '#' + id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+  }
+
+  /* ===================== MODAL ===================== */
+
+  let lastFocusedEl = null;
+
+  function openResetModal() {
+    lastFocusedEl = document.activeElement;
+    resetModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => cancelResetBtn.focus(), 60);
+    document.addEventListener('keydown', trapFocus);
+  }
+  function closeResetModal() {
+    resetModal.classList.remove('open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', trapFocus);
+    if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
+  }
+  function trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    const focusables = resetModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  /* ===================== EVENTS ===================== */
+
+  function bindEvents() {
+    navToggle.addEventListener('click', toggleNav);
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    participantForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ok = addParticipant(participantName.value, participantGroup.value, participantInitiative.value);
+      if (ok) { participantForm.reset(); clearErrors(); participantName.focus(); }
+    });
+
+    [participantName, participantGroup, participantInitiative].forEach(el => {
+      const clear = () => {
+        el.classList.remove('invalid');
+        const map = { participantName:'nameError', participantGroup:'groupError', participantInitiative:'initiativeError' };
+        const errEl = document.getElementById(map[el.id]);
+        if (errEl) errEl.textContent = '';
+      };
+      el.addEventListener('input', clear);
+      el.addEventListener('change', clear);
+    });
+
+    loadDemoBtn.addEventListener('click', loadDemoData);
+    heroDemoBtn.addEventListener('click', () => {
+      loadDemoData();
+      setTimeout(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+    });
+    resetBtn.addEventListener('click', openResetModal);
+    cancelResetBtn.addEventListener('click', closeResetModal);
+    confirmResetBtn.addEventListener('click', () => { closeResetModal(); resetVotes(); });
+    dismissDemo.addEventListener('click', () => { demoBanner.classList.add('hidden'); });
+    resetModal.addEventListener('click', (e) => { if (e.target === resetModal) closeResetModal(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && resetModal.classList.contains('open')) closeResetModal();
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) closeNav();
+    });
+  }
+
+  /* ===================== INIT ===================== */
+
+  function initializeApp() {
+    yearEl.textContent = new Date().getFullYear();
+    loadState();
+    populateInitiativeSelect();
+    renderInitiatives();
+    renderParticipants();
+    renderResults();
+    renderRepresentation();
+    bindEvents();
+    setupRevealObserver();
+    setupActiveNavObserver();
+    updateDemoBanner();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    initializeApp();
+  }
+
+})();
+</script>
+</body>
+</html>

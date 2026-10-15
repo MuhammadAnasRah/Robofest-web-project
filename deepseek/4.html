@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0b1a33" />
+<title>EQUALECT — Every Voice Counts. Every Group Visible.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   EQUALECT — Complete single-file civic-tech voting prototype
+   ============================================================ */
+
+/* ---------- RESET ---------- */
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px;}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{background:none;border:none;cursor:pointer;}
+ul,ol{list-style:none;}
+a{color:inherit;text-decoration:none;}
+
+/* ---------- TOKENS ---------- */
+:root{
+  --navy-900:#060f1f;--navy-800:#0b1a33;--navy-700:#142b4a;--navy-600:#1d3a63;
+  --purple-600:#6b4ee6;--purple-500:#7c5ff0;--purple-400:#a78bfa;
+  --purple-100:#f0ebff;--purple-50:#f7f4ff;
+  --teal-700:#0d7d72;--teal-600:#0d9488;--teal-500:#14b8a6;--teal-100:#e6f7f5;
+  --amber-700:#92400e;--amber-600:#b45309;--amber-500:#f59e0b;--amber-400:#fbbf24;
+  --amber-100:#fef3c7;--amber-50:#fffbeb;
+  --rose-700:#9f1239;--rose-600:#e11d48;--rose-500:#f43f5e;--rose-100:#ffe4e6;
+  --red-600:#dc2626;--red-500:#ef4444;--red-100:#fee2e2;
+  --green-600:#059669;--green-500:#10b981;--green-100:#d1fae5;
+  --indigo-600:#4338ca;--indigo-500:#6366f1;--indigo-100:#e0e7ff;
+  --n-0:#ffffff;--n-25:#fcfdff;--n-50:#f8fafc;--n-100:#f1f5f9;
+  --n-200:#e2e8f0;--n-300:#cbd5e1;--n-400:#94a3b8;--n-500:#64748b;
+  --n-600:#475569;--n-700:#334155;--n-800:#1e293b;--n-900:#0f172a;
+  --bg:var(--n-50);--surface:var(--n-0);--border:var(--n-200);--border-2:var(--n-300);
+  --text:var(--n-800);--text-mute:var(--n-600);--text-soft:var(--n-500);
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:20px;--s-6:24px;
+  --s-7:32px;--s-8:40px;--s-9:48px;--s-10:64px;--s-11:80px;
+  --r-xs:6px;--r-sm:10px;--r-md:14px;--r-lg:18px;--r-xl:24px;--r-2xl:32px;--r-full:999px;
+  --sh-1:0 1px 2px rgba(15,23,42,.06);
+  --sh-2:0 4px 12px rgba(15,23,42,.06),0 2px 4px rgba(15,23,42,.04);
+  --sh-3:0 10px 24px rgba(15,23,42,.08),0 4px 8px rgba(15,23,42,.05);
+  --sh-4:0 20px 48px rgba(15,23,42,.12),0 8px 16px rgba(15,23,42,.06);
+  --sh-purple:0 12px 32px rgba(107,78,230,.35);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --t-fast:160ms var(--ease);--t-med:260ms var(--ease);--t-slow:420ms var(--ease);
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-display:'Fraunces','Inter',Georgia,serif;
+  --font-mono:'IBM Plex Mono','SFMono-Regular',Menlo,Consolas,monospace;
+  --container:1200px;--nav-h:68px;
+}
+
+/* ---------- BASE ---------- */
+body{
+  font-family:var(--font-sans);background:var(--bg);color:var(--text);
+  line-height:1.6;font-feature-settings:'ss01','cv02','cv03','cv04';
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;
+}
+h1,h2,h3,h4{
+  font-family:var(--font-display);font-weight:700;line-height:1.15;
+  color:var(--navy-800);text-wrap:balance;letter-spacing:-.02em;
+}
+h1{font-size:clamp(2.25rem,5.2vw,3.75rem);}
+h2{font-size:clamp(1.75rem,3.4vw,2.5rem);}
+h3{font-size:clamp(1.15rem,1.6vw,1.4rem);}
+h4{font-size:1.05rem;}
+p{color:var(--text-mute);text-wrap:pretty;}
+::selection{background:var(--purple-400);color:#fff;}
+:focus{outline:none;}
+:focus-visible{outline:3px solid var(--purple-500);outline-offset:2px;border-radius:6px;}
+
+/* ---------- CONTAINER & SECTIONS ---------- */
+.container{max-width:var(--container);margin:0 auto;padding:0 var(--s-6);}
+.section{padding:var(--s-11) 0;position:relative;}
+.section-alt{background:linear-gradient(180deg,var(--n-0) 0%,var(--n-50) 100%);}
+.section-header{text-align:center;max-width:720px;margin:0 auto var(--s-9);}
+.section-header p{font-size:1.0625rem;margin-top:var(--s-3);}
+.section-label{
+  display:inline-flex;align-items:center;gap:var(--s-2);
+  font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--purple-600);margin-bottom:var(--s-3);
+  padding:6px 14px;background:var(--purple-50);border-radius:var(--r-full);
+  border:1px solid rgba(107,78,230,.14);
+}
+.section-label::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--purple-500);box-shadow:0 0 0 3px rgba(107,78,230,.18);
+}
+
+/* ---------- REVEAL ON SCROLL ---------- */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+.reveal-stagger > *{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+.reveal-stagger.is-visible > *{opacity:1;transform:translateY(0);}
+.reveal-stagger.is-visible > *:nth-child(1){transition-delay:.02s;}
+.reveal-stagger.is-visible > *:nth-child(2){transition-delay:.08s;}
+.reveal-stagger.is-visible > *:nth-child(3){transition-delay:.14s;}
+.reveal-stagger.is-visible > *:nth-child(4){transition-delay:.20s;}
+.reveal-stagger.is-visible > *:nth-child(5){transition-delay:.26s;}
+.reveal-stagger.is-visible > *:nth-child(6){transition-delay:.32s;}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  gap:var(--s-2);padding:11px 20px;font-size:.9375rem;font-weight:600;
+  font-family:var(--font-sans);border-radius:var(--r-sm);cursor:pointer;
+  transition:transform var(--t-fast),box-shadow var(--t-med),background var(--t-med),color var(--t-med),border-color var(--t-med);
+  white-space:nowrap;user-select:none;overflow:hidden;line-height:1.2;
+  border:1.5px solid transparent;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.35) 0%,transparent 60%);
+  opacity:0;transition:opacity .5s;pointer-events:none;
+}
+.btn:active::after{opacity:1;transition:opacity 0s;}
+.btn:focus-visible{outline:3px solid var(--purple-500);outline-offset:2px;}
+.btn-lg{padding:14px 26px;font-size:1rem;border-radius:var(--r-md);}
+.btn-sm{padding:6px 12px;font-size:.8125rem;border-radius:var(--r-xs);}
+.btn-block{width:100%;}
+.btn-arrow{display:inline-block;transition:transform var(--t-med);}
+.btn-primary:hover .btn-arrow{transform:translateX(3px);}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--purple-600) 0%,#8b5cf6 100%);
+  color:#fff;box-shadow:0 6px 18px rgba(107,78,230,.35),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(107,78,230,.45),inset 0 1px 0 rgba(255,255,255,.15);}
+.btn-primary:active{transform:translateY(0);}
+
+.btn-secondary{background:var(--navy-800);color:#fff;box-shadow:0 6px 18px rgba(11,26,51,.25);}
+.btn-secondary:hover{transform:translateY(-2px);background:var(--navy-700);}
+
+.btn-outline{background:transparent;color:var(--purple-600);border-color:rgba(107,78,230,.35);}
+.btn-outline:hover{background:var(--purple-50);border-color:var(--purple-500);transform:translateY(-1px);}
+
+.btn-ghost{background:var(--n-0);color:var(--n-700);border-color:var(--border);}
+.btn-ghost:hover{background:var(--n-50);border-color:var(--border-2);color:var(--navy-800);}
+
+.btn-glass{
+  background:rgba(255,255,255,.09);color:#fff;border-color:rgba(255,255,255,.22);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.btn-glass:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);transform:translateY(-2px);}
+
+.btn-danger{background:var(--red-600);color:#fff;}
+.btn-danger:hover{background:#b91c1c;transform:translateY(-1px);}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow var(--t-med),background var(--t-med);
+}
+.navbar.scrolled{box-shadow:var(--sh-2);background:rgba(255,255,255,.95);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;color:var(--navy-800);letter-spacing:-.02em;}
+.logo-mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,var(--purple-600) 0%,var(--teal-600) 100%);
+  display:flex;align-items:center;justify-content:center;gap:2px;
+  box-shadow:0 4px 12px rgba(107,78,230,.4);position:relative;overflow:hidden;
+}
+.logo-mark::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.4) 0%,transparent 60%);
+}
+.logo-dot{width:4px;height:4px;border-radius:50%;background:#fff;opacity:.95;}
+.logo-text{font-family:var(--font-sans);}
+.nav-links{display:flex;gap:2px;}
+.nav-links a{
+  display:block;padding:8px 14px;font-size:.875rem;font-weight:500;color:var(--text-mute);
+  border-radius:var(--r-xs);transition:all var(--t-fast);position:relative;
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--purple-600);background:var(--purple-50);}
+.nav-links a.active{color:var(--purple-600);background:var(--purple-50);}
+.nav-links a.active::after{
+  content:'';position:absolute;left:14px;right:14px;bottom:-1px;height:2px;
+  background:var(--purple-500);border-radius:2px;
+}
+.nav-toggle{display:none;padding:8px;border-radius:var(--r-xs);}
+.nav-toggle-bar{display:block;width:22px;height:2px;background:var(--navy-800);border-radius:2px;margin:4px 0;transition:all var(--t-med);}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+@media(max-width:880px){
+  .nav-toggle{display:block;}
+  .nav-links{
+    display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    background:#fff;flex-direction:column;padding:12px;gap:2px;
+    border-bottom:1px solid var(--border);box-shadow:var(--sh-3);
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:12px 14px;}
+  .nav-links a.active::after{display:none;}
+}
+
+/* ============================================================
+   HERO — upgraded with community network visual
+   ============================================================ */
+.hero{
+  position:relative;
+  background:linear-gradient(165deg,var(--navy-900) 0%,var(--navy-800) 42%,#1a3a5c 100%);
+  color:#fff;padding:88px 0 100px;
+  overflow:hidden;isolation:isolate;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 80%);
+  -webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 80%);
+  pointer-events:none;z-index:0;
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;}
+.hero-orb-1{width:520px;height:520px;top:-160px;left:-120px;background:radial-gradient(circle,rgba(107,78,230,.65) 0%,transparent 70%);}
+.hero-orb-2{width:460px;height:460px;bottom:-180px;right:-100px;background:radial-gradient(circle,rgba(13,148,136,.45) 0%,transparent 70%);}
+.hero-orb-3{width:340px;height:340px;top:40%;left:45%;background:radial-gradient(circle,rgba(245,158,11,.22) 0%,transparent 70%);}
+
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:6px 14px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  font-family:var(--font-mono);
+  font-size:.6875rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.78);
+  margin-bottom:26px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.pulse-dot{
+  width:6px;height:6px;border-radius:50%;background:#4ade80;
+  box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.4s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(74,222,128,.7);}
+  70%{box-shadow:0 0 0 8px rgba(74,222,128,0);}
+  100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}
+}
+
+.hero-title{
+  color:#fff;margin-bottom:22px;
+  font-weight:500;letter-spacing:-.03em;
+}
+.hero-title .line{display:block;}
+.hero-title-accent{
+  font-style:italic;font-weight:500;
+  background:linear-gradient(135deg,#a78bfa 0%,#5eead4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-lede{
+  color:rgba(255,255,255,.72);
+  font-size:1.0625rem;max-width:540px;
+  margin-bottom:34px;line-height:1.7;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,auto);
+  gap:0;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:26px;
+  max-width:520px;
+}
+.hero-stat{padding-right:34px;border-right:1px solid rgba(255,255,255,.1);}
+.hero-stat:last-child{border-right:none;padding-right:0;padding-left:34px;}
+.hero-stat:first-child{padding-left:0;}
+.hero-stat-value{
+  font-family:var(--font-mono);
+  font-size:1.5rem;font-weight:600;
+  color:#fff;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;
+}
+.hero-stat-label{
+  font-family:var(--font-mono);font-size:.6875rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-top:8px;
+}
+
+/* Hero visual — network of voices converging to a decision */
+.hero-visual{
+  position:relative;height:480px;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-network{
+  position:absolute;inset:0;width:100%;height:100%;
+  overflow:visible;pointer-events:none;
+}
+.net-line{stroke:rgba(167,139,250,.22);stroke-width:1;stroke-dasharray:3 4;fill:none;}
+.net-line.active{stroke:rgba(167,139,250,.5);stroke-dasharray:none;animation:dashFlow 6s linear infinite;}
+@keyframes dashFlow{to{stroke-dashoffset:-100;}}
+.net-node{fill:#0b1222;stroke-width:1.5;}
+.net-node-a{stroke:#a78bfa;}
+.net-node-b{stroke:#5eead4;}
+.net-node-c{stroke:#fbbf24;}
+.net-node-d{stroke:#fda4af;}
+.net-node-e{stroke:#a5b4fc;}
+.net-node-pulse{animation:nodePulse 4s ease-in-out infinite;}
+@keyframes nodePulse{0%,100%{opacity:.9;}50%{opacity:.4;}}
+.net-core-glow{fill:var(--purple-600);opacity:.35;filter:blur(20px);}
+.net-core{fill:url(#heroCoreGrad);}
+.net-check{stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+
+.hero-card{
+  position:relative;z-index:2;
+  width:100%;max-width:360px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--r-xl);padding:20px;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);
+  animation:floatY 8s ease-in-out infinite;
+}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+.hero-card-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:16px;padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.preview-live{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.14em;color:#4ade80;text-transform:uppercase;
+}
+.preview-live-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;}
+.preview-pill{
+  font-family:var(--font-mono);font-size:.625rem;font-weight:500;
+  padding:3px 8px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,.1);letter-spacing:.1em;
+}
+
+.preview-row{
+  display:grid;grid-template-columns:22px 1fr 40px;
+  gap:10px;align-items:center;margin-bottom:10px;
+}
+.preview-icon{
+  width:22px;height:22px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8125rem;flex-shrink:0;
+}
+.preview-bar{
+  height:6px;background:rgba(255,255,255,.08);
+  border-radius:99px;overflow:hidden;
+}
+.preview-bar-fill{height:100%;border-radius:99px;animation:barIn 1.4s var(--ease) both;}
+@keyframes barIn{from{width:0 !important;}}
+.preview-pct{
+  font-family:var(--font-mono);font-size:.75rem;font-weight:600;
+  color:rgba(255,255,255,.85);text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+
+.preview-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:16px;padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.08);
+  font-family:var(--font-mono);font-size:.6875rem;
+  letter-spacing:.08em;color:rgba(255,255,255,.55);
+}
+.preview-threshold{font-weight:600;color:#fbbf24;}
+
+@media(max-width:980px){
+  .hero{padding:64px 0 72px;}
+  .hero-grid{grid-template-columns:1fr;gap:56px;}
+  .hero-visual{height:400px;order:-1;}
+  .hero-card{max-width:340px;}
+  .hero-stats{grid-template-columns:1fr;gap:16px;max-width:none;}
+  .hero-stat{
+    padding-right:0;border-right:none;padding-left:0 !important;
+    border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:16px;
+  }
+  .hero-stat:last-child{border-bottom:none;padding-bottom:0;}
+}
+
+/* ---------- INITIATIVE CARDS ---------- */
+.initiative-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s-5);}
+.initiative-card{
+  position:relative;background:var(--surface);border-radius:var(--r-lg);
+  padding:var(--s-6);border:1px solid var(--border);
+  box-shadow:var(--sh-1);transition:all var(--t-med);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.initiative-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--card-accent,var(--purple-600));
+  transform:scaleX(0);transform-origin:left;transition:transform var(--t-slow);
+}
+.initiative-card:hover::before,.initiative-card:focus-within::before{transform:scaleX(1);}
+.initiative-card:hover{transform:translateY(-6px);box-shadow:var(--sh-4);border-color:var(--border-2);}
+.initiative-card.is-leading{
+  border-color:var(--purple-400);
+  box-shadow:0 12px 32px rgba(107,78,230,.18),0 0 0 1px rgba(107,78,230,.15);
+}
+.initiative-card.is-leading::before{transform:scaleX(1);}
+.initiative-icon{
+  width:56px;height:56px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+  margin-bottom:var(--s-4);background:var(--icon-bg,#f0ebff);
+  position:relative;transition:transform var(--t-med);
+}
+.initiative-card:hover .initiative-icon{transform:scale(1.06) rotate(-3deg);}
+.initiative-card h3{font-size:1.125rem;margin-bottom:var(--s-2);letter-spacing:-.01em;}
+.initiative-card .initiative-desc{font-size:.875rem;line-height:1.55;flex:1;margin-bottom:var(--s-4);}
+.sdg-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--s-4);}
+.sdg-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--r-full);font-size:.6875rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;}
+.sdg-5{background:#fce7f3;color:#be185d;}
+.sdg-10{background:#e0e7ff;color:#4338ca;}
+.initiative-stats{
+  display:flex;align-items:baseline;gap:var(--s-3);
+  margin-bottom:var(--s-4);padding-top:var(--s-4);
+  border-top:1px solid var(--n-100);
+}
+.initiative-count{font-size:1.9rem;font-weight:800;color:var(--navy-800);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em;transition:color var(--t-med);}
+.initiative-card.is-leading .initiative-count{color:var(--purple-600);}
+.initiative-pct{font-size:.9375rem;font-weight:700;color:var(--purple-600);font-variant-numeric:tabular-nums;}
+.initiative-label{font-size:.75rem;color:var(--text-soft);margin-left:auto;font-weight:500;}
+.initiative-card .btn{width:100%;}
+
+/* ---------- VOTING ---------- */
+.voting-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--s-6);align-items:start;}
+@media(max-width:900px){.voting-grid{grid-template-columns:1fr;}}
+
+.panel{background:var(--surface);border-radius:var(--r-lg);border:1px solid var(--border);box-shadow:var(--sh-1);overflow:hidden;transition:box-shadow var(--t-med);}
+.panel:hover{box-shadow:var(--sh-2);}
+.panel-tight{padding:0;}
+.panel-header{padding:var(--s-5) var(--s-6);border-bottom:1px solid var(--n-100);display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap;}
+.panel-header h3{font-size:1rem;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;}
+.panel-hint{font-size:.75rem;color:var(--text-soft);font-weight:500;}
+.panel-actions{display:flex;gap:var(--s-2);}
+.panel-body{padding:var(--s-6);}
+.panel-body-flush{padding:var(--s-3);}
+.panel-footnote{font-size:.75rem;color:var(--text-soft);margin-top:var(--s-4);padding-top:var(--s-4);border-top:1px solid var(--n-100);line-height:1.5;}
+.panel-footnote strong{color:var(--text);font-weight:700;}
+
+.count-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:26px;height:24px;padding:0 8px;border-radius:var(--r-full);
+  background:var(--purple-50);color:var(--purple-600);font-weight:800;font-size:.8125rem;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Form */
+.form-group{margin-bottom:var(--s-4);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);}
+@media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+.form-group label{display:block;font-size:.8125rem;font-weight:600;color:var(--n-700);margin-bottom:6px;}
+.form-group input,.form-group select{
+  width:100%;padding:11px 14px;font-size:.9375rem;font-family:var(--font-sans);
+  border:1.5px solid var(--border-2);border-radius:var(--r-sm);background:var(--n-0);
+  color:var(--text);transition:all var(--t-fast);
+}
+.form-group input::placeholder{color:var(--n-400);}
+.form-group input:hover,.form-group select:hover{border-color:var(--n-400);}
+.form-group input:focus,.form-group select:focus{
+  outline:none;border-color:var(--purple-500);
+  box-shadow:0 0 0 4px rgba(107,78,230,.14);
+}
+.form-group input.invalid,.form-group select.invalid{
+  border-color:var(--red-500);box-shadow:0 0 0 4px rgba(220,38,38,.12);
+}
+.select-wrap{position:relative;}
+.select-wrap::after{
+  content:'';position:absolute;right:14px;top:50%;
+  width:8px;height:8px;border-right:2px solid var(--n-500);border-bottom:2px solid var(--n-500);
+  transform:translateY(-70%) rotate(45deg);pointer-events:none;transition:border-color var(--t-fast);
+}
+.select-wrap:hover::after{border-color:var(--purple-600);}
+.select-wrap select{appearance:none;-webkit-appearance:none;padding-right:38px;cursor:pointer;}
+.field-error{font-size:.75rem;color:var(--red-600);margin-top:4px;min-height:1rem;display:block;font-weight:500;animation:errIn .2s;}
+@keyframes errIn{from{opacity:0;transform:translateY(-3px);}to{opacity:1;transform:translateY(0);}}
+
+.demo-banner{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;background:var(--amber-50);
+  border:1px solid #fcd34d;border-radius:var(--r-sm);
+  font-size:.8125rem;font-weight:600;color:var(--amber-700);
+  margin-bottom:var(--s-4);animation:errIn .3s;
+}
+.demo-banner.hidden{display:none;}
+.demo-banner-icon{font-size:1rem;}
+.demo-banner-close{
+  margin-left:auto;color:var(--amber-700);opacity:.6;
+  padding:2px 6px;border-radius:4px;font-size:.875rem;transition:opacity var(--t-fast);
+}
+.demo-banner-close:hover{opacity:1;background:rgba(146,64,14,.08);}
+
+/* Participant list */
+.participant-list{max-height:460px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding-right:4px;}
+.participant-list::-webkit-scrollbar{width:6px;}
+.participant-list::-webkit-scrollbar-track{background:transparent;}
+.participant-list::-webkit-scrollbar-thumb{background:var(--n-300);border-radius:3px;}
+.participant-list::-webkit-scrollbar-thumb:hover{background:var(--n-400);}
+
+.participant-item{
+  display:flex;align-items:center;gap:12px;padding:11px 14px;
+  background:var(--n-50);border-radius:var(--r-sm);
+  border:1px solid var(--border);transition:all var(--t-fast);
+  animation:itemIn .35s var(--ease);
+}
+@keyframes itemIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.participant-item:hover{background:var(--n-0);border-color:var(--border-2);box-shadow:var(--sh-1);}
+.participant-item.removing{animation:itemOut .25s forwards;}
+@keyframes itemOut{to{opacity:0;transform:translateX(20px);height:0;padding:0;margin:0;}}
+
+.participant-avatar{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:800;color:#fff;letter-spacing:-.02em;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+.participant-info{flex:1;min-width:0;}
+.participant-name{font-size:.875rem;font-weight:600;color:var(--n-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.participant-meta{display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap;}
+.group-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-full);font-size:.6875rem;font-weight:600;background:var(--n-200);color:var(--n-700);}
+.participant-initiative{font-size:.6875rem;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.participant-actions{display:flex;gap:2px;flex-shrink:0;}
+.icon-btn{
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border-radius:var(--r-xs);color:var(--n-500);font-size:.875rem;
+  transition:all var(--t-fast);
+}
+.icon-btn:hover{background:var(--n-200);color:var(--n-800);}
+.icon-btn.danger:hover{background:var(--red-100);color:var(--red-600);}
+
+/* Empty state */
+.empty-state{text-align:center;padding:var(--s-9) var(--s-5);}
+.empty-illustration{width:120px;height:100px;margin:0 auto var(--s-5);position:relative;}
+.empty-card{
+  position:absolute;width:64px;height:80px;border-radius:8px;
+  border:2px dashed var(--n-300);background:var(--n-50);
+}
+.empty-card:nth-child(1){left:8px;top:14px;transform:rotate(-8deg);}
+.empty-card:nth-child(2){left:28px;top:6px;transform:rotate(0);background:var(--n-0);box-shadow:var(--sh-2);}
+.empty-card:nth-child(3){left:48px;top:14px;transform:rotate(8deg);}
+.empty-illustration::after{
+  content:'🗳️';position:absolute;bottom:-6px;right:-8px;font-size:2rem;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));animation:floatY 3s ease-in-out infinite;
+}
+.empty-state h4{color:var(--n-700);margin-bottom:6px;font-family:var(--font-sans);font-size:1rem;}
+.empty-state p{font-size:.875rem;max-width:320px;margin:0 auto;}
+
+/* ---------- RESULTS SECTION ---------- */
+.section-results{
+  background:
+    radial-gradient(1200px 500px at 50% 0%,rgba(107,78,230,.07) 0%,transparent 60%),
+    linear-gradient(180deg,var(--n-50) 0%,var(--n-0) 100%);
+}
+
+.status-alert{margin-bottom:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3);}
+.status-alert:empty{display:none;}
+
+.alert{
+  display:flex;gap:14px;padding:16px 20px;border-radius:var(--r-md);
+  font-size:.875rem;border:1px solid;animation:alertIn .35s var(--ease);
+  position:relative;overflow:hidden;
+}
+@keyframes alertIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.alert::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
+.alert-warning{background:var(--amber-50);border-color:#fcd34d;color:#78350f;}
+.alert-warning::before{background:var(--amber-500);}
+.alert-info{background:var(--purple-50);border-color:#c4b5fd;color:#4c1d95;}
+.alert-info::before{background:var(--purple-500);}
+.alert-success{background:#ecfdf5;border-color:#6ee7b7;color:#064e3b;}
+.alert-success::before{background:var(--green-500);}
+.alert-danger{background:#fef2f2;border-color:#fca5a5;color:#7f1d1d;}
+.alert-danger::before{background:var(--red-500);}
+.alert-icon{font-size:1.25rem;flex-shrink:0;line-height:1.2;}
+.alert-content{flex:1;}
+.alert-content strong{display:block;margin-bottom:3px;font-weight:700;}
+.alert-content p{color:inherit;font-size:.8125rem;opacity:.9;line-height:1.5;}
+
+.results-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:var(--s-6);align-items:start;}
+@media(max-width:980px){.results-grid{grid-template-columns:1fr;}}
+.results-left{display:flex;flex-direction:column;gap:var(--s-6);}
+
+/* Majority card */
+.majority-card{
+  position:relative;background:linear-gradient(150deg,var(--navy-900) 0%,var(--navy-700) 65%,#1d3a63 100%);
+  color:#fff;border-radius:var(--r-xl);padding:var(--s-7);
+  overflow:hidden;box-shadow:var(--sh-4);isolation:isolate;
+  transition:all var(--t-slow);
+}
+.majority-card::before{
+  content:'';position:absolute;top:-100px;right:-80px;width:280px;height:280px;
+  border-radius:50%;background:radial-gradient(circle,rgba(107,78,230,.55) 0%,transparent 70%);
+  pointer-events:none;filter:blur(20px);
+}
+.majority-card::after{
+  content:'';position:absolute;bottom:-120px;left:-60px;width:260px;height:260px;
+  border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.35) 0%,transparent 70%);
+  pointer-events:none;filter:blur(20px);
+}
+.majority-card.empty{
+  background:linear-gradient(150deg,var(--n-100) 0%,var(--n-200) 100%);
+  color:var(--n-600);box-shadow:var(--sh-2);
+}
+.majority-card.empty::before,.majority-card.empty::after{display:none;}
+.majority-card.tie{background:linear-gradient(150deg,#4c1d95 0%,#9f1239 100%);}
+.majority-card.tie::before{background:radial-gradient(circle,rgba(244,63,94,.5) 0%,transparent 70%);}
+.majority-card.is-final{
+  background:linear-gradient(150deg,#064e3b 0%,#065f46 40%,var(--navy-800) 100%);
+}
+.majority-card.is-final::before{background:radial-gradient(circle,rgba(16,185,129,.55) 0%,transparent 70%);}
+.majority-card.celebrate{animation:celebrate 1s var(--ease);}
+@keyframes celebrate{
+  0%{transform:scale(1);box-shadow:var(--sh-4);}
+  40%{transform:scale(1.015);box-shadow:0 0 0 6px rgba(107,78,230,.18),var(--sh-4);}
+  100%{transform:scale(1);box-shadow:var(--sh-4);}
+}
+.majority-card.threshold-pulse{animation:thresholdPulse 1.4s var(--ease);}
+@keyframes thresholdPulse{
+  0%{box-shadow:var(--sh-4);}
+  40%{box-shadow:0 0 0 10px rgba(16,185,129,.25),0 0 60px rgba(16,185,129,.45),var(--sh-4);}
+  100%{box-shadow:var(--sh-4);}
+}
+
+.majority-ribbon{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  font-size:.6875rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.92);margin-bottom:var(--s-5);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  position:relative;z-index:1;
+}
+.ribbon-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;animation:pulse 2s infinite;}
+.majority-card.tie .ribbon-dot{background:#fbbf24;box-shadow:0 0 10px #fbbf24;}
+.majority-card.empty .ribbon-dot{background:var(--n-400);box-shadow:none;animation:none;}
+.majority-card.is-final .ribbon-dot{background:#4ade80;}
+
+.majority-body{position:relative;z-index:1;}
+.majority-name{
+  font-family:var(--font-display);font-size:clamp(1.5rem,2.4vw,2rem);
+  font-weight:700;color:#fff;line-height:1.15;margin-bottom:var(--s-5);
+  letter-spacing:-.02em;text-wrap:balance;
+}
+.majority-card.empty .majority-name{color:var(--n-600);}
+.majority-stats{display:flex;gap:var(--s-7);margin-bottom:var(--s-5);}
+.majority-stat-value{
+  font-size:2.5rem;font-weight:800;line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;
+  transition:color var(--t-med);
+}
+.majority-card.empty .majority-stat-value{color:var(--n-500);}
+.majority-stat-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;opacity:.65;margin-top:6px;}
+.majority-note{
+  font-size:.875rem;opacity:.82;line-height:1.55;
+  padding-top:var(--s-5);border-top:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.85);
+}
+.majority-card.empty .majority-note{color:var(--n-600);border-top-color:var(--n-300);opacity:1;}
+
+.majority-threshold{
+  display:flex;align-items:center;gap:10px;
+  margin-top:var(--s-5);padding:11px 16px;border-radius:var(--r-sm);
+  font-size:.8125rem;font-weight:600;position:relative;z-index:1;
+  transition:all var(--t-med);
+}
+.majority-threshold.threshold-met{background:rgba(16,185,129,.18);color:#6ee7b7;border:1px solid rgba(16,185,129,.35);}
+.majority-threshold.threshold-pending{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.3);}
+.majority-card.empty .majority-threshold.threshold-pending{background:var(--amber-50);color:var(--amber-700);border-color:#fcd34d;}
+.threshold-icon{font-size:1rem;}
+
+/* Vote bars */
+.vote-bars{display:flex;flex-direction:column;gap:var(--s-5);}
+.vote-bar-item{position:relative;}
+.vote-bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:12px;}
+.vote-bar-name{font-size:.875rem;font-weight:600;color:var(--n-700);display:flex;align-items:center;gap:10px;min-width:0;}
+.vote-bar-name-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:50%;flex-shrink:0;
+  font-size:.6875rem;font-weight:800;background:var(--n-200);color:var(--n-600);
+  font-variant-numeric:tabular-nums;
+}
+.rank-badge.rank-1{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;box-shadow:0 2px 8px rgba(245,158,11,.4);}
+.rank-badge.rank-2{background:linear-gradient(135deg,#cbd5e1,#94a3b8);color:#fff;}
+.rank-badge.rank-3{background:linear-gradient(135deg,#fdba74,#ea580c);color:#fff;}
+.rank-badge.rank-4{background:linear-gradient(135deg,#a5b4fc,#6366f1);color:#fff;}
+.rank-badge.tie{background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff;}
+
+.vote-bar-values{font-size:.875rem;font-weight:700;color:var(--n-800);white-space:nowrap;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:4px;}
+.vote-bar-values .vote-count{transition:color var(--t-med);}
+.vote-bar-item.leading .vote-bar-values .vote-count{color:var(--purple-600);}
+.vote-bar-values .vote-pct{font-weight:600;color:var(--text-soft);font-size:.8125rem;}
+
+.vote-bar-track{
+  height:14px;background:var(--n-100);border-radius:var(--r-full);
+  overflow:hidden;position:relative;
+  box-shadow:inset 0 1px 2px rgba(15,23,42,.05);
+}
+.vote-bar-fill{
+  height:100%;border-radius:var(--r-full);width:0%;
+  transition:width 700ms var(--ease);
+  position:relative;overflow:hidden;
+}
+.vote-bar-fill::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);
+  transform:translateX(-100%);animation:shimmer 2.4s infinite;
+}
+@keyframes shimmer{to{transform:translateX(200%);}}
+.vote-bar-item.leading .vote-bar-fill{box-shadow:0 0 16px rgba(107,78,230,.45);}
+.vote-bar-fill.rank-1{background:linear-gradient(90deg,var(--purple-600),#a78bfa);}
+.vote-bar-fill.rank-2{background:linear-gradient(90deg,var(--teal-600),var(--teal-500));}
+.vote-bar-fill.rank-3{background:linear-gradient(90deg,#ea580c,#f59e0b);}
+.vote-bar-fill.rank-4{background:linear-gradient(90deg,#6366f1,#818cf8);}
+.vote-bar-fill.tie{background:linear-gradient(90deg,var(--rose-600),#fb7185);}
+.vote-bar-fill.rank-1::after{animation-duration:2s;}
+
+/* Group participation */
+.group-bars{display:flex;flex-direction:column;gap:var(--s-4);}
+.group-bar-item{display:grid;grid-template-columns:170px 1fr 90px;align-items:center;gap:var(--s-4);}
+@media(max-width:640px){
+  .group-bar-item{grid-template-columns:1fr;gap:6px;}
+  .group-bar-count{text-align:left !important;}
+}
+.group-bar-label{font-size:.8125rem;font-weight:600;color:var(--n-700);display:flex;align-items:center;gap:8px;}
+.group-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,255,255,1),0 0 0 3px currentColor;}
+.group-bar-track{height:10px;background:var(--n-100);border-radius:var(--r-full);overflow:hidden;}
+.group-bar-fill{height:100%;border-radius:var(--r-full);width:0%;transition:width 700ms var(--ease);}
+.group-bar-count{font-size:.8125rem;font-weight:700;color:var(--n-800);text-align:right;font-variant-numeric:tabular-nums;}
+.group-bar-count span{font-weight:500;color:var(--text-soft);}
+
+/* ---------- FAIRNESS ---------- */
+.fairness-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s-5);}
+.fairness-card{
+  background:var(--surface);border-radius:var(--r-lg);padding:var(--s-6);
+  border:1px solid var(--border);box-shadow:var(--sh-1);
+  transition:all var(--t-med);position:relative;overflow:hidden;
+}
+.fairness-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--purple-500),var(--teal-500));
+  transform:scaleX(0);transform-origin:left;transition:transform var(--t-slow);
+}
+.fairness-card:hover{transform:translateY(-4px);box-shadow:var(--sh-3);}
+.fairness-card:hover::before{transform:scaleX(1);}
+.fairness-icon{
+  width:46px;height:46px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;margin-bottom:var(--s-4);font-weight:700;
+}
+.fairness-card h4{font-size:1rem;margin-bottom:6px;font-family:var(--font-sans);font-weight:700;}
+.fairness-card p{font-size:.875rem;line-height:1.55;}
+
+/* ---------- SDG ---------- */
+.sdg-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6);margin-bottom:var(--s-6);}
+@media(max-width:768px){.sdg-grid{grid-template-columns:1fr;}}
+.sdg-card{
+  border-radius:var(--r-xl);padding:var(--s-7);color:#fff;
+  position:relative;overflow:hidden;box-shadow:var(--sh-3);
+  transition:transform var(--t-med);
+}
+.sdg-card:hover{transform:translateY(-4px);}
+.sdg-card-5{background:linear-gradient(140deg,#831843 0%,#be185d 45%,#ec4899 100%);}
+.sdg-card-10{background:linear-gradient(140deg,#312e81 0%,#4338ca 45%,#6366f1 100%);}
+.sdg-card::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;
+  border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none;
+}
+.sdg-card::after{
+  content:'';position:absolute;bottom:-80px;left:-40px;width:180px;height:180px;
+  border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none;
+}
+.sdg-card-top{display:flex;align-items:center;gap:14px;margin-bottom:var(--s-4);position:relative;z-index:1;}
+.sdg-card-number{
+  font-family:var(--font-display);font-size:3.25rem;font-weight:700;
+  line-height:1;color:#fff;letter-spacing:-.04em;
+  text-shadow:0 2px 12px rgba(0,0,0,.15);
+}
+.sdg-card-tag{
+  font-size:.6875rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:var(--r-full);
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.sdg-card h3{color:#fff;font-size:1.125rem;margin-bottom:var(--s-3);position:relative;z-index:1;font-family:var(--font-sans);font-weight:700;}
+.sdg-card p{color:rgba(255,255,255,.88);font-size:.9375rem;line-height:1.65;position:relative;z-index:1;}
+
+.panel-how{margin-top:var(--s-6);}
+.how-list{display:flex;flex-direction:column;gap:var(--s-4);}
+.how-list li{display:flex;gap:14px;align-items:flex-start;font-size:.9375rem;color:var(--n-700);line-height:1.6;}
+.how-num{
+  flex-shrink:0;width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple-100),#e0d5ff);
+  color:var(--purple-600);font-weight:800;font-size:.8125rem;
+  display:flex;align-items:center;justify-content:center;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer{background:var(--navy-900);color:rgba(255,255,255,.7);padding:var(--s-10) 0 var(--s-6);position:relative;overflow:hidden;}
+.site-footer::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(107,78,230,.5),rgba(13,148,136,.5),transparent);
+}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:var(--s-8);margin-bottom:var(--s-7);}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:var(--s-6);}}
+.footer-brand .logo{color:#fff;margin-bottom:var(--s-4);}
+.logo-footer .logo-text{color:#fff;}
+.footer-tagline{color:rgba(255,255,255,.85);font-size:.9375rem;font-weight:600;margin-bottom:6px;}
+.footer-note{color:rgba(255,255,255,.5);font-size:.8125rem;max-width:300px;line-height:1.55;}
+.footer-col h4{color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:var(--s-4);font-family:var(--font-sans);}
+.footer-col li{margin-bottom:10px;}
+.footer-col a{color:rgba(255,255,255,.62);font-size:.875rem;transition:color var(--t-fast);}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);padding-top:var(--s-5);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:var(--s-4);font-size:.8125rem;color:rgba(255,255,255,.5);
+}
+.sdg-pills{display:flex;gap:8px;}
+.sdg-pill{padding:4px 12px;border-radius:var(--r-full);font-size:.6875rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.sdg-pill-5{background:rgba(236,72,153,.18);color:#f9a8d4;border:1px solid rgba(236,72,153,.28);}
+.sdg-pill-10{background:rgba(99,102,241,.18);color:#a5b4fc;border:1px solid rgba(99,102,241,.28);}
+
+/* ---------- TOASTS ---------- */
+.toast-container{position:fixed;bottom:var(--s-6);right:var(--s-6);z-index:1000;display:flex;flex-direction:column;gap:10px;max-width:400px;pointer-events:none;}
+@media(max-width:520px){.toast-container{left:var(--s-4);right:var(--s-4);bottom:var(--s-4);max-width:none;}}
+.toast{
+  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;
+  border-radius:var(--r-md);background:var(--n-0);
+  box-shadow:0 12px 32px rgba(15,23,42,.18),0 4px 8px rgba(15,23,42,.08);
+  border-left:4px solid var(--n-400);
+  animation:toastIn .4s var(--ease);font-size:.875rem;
+  pointer-events:auto;position:relative;overflow:hidden;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(24px) scale(.96);}to{opacity:1;transform:translateX(0) scale(1);}}
+.toast.removing{animation:toastOut .3s forwards;}
+@keyframes toastOut{to{opacity:0;transform:translateX(24px);}}
+.toast-success{border-left-color:var(--green-500);}
+.toast-warning{border-left-color:var(--amber-500);}
+.toast-error{border-left-color:var(--red-500);}
+.toast-info{border-left-color:var(--purple-500);}
+.toast-icon-wrap{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.875rem;font-weight:700;
+}
+.toast-success .toast-icon-wrap{background:var(--green-100);color:var(--green-600);}
+.toast-warning .toast-icon-wrap{background:var(--amber-100);color:var(--amber-700);}
+.toast-error .toast-icon-wrap{background:var(--red-100);color:var(--red-600);}
+.toast-info .toast-icon-wrap{background:var(--purple-100);color:var(--purple-600);}
+.toast-content{flex:1;min-width:0;}
+.toast-title{font-weight:700;color:var(--n-800);margin-bottom:2px;font-size:.875rem;}
+.toast-message{color:var(--text-mute);font-size:.8125rem;line-height:1.45;}
+.toast-close{color:var(--n-400);padding:2px 6px;border-radius:4px;font-size:.8125rem;transition:all var(--t-fast);line-height:1;}
+.toast-close:hover{color:var(--n-700);background:var(--n-100);}
+.toast-progress{position:absolute;bottom:0;left:0;height:2px;background:currentColor;opacity:.25;animation:toastProg 4.5s linear forwards;}
+.toast-success .toast-progress{color:var(--green-500);}
+.toast-warning .toast-progress{color:var(--amber-500);}
+.toast-error .toast-progress{color:var(--red-500);}
+.toast-info .toast-progress{color:var(--purple-500);}
+@keyframes toastProg{from{width:100%;}to{width:0%;}}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(6,15,31,.65);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  z-index:2000;padding:var(--s-5);animation:fadeIn .2s;
+}
+.modal-overlay.open{display:flex;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal{
+  background:var(--n-0);border-radius:var(--r-xl);padding:var(--s-7);
+  max-width:440px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.4);
+  animation:modalIn .35s var(--ease);text-align:center;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-icon{
+  width:56px;height:56px;border-radius:50%;margin:0 auto var(--s-5);
+  background:var(--amber-100);color:var(--amber-700);
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+}
+.modal h3{font-size:1.25rem;margin-bottom:var(--s-3);text-align:center;}
+.modal p{font-size:.9375rem;margin-bottom:var(--s-6);text-align:center;line-height:1.6;}
+.modal-actions{display:flex;gap:var(--s-3);justify-content:center;}
+
+/* ---------- UTILITIES ---------- */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+.hidden{display:none !important;}
+
+/* ---------- REDUCED MOTION ---------- */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;scroll-behavior:auto !important;
+  }
+  .vote-bar-fill::after{display:none;}
+  .reveal,.reveal-stagger > *{opacity:1 !important;transform:none !important;}
+  .hero-card{animation:none;}
+  .net-node-pulse,.net-line.active{animation:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ NAVBAR ============================ -->
+<nav class="navbar" id="navbar" aria-label="Primary">
+  <div class="container nav-inner">
+    <a href="#home" class="logo" aria-label="EQUALECT home">
+      <span class="logo-mark" aria-hidden="true">
+        <span class="logo-dot"></span><span class="logo-dot"></span><span class="logo-dot"></span>
+      </span>
+      <span class="logo-text">EQUALECT</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+    </button>
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#home" data-nav>Home</a></li>
+      <li><a href="#initiatives" data-nav>Initiatives</a></li>
+      <li><a href="#vote" data-nav>Vote</a></li>
+      <li><a href="#results" data-nav>Results</a></li>
+      <li><a href="#fairness" data-nav>Fairness</a></li>
+      <li><a href="#sdg" data-nav>SDG Impact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="home">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Community Decision Platform · SDG 5 &amp; SDG 10
+      </div>
+      <h1 class="hero-title">
+        <span class="line">One Community.</span>
+        <span class="line">Many Voices.</span>
+        <span class="line"><span class="hero-title-accent">One Transparent Decision.</span></span>
+      </h1>
+      <p class="hero-lede">
+        EQUALECT uses majority rule to help a diverse community choose one equality
+        initiative fairly — while ensuring women and underrepresented groups remain
+        visible, not silenced by the largest group.
+      </p>
+      <div class="hero-actions">
+        <a href="#vote" class="btn btn-primary btn-lg">
+          <span>Start Simulating</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <button class="btn btn-glass btn-lg" id="heroDemoBtn" type="button">
+          Load Demo Community
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">04</div>
+          <div class="hero-stat-label">Initiatives</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">05</div>
+          <div class="hero-stat-label">Groups</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">01</div>
+          <div class="hero-stat-label">Decision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg class="hero-network" viewBox="0 0 500 480" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="heroCoreGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#6b4ee6"/>
+            <stop offset="100%" stop-color="#14b8a6"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Connector lines from voices toward the decision core -->
+        <line class="net-line" x1="80" y1="80" x2="250" y2="240"/>
+        <line class="net-line active" x1="420" y1="90" x2="250" y2="240"/>
+        <line class="net-line" x1="60" y1="240" x2="250" y2="240"/>
+        <line class="net-line active" x1="440" y1="240" x2="250" y2="240"/>
+        <line class="net-line" x1="80" y1="400" x2="250" y2="240"/>
+        <line class="net-line active" x1="420" y1="400" x2="250" y2="240"/>
+
+        <!-- Community voices (peripheral nodes) -->
+        <circle class="net-node net-node-a net-node-pulse" cx="80" cy="80" r="6"/>
+        <circle class="net-node net-node-b net-node-pulse" cx="420" cy="90" r="6" style="animation-delay:.4s"/>
+        <circle class="net-node net-node-c net-node-pulse" cx="60" cy="240" r="6" style="animation-delay:.8s"/>
+        <circle class="net-node net-node-d net-node-pulse" cx="440" cy="240" r="6" style="animation-delay:1.2s"/>
+        <circle class="net-node net-node-e net-node-pulse" cx="80" cy="400" r="6" style="animation-delay:1.6s"/>
+        <circle class="net-node net-node-a net-node-pulse" cx="420" cy="400" r="6" style="animation-delay:2s"/>
+
+        <!-- Small satellite dots (subtle detail) -->
+        <circle class="net-node net-node-a" cx="140" cy="40" r="3" opacity=".6"/>
+        <circle class="net-node net-node-b" cx="360" cy="40" r="3" opacity=".6"/>
+        <circle class="net-node net-node-c" cx="30" cy="160" r="3" opacity=".6"/>
+        <circle class="net-node net-node-d" cx="470" cy="160" r="3" opacity=".6"/>
+
+        <!-- Decision core (glow + ring + core) -->
+        <circle class="net-core-glow" cx="250" cy="240" r="60"/>
+        <circle class="net-core" cx="250" cy="240" r="36"/>
+        <circle cx="250" cy="240" r="44" fill="none" stroke="rgba(107,78,230,.4)" stroke-width="1" stroke-dasharray="2 4"/>
+        <circle cx="250" cy="240" r="56" fill="none" stroke="rgba(107,78,230,.2)" stroke-width="1" stroke-dasharray="2 4"/>
+
+        <!-- Checkmark in core -->
+        <polyline class="net-check" points="238 240 246 248 262 232"/>
+      </svg>
+
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <span class="preview-live"><span class="preview-live-dot"></span> LIVE TALLY</span>
+          <span class="preview-pill">SIMULATED</span>
+        </div>
+        <div class="preview-row">
+          <span class="preview-icon" style="background:#f0ebff;color:#6b4ee6;">💻</span>
+          <div class="preview-bar"><div class="preview-bar-fill" style="width:46%;background:linear-gradient(90deg,#6b4ee6,#8b5cf6);"></div></div>
+          <span class="preview-pct">46%</span>
+        </div>
+        <div class="preview-row">
+          <span class="preview-icon" style="background:#e6f7f5;color:#0d9488;">♿</span>
+          <div class="preview-bar"><div class="preview-bar-fill" style="width:28%;background:linear-gradient(90deg,#0d9488,#14b8a6);"></div></div>
+          <span class="preview-pct">28%</span>
+        </div>
+        <div class="preview-row">
+          <span class="preview-icon" style="background:#fef3c7;color:#92400e;">🤝</span>
+          <div class="preview-bar"><div class="preview-bar-fill" style="width:16%;background:linear-gradient(90deg,#f59e0b,#fbbf24);"></div></div>
+          <span class="preview-pct">16%</span>
+        </div>
+        <div class="preview-row">
+          <span class="preview-icon" style="background:#fee2e2;color:#991b1b;">🚌</span>
+          <div class="preview-bar"><div class="preview-bar-fill" style="width:10%;background:linear-gradient(90deg,#dc2626,#f87171);"></div></div>
+          <span class="preview-pct">10%</span>
+        </div>
+        <div class="preview-footer">
+          <span>THRESHOLD</span>
+          <span class="preview-threshold">10 / 10 ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ INITIATIVES ============================ -->
+<section id="initiatives" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">The Initiatives</div>
+      <h2>Four Paths to Equality</h2>
+      <p>Each initiative supports the UN Sustainable Development Goals. The community will select one.</p>
+    </div>
+    <div class="initiative-grid reveal-stagger" id="initiativeGrid" role="list"></div>
+  </div>
+</section>
+
+<!-- ============================ VOTE ============================ -->
+<section id="vote" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Simulated Voting</div>
+      <h2>Add Community Participants</h2>
+      <p>Simulate a community by adding participants from different groups. Each participant votes for one initiative.</p>
+    </div>
+
+    <div class="voting-grid reveal">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Add Participant</h3>
+          <div class="panel-actions">
+            <button class="btn btn-ghost btn-sm" id="loadDemoBtn" type="button">Load Demo</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="demoBanner" class="demo-banner hidden" role="status">
+            <span class="demo-banner-icon" aria-hidden="true">🧪</span>
+            <span>Demo data is simulated for demonstration.</span>
+            <button class="demo-banner-close" id="dismissDemo" aria-label="Dismiss demo notice" type="button">✕</button>
+          </div>
+
+          <form id="participantForm" novalidate>
+            <div class="form-group">
+              <label for="participantName">Participant name or anonymous ID</label>
+              <input type="text" id="participantName" placeholder="e.g., Participant 01" autocomplete="off" aria-describedby="nameError" />
+              <span class="field-error" id="nameError" role="alert"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="participantGroup">Community group</label>
+                <div class="select-wrap">
+                  <select id="participantGroup" aria-describedby="groupError">
+                    <option value="">— Select group —</option>
+                    <option value="Women">Women</option>
+                    <option value="Youth">Youth</option>
+                    <option value="Persons with Disabilities">Persons with Disabilities</option>
+                    <option value="Low-income Workers">Low-income Workers</option>
+                    <option value="General Community">General Community</option>
+                  </select>
+                </div>
+                <span class="field-error" id="groupError" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="participantInitiative">Selected initiative</label>
+                <div class="select-wrap">
+                  <select id="participantInitiative" aria-describedby="initiativeError"></select>
+                </div>
+                <span class="field-error" id="initiativeError" role="alert"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="addVoteBtn">
+              <span>Add Vote</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Participants <span class="count-badge" id="participantCount">0</span></h3>
+          <div class="panel-actions">
+            <button class="btn btn-ghost btn-sm" id="resetBtn" type="button">Reset All</button>
+          </div>
+        </div>
+        <div class="panel-body panel-body-flush">
+          <div class="participant-list" id="participantList" aria-live="polite" aria-label="List of simulated participants"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ RESULTS ============================ -->
+<section id="results" class="section section-results">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Live Results</div>
+      <h2>Current Community Choice</h2>
+      <p>Results update instantly as participants are added, changed, or removed.</p>
+    </div>
+
+    <div id="statusAlert" class="status-alert" role="status" aria-live="polite"></div>
+
+    <div class="results-grid reveal">
+      <div class="results-left">
+        <article class="majority-card empty" id="majorityCard" aria-live="polite">
+          <div class="majority-ribbon" id="majorityRibbon">
+            <span class="ribbon-dot" aria-hidden="true"></span>
+            <span id="majorityLabel">CURRENT LEADER</span>
+          </div>
+          <div class="majority-body">
+            <h3 class="majority-name" id="majorityName">No votes yet</h3>
+            <div class="majority-stats">
+              <div class="majority-stat">
+                <div class="majority-stat-value" id="majorityVotes">—</div>
+                <div class="majority-stat-label">votes</div>
+              </div>
+              <div class="majority-stat">
+                <div class="majority-stat-value" id="majorityPct">—</div>
+                <div class="majority-stat-label">share</div>
+              </div>
+            </div>
+            <p class="majority-note" id="majorityNote">
+              Add community participants to see the collective decision take shape.
+            </p>
+          </div>
+          <div class="majority-threshold threshold-pending" id="thresholdStatus">
+            <span class="threshold-icon" aria-hidden="true">⏳</span>
+            <span>Minimum participation required: 10 participants</span>
+          </div>
+        </article>
+
+        <div class="panel panel-tight">
+          <div class="panel-header">
+            <h3>Community Participation</h3>
+            <span class="panel-hint">Group-level visibility</span>
+          </div>
+          <div class="panel-body">
+            <div class="group-bars" id="groupBars"></div>
+            <p class="panel-footnote">
+              Participation is shown for transparency. It does <strong>not</strong> change how votes are counted.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-results" aria-live="polite">
+        <div class="panel-header">
+          <h3>Vote Distribution</h3>
+          <span class="panel-hint" id="totalVotesLabel">0 total votes</span>
+        </div>
+        <div class="panel-body">
+          <div class="vote-bars" id="voteBars"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAIRNESS ============================ -->
+<section id="fairness" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Transparency</div>
+      <h2>How Fairness Works</h2>
+      <p>
+        Majority rule provides a transparent way to aggregate preferences, while
+        participation data and inclusion safeguards help reveal whether some groups
+        are underrepresented.
+      </p>
+    </div>
+    <div class="fairness-grid reveal-stagger">
+      <div class="fairness-card">
+        <div class="fairness-icon" style="background:#f0ebff;color:#6b4ee6;" aria-hidden="true">✓</div>
+        <h4>One person, one vote</h4>
+        <p>Every participant gets exactly one vote. Votes are counted equally, regardless of group.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="fairness-icon" style="background:#e6f7f5;color:#0d9488;" aria-hidden="true">👁</div>
+        <h4>Group participation visible</h4>
+        <p>Participation from each community group is displayed, so smaller groups remain visible.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="fairness-icon" style="background:#fef3c7;color:#92400e;" aria-hidden="true">⚠</div>
+        <h4>Underrepresentation monitored</h4>
+        <p>Warnings appear when a group has very low participation — but never secretly change the vote.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="fairness-icon" style="background:#d1fae5;color:#065f46;" aria-hidden="true">📋</div>
+        <h4>Minimum participation threshold</h4>
+        <p>A configurable threshold (10 participants) must be met before declaring a final decision.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="fairness-icon" style="background:#fee2e2;color:#991b1b;" aria-hidden="true">⚖</div>
+        <h4>Ties shown transparently</h4>
+        <p>If two initiatives have equal votes, a tie is displayed openly. No winner is invented.</p>
+      </div>
+      <div class="fairness-card">
+        <div class="fairness-icon" style="background:#e0e7ff;color:#4338ca;" aria-hidden="true">🔎</div>
+        <h4>No silent adjustments</h4>
+        <p>The safeguard provides visibility and transparency — it does not alter individual votes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SDG ============================ -->
+<section id="sdg" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Global Goals</div>
+      <h2>SDG Impact &amp; Documentation</h2>
+      <p>EQUALECT connects directly to two United Nations Sustainable Development Goals.</p>
+    </div>
+
+    <div class="sdg-grid reveal-stagger">
+      <article class="sdg-card sdg-card-5">
+        <div class="sdg-card-top">
+          <span class="sdg-card-number">5</span>
+          <span class="sdg-card-tag">Gender Equality</span>
+        </div>
+        <h3>SDG 5 — Gender Equality</h3>
+        <p>
+          EQUALECT supports the participation and visibility of women's preferences in
+          collective decision-making. The Women's Digital Skills Program and group-level
+          participation tracking ensure women's voices are counted and seen.
+        </p>
+      </article>
+
+      <article class="sdg-card sdg-card-10">
+        <div class="sdg-card-top">
+          <span class="sdg-card-number">10</span>
+          <span class="sdg-card-tag">Reduced Inequalities</span>
+        </div>
+        <h3>SDG 10 — Reduced Inequalities</h3>
+        <p>
+          By making participation differences visible and providing inclusion safeguards,
+          the project works against smaller or underrepresented groups disappearing from
+          the overall result. Transparency replaces silent exclusion.
+        </p>
+      </article>
+    </div>
+
+    <div class="panel panel-how reveal">
+      <div class="panel-header">
+        <h3>How the Majority Rule Works</h3>
+      </div>
+      <div class="panel-body">
+        <ol class="how-list">
+          <li><span class="how-num">1</span><span>Participants select one initiative.</span></li>
+          <li><span class="how-num">2</span><span>JavaScript counts each vote.</span></li>
+          <li><span class="how-num">3</span><span>Percentages are calculated from total votes.</span></li>
+          <li><span class="how-num">4</span><span>The initiative with the most votes becomes the current majority choice.</span></li>
+          <li><span class="how-num">5</span><span>If two or more initiatives tie for the highest votes, the system displays a tie.</span></li>
+          <li><span class="how-num">6</span><span>A minimum participation threshold (10 participants) must be met before declaring a final decision.</span></li>
+          <li><span class="how-num">7</span><span>Group-level participation is displayed to make representation visible.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo logo-footer">
+          <span class="logo-mark" aria-hidden="true">
+            <span class="logo-dot"></span><span class="logo-dot"></span><span class="logo-dot"></span>
+          </span>
+          <span class="logo-text">EQUALECT</span>
+        </a>
+        <p class="footer-tagline">Every Voice Counts. Every Group Visible.</p>
+        <p class="footer-note">Prototype for community decision-making. Simulated data only.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#initiatives">Initiatives</a></li>
+          <li><a href="#vote">Vote</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#fairness">Fairness</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>SDG Alignment</h4>
+        <ul>
+          <li><a href="#sdg">SDG 5 — Gender Equality</a></li>
+          <li><a href="#sdg">SDG 10 — Reduced Inequalities</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> EQUALECT · Civic Tech Prototype</span>
+      <div class="sdg-pills">
+        <span class="sdg-pill sdg-pill-5">SDG 5</span>
+        <span class="sdg-pill sdg-pill-10">SDG 10</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ TOASTS ============================ -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+<!-- ============================ RESET MODAL ============================ -->
+<div class="modal-overlay" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle" aria-describedby="resetModalDesc">
+  <div class="modal" role="document">
+    <div class="modal-icon" aria-hidden="true">⚠</div>
+    <h3 id="resetModalTitle">Reset all simulated participants and votes?</h3>
+    <p id="resetModalDesc">
+      This will remove all participants, clear all votes, and return the simulation
+      to an empty state. This action cannot be undone.
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelResetBtn" type="button">Cancel</button>
+      <button class="btn btn-danger" id="confirmResetBtn" type="button">Reset Simulation</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   EQUALECT — Full application logic (single file)
+   Every button is wired to a real function. No placeholders.
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  /* ---------- DATA ---------- */
+  const INITIATIVES = [
+    { id:'digital-skills', name:"Women's Digital Skills Program", description:"Hands-on digital literacy and coding training designed for women and girls, opening pathways to tech careers and online participation.", sdgs:['SDG 5'], icon:'💻', color:'#6b4ee6', iconBg:'#f0ebff' },
+    { id:'accessible-learning', name:'Accessible Learning Center', description:'A fully accessible physical and digital learning hub for persons with disabilities, offering assistive technology and inclusive courses.', sdgs:['SDG 10'], icon:'♿', color:'#0d9488', iconBg:'#e6f7f5' },
+    { id:'inclusive-job-fair', name:'Inclusive Job Fair', description:'A large-scale job fair connecting underrepresented groups — women, youth, and persons with disabilities — with inclusive employers.', sdgs:['SDG 5','SDG 10'], icon:'🤝', color:'#f59e0b', iconBg:'#fef3c7' },
+    { id:'safe-transport', name:'Safe Public Transport Campaign', description:'Awareness and infrastructure campaign to make public transport safe and accessible for women, persons with disabilities, and low-income workers.', sdgs:['SDG 5','SDG 10'], icon:'🚌', color:'#dc2626', iconBg:'#fee2e2' }
+  ];
+
+  const GROUPS = [
+    { name:'Women', color:'#6b4ee6' },
+    { name:'Youth', color:'#0d9488' },
+    { name:'Persons with Disabilities', color:'#f59e0b' },
+    { name:'Low-income Workers', color:'#dc2626' },
+    { name:'General Community', color:'#64748b' }
+  ];
+
+  const MIN_PARTICIPATION = 10;
+  const UNDERREP_THRESHOLD = 0.08;
+
+  /* ---------- STATE ---------- */
+  let participants = [];
+  let demoMode = false;
+  let nextId = 1;
+  let previousLeaderId = null;
+  let thresholdReachedAnnounced = false;
+  const animatedValues = new WeakMap();
+
+  /* ---------- DOM ---------- */
+  const $ = (s) => document.querySelector(s);
+
+  const navbar = $('#navbar');
+  const navToggle = $('#navToggle');
+  const navLinks = $('#navLinks');
+  const initiativeGrid = $('#initiativeGrid');
+  const participantForm = $('#participantForm');
+  const participantName = $('#participantName');
+  const participantGroup = $('#participantGroup');
+  const participantInitiative = $('#participantInitiative');
+  const participantList = $('#participantList');
+  const participantCount = $('#participantCount');
+  const totalVotesLabel = $('#totalVotesLabel');
+  const voteBars = $('#voteBars');
+  const majorityCard = $('#majorityCard');
+  const majorityLabel = $('#majorityLabel');
+  const majorityName = $('#majorityName');
+  const majorityVotes = $('#majorityVotes');
+  const majorityPct = $('#majorityPct');
+  const majorityNote = $('#majorityNote');
+  const thresholdStatus = $('#thresholdStatus');
+  const groupBars = $('#groupBars');
+  const statusAlert = $('#statusAlert');
+  const toastContainer = $('#toastContainer');
+  const resetModal = $('#resetModal');
+  const demoBanner = $('#demoBanner');
+  const heroDemoBtn = $('#heroDemoBtn');
+  const loadDemoBtn = $('#loadDemoBtn');
+  const resetBtn = $('#resetBtn');
+  const cancelResetBtn = $('#cancelResetBtn');
+  const confirmResetBtn = $('#confirmResetBtn');
+  const dismissDemo = $('#dismissDemo');
+  const yearEl = $('#year');
+
+  /* ---------- NUMBER TWEEN ---------- */
+  function tweenNumber(el, target, opts) {
+    if (!el) return;
+    const options = opts || {};
+    const suffix = options.suffix || '';
+    const decimals = options.decimals || 0;
+    const from = parseFloat(el.textContent) || 0;
+    const to = Number(target) || 0;
+    if (Math.abs(to - from) < 0.001) {
+      el.textContent = to.toFixed(decimals) + suffix;
+      return;
+    }
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      el.textContent = to.toFixed(decimals) + suffix;
+      return;
+    }
+    const duration = 550;
+    const start = performance.now();
+    const state = animatedValues.get(el) || {};
+    if (state.raf) cancelAnimationFrame(state.raf);
+    function step(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const current = from + (to - from) * eased;
+      el.textContent = current.toFixed(decimals) + suffix;
+      if (t < 1) {
+        state.raf = requestAnimationFrame(step);
+        animatedValues.set(el, state);
+      } else {
+        el.textContent = to.toFixed(decimals) + suffix;
+        state.raf = null;
+        animatedValues.set(el, state);
+      }
+    }
+    state.raf = requestAnimationFrame(step);
+    animatedValues.set(el, state);
+  }
+
+  /* ---------- INITIALIZE ---------- */
+  function initializeApp() {
+    yearEl.textContent = new Date().getFullYear();
+    loadState();
+    populateInitiativeSelect();
+    renderInitiatives();
+    renderParticipants();
+    renderResults();
+    renderGroupParticipation();
+    bindEvents();
+    setupRevealObserver();
+    setupActiveNavObserver();
+    updateDemoBanner();
+  }
+
+  /* ---------- LOCAL STORAGE ---------- */
+  function loadState() {
+    try {
+      const saved = localStorage.getItem('equalect_state_v2');
+      if (saved) {
+        const data = JSON.parse(saved);
+        participants = Array.isArray(data.participants) ? data.participants : [];
+        nextId = data.nextId || (participants.length + 1);
+        demoMode = !!data.demoMode;
+        thresholdReachedAnnounced = participants.length >= MIN_PARTICIPATION;
+      }
+    } catch (e) {
+      participants = [];
+      nextId = 1;
+      demoMode = false;
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem('equalect_state_v2', JSON.stringify({ participants, nextId, demoMode }));
+    } catch (e) { /* run in memory */ }
+  }
+
+  /* ---------- INITIATIVE SELECT ---------- */
+  function populateInitiativeSelect() {
+    participantInitiative.innerHTML = '<option value="">— Select initiative —</option>';
+    INITIATIVES.forEach(init => {
+      const opt = document.createElement('option');
+      opt.value = init.id;
+      opt.textContent = init.name;
+      participantInitiative.appendChild(opt);
+    });
+  }
+
+  /* ---------- RENDER INITIATIVES ---------- */
+  function renderInitiatives() {
+    const results = calculateResults();
+    const total = participants.length;
+    const leaderId = results.leaderId;
+
+    initiativeGrid.innerHTML = INITIATIVES.map(init => {
+      const count = results.counts[init.id] || 0;
+      const pct = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
+      const sdgBadges = init.sdgs.map(s => {
+        const cls = s === 'SDG 5' ? 'sdg-5' : 'sdg-10';
+        return `<span class="sdg-badge ${cls}">${s}</span>`;
+      }).join('');
+      const isLeading = init.id === leaderId && total > 0;
+
+      return `
+        <article class="initiative-card ${isLeading ? 'is-leading' : ''}" role="listitem"
+                 style="--card-accent:${init.color};--icon-bg:${init.iconBg};">
+          <div class="initiative-icon" aria-hidden="true">${init.icon}</div>
+          <h3>${escapeHtml(init.name)}</h3>
+          <p class="initiative-desc">${escapeHtml(init.description)}</p>
+          <div class="sdg-badges">${sdgBadges}</div>
+          <div class="initiative-stats">
+            <span class="initiative-count" data-count="${init.id}">${count}</span>
+            <span class="initiative-pct" data-pct="${init.id}">${pct}%</span>
+            <span class="initiative-label">votes</span>
+          </div>
+          <button class="btn btn-outline btn-sm" data-quick-vote="${init.id}" type="button"
+                  aria-label="Vote for ${escapeHtml(init.name)}">
+            Vote for this initiative
+          </button>
+        </article>
+      `;
+    }).join('');
+
+    initiativeGrid.querySelectorAll('[data-quick-vote]').forEach(btn => {
+      btn.addEventListener('click', () => quickVote(btn.getAttribute('data-quick-vote')));
+    });
+
+    setupRevealObserver();
+  }
+
+  /* ---------- QUICK VOTE ---------- */
+  function quickVote(initiativeId) {
+    const init = INITIATIVES.find(i => i.id === initiativeId);
+    if (!init) return;
+    participantInitiative.value = initiativeId;
+    document.getElementById('vote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => participantName.focus(), 500);
+    showNotification('info', 'Initiative pre-selected', `"${init.name}" is now selected in the form below.`);
+  }
+
+  /* ---------- RENDER PARTICIPANTS ---------- */
+  function renderParticipants() {
+    participantCount.textContent = participants.length;
+
+    if (participants.length === 0) {
+      participantList.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-illustration" aria-hidden="true">
+            <div class="empty-card"></div>
+            <div class="empty-card"></div>
+            <div class="empty-card"></div>
+          </div>
+          <h4>No participants yet</h4>
+          <p>Add community participants to see the collective decision take shape.</p>
+        </div>
+      `;
+      return;
+    }
+
+    participantList.innerHTML = participants.map(p => {
+      const init = INITIATIVES.find(i => i.id === p.initiative);
+      const groupColor = getGroupColor(p.group);
+      const initials = p.name.substring(0, 2).toUpperCase();
+
+      return `
+        <div class="participant-item" data-id="${p.id}">
+          <div class="participant-avatar" style="background:${groupColor};" aria-hidden="true">${escapeHtml(initials)}</div>
+          <div class="participant-info">
+            <div class="participant-name">${escapeHtml(p.name)}</div>
+            <div class="participant-meta">
+              <span class="group-badge">${escapeHtml(p.group)}</span>
+              <span class="participant-initiative">→ ${init ? escapeHtml(init.name) : 'Unknown'}</span>
+            </div>
+          </div>
+          <div class="participant-actions">
+            <button class="icon-btn" data-action="edit" data-id="${p.id}" title="Change vote" aria-label="Change vote for ${escapeHtml(p.name)}">✏️</button>
+            <button class="icon-btn danger" data-action="remove" data-id="${p.id}" title="Remove vote" aria-label="Remove vote for ${escapeHtml(p.name)}">✕</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    participantList.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.getAttribute('data-id'), 10);
+        const action = btn.getAttribute('data-action');
+        if (action === 'edit') changeVote(id);
+        else if (action === 'remove') removeParticipant(id);
+      });
+    });
+  }
+
+  /* ---------- CALCULATIONS ---------- */
+  function calculateResults() {
+    const counts = {};
+    INITIATIVES.forEach(i => counts[i.id] = 0);
+    participants.forEach(p => {
+      if (counts[p.initiative] !== undefined) counts[p.initiative]++;
+    });
+
+    const total = participants.length;
+    const sorted = INITIATIVES.map(i => ({
+      ...i,
+      count: counts[i.id],
+      pct: total > 0 ? (counts[i.id] / total) * 100 : 0
+    })).sort((a, b) => b.count - a.count);
+
+    const maxCount = sorted[0]?.count || 0;
+    const leaders = sorted.filter(i => i.count === maxCount && maxCount > 0);
+    const isTie = leaders.length > 1 && maxCount > 0;
+    const leaderId = (!isTie && maxCount > 0) ? sorted[0].id : null;
+
+    return { counts, total, sorted, maxCount, leaders, isTie, leaderId };
+  }
+
+  function calculateGroupParticipation() {
+    const counts = {};
+    GROUPS.forEach(g => counts[g.name] = 0);
+    participants.forEach(p => {
+      if (counts[p.group] !== undefined) counts[p.group]++;
+    });
+    const total = participants.length;
+    return GROUPS.map(g => ({
+      ...g,
+      count: counts[g.name],
+      pct: total > 0 ? (counts[g.name] / total) * 100 : 0
+    }));
+  }
+
+  function checkParticipationThreshold() {
+    return participants.length >= MIN_PARTICIPATION;
+  }
+
+  function checkUnderrepresentation() {
+    if (participants.length === 0) return null;
+    const groupData = calculateGroupParticipation();
+    const underrepresented = groupData.filter(g => g.pct > 0 && g.pct < UNDERREP_THRESHOLD * 100);
+    return underrepresented.length > 0 ? underrepresented : null;
+  }
+
+  /* ---------- RENDER RESULTS ---------- */
+  function renderResults() {
+    const results = calculateResults();
+    const thresholdMet = checkParticipationThreshold();
+
+    // ----- Majority card -----
+    if (results.total === 0) {
+      majorityCard.className = 'majority-card empty';
+      majorityLabel.textContent = 'CURRENT LEADER';
+      majorityName.textContent = 'No votes yet';
+      majorityVotes.textContent = '—';
+      majorityPct.textContent = '—';
+      majorityNote.textContent = 'Add community participants to see the collective decision take shape.';
+    } else if (results.isTie) {
+      majorityCard.className = 'majority-card tie';
+      majorityLabel.textContent = 'NO MAJORITY — TIE';
+      majorityName.textContent = results.leaders.map(l => l.name).join(' & ');
+      tweenNumber(majorityVotes, results.maxCount);
+      majorityPct.textContent = `${((results.maxCount / results.total) * 100).toFixed(1)}% each`;
+      majorityNote.textContent = 'The community is currently split between these initiatives. Additional participation or a defined tie-breaking process would be required.';
+    } else {
+      const leader = results.sorted[0];
+      const isFinal = thresholdMet;
+      majorityCard.className = 'majority-card' + (isFinal ? ' is-final' : '');
+
+      if (previousLeaderId !== null && previousLeaderId !== leader.id && results.total > 0) {
+        majorityCard.classList.add('celebrate');
+        setTimeout(() => majorityCard.classList.remove('celebrate'), 1000);
+      }
+
+      majorityLabel.textContent = isFinal ? 'FINAL MAJORITY DECISION' : 'CURRENT LEADER';
+      majorityName.textContent = leader.name;
+      tweenNumber(majorityVotes, leader.count);
+      tweenNumber(majorityPct, leader.pct, { suffix: '%', decimals: 1 });
+      majorityNote.textContent = isFinal
+        ? 'This is the current majority choice based on the simulated votes. The minimum participation threshold has been met.'
+        : 'This is the current leader. A minimum participation threshold must be met before declaring a final decision.';
+
+      previousLeaderId = leader.id;
+    }
+
+    if (results.total === 0) previousLeaderId = null;
+
+    // ----- Threshold status + decision moment -----
+    const wasThresholdMet = thresholdReachedAnnounced;
+    if (thresholdMet) {
+      thresholdStatus.className = 'majority-threshold threshold-met';
+      thresholdStatus.innerHTML = `<span class="threshold-icon" aria-hidden="true">✓</span><span>Participation threshold reached (${participants.length}/${MIN_PARTICIPATION}). Eligible for final decision.</span>`;
+      if (!wasThresholdMet && results.total > 0) {
+        thresholdReachedAnnounced = true;
+        majorityCard.classList.add('threshold-pulse');
+        setTimeout(() => majorityCard.classList.remove('threshold-pulse'), 1400);
+        showNotification('success', 'Participation threshold reached', `Minimum of ${MIN_PARTICIPATION} participants achieved. The current leader can now be declared the community's choice.`);
+      }
+    } else {
+      thresholdStatus.className = 'majority-threshold threshold-pending';
+      const remaining = MIN_PARTICIPATION - participants.length;
+      thresholdStatus.innerHTML = `<span class="threshold-icon" aria-hidden="true">⏳</span><span>More participation needed — ${remaining} more participant${remaining !== 1 ? 's' : ''} required (${participants.length}/${MIN_PARTICIPATION}).</span>`;
+      thresholdReachedAnnounced = false;
+    }
+
+    // ----- Vote bars -----
+    totalVotesLabel.textContent = `${results.total} total vote${results.total !== 1 ? 's' : ''}`;
+
+    voteBars.innerHTML = results.sorted.map((init, idx) => {
+      const rank = idx + 1;
+      const isLeading = init.id === results.leaderId;
+      const isTieBar = results.isTie && results.leaders.some(l => l.id === init.id);
+      const barClass = isTieBar ? 'tie' : `rank-${Math.min(rank, 4)}`;
+      const rankClass = isTieBar ? 'tie' : `rank-${Math.min(rank, 4)}`;
+
+      return `
+        <div class="vote-bar-item ${isLeading ? 'leading' : ''}">
+          <div class="vote-bar-header">
+            <div class="vote-bar-name">
+              <span class="rank-badge ${rankClass}">${isTieBar ? '=' : rank}</span>
+              <span class="vote-bar-name-text">${init.icon} ${escapeHtml(init.name)}</span>
+            </div>
+            <div class="vote-bar-values">
+              <span class="vote-count" data-bar-count="${init.id}">${init.count}</span>
+              <span class="vote-pct">(${init.pct.toFixed(1)}%)</span>
+            </div>
+          </div>
+          <div class="vote-bar-track" role="progressbar"
+               aria-valuenow="${init.pct.toFixed(1)}" aria-valuemin="0" aria-valuemax="100"
+               aria-valuetext="${init.pct.toFixed(1)} percent, ${init.count} votes"
+               aria-label="${escapeHtml(init.name)}">
+            <div class="vote-bar-fill ${barClass}" style="width:${init.pct}%;"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    renderStatusAlerts(results, thresholdMet);
+  }
+
+  /* ---------- STATUS ALERTS ---------- */
+  function renderStatusAlerts(results, thresholdMet) {
+    const alerts = [];
+
+    const underrep = checkUnderrepresentation();
+    if (underrep && results.total > 0) {
+      const names = underrep.map(g => `<strong>${escapeHtml(g.name)}</strong> (${g.pct.toFixed(1)}%)`).join(', ');
+      alerts.push(`
+        <div class="alert alert-warning">
+          <span class="alert-icon" aria-hidden="true">⚠️</span>
+          <div class="alert-content">
+            <strong>Participation Alert — Underrepresentation Detected</strong>
+            <p>${names} ${underrep.length === 1 ? 'represents' : 'represent'} a small share of recorded participants. The current result reflects the participants who voted, but may not fully represent ${underrep.length === 1 ? "this group's" : "these groups'"} preferences.</p>
+            <p style="margin-top:6px;"><strong>This warning does not change the vote count.</strong> It exists so smaller groups remain visible.</p>
+          </div>
+        </div>
+      `);
+    }
+
+    if (results.isTie) {
+      alerts.push(`
+        <div class="alert alert-danger">
+          <span class="alert-icon" aria-hidden="true">⚖️</span>
+          <div class="alert-content">
+            <strong>No Majority — Tie Detected</strong>
+            <p>${results.leaders.map(l => escapeHtml(l.name)).join(' and ')} currently have equal votes (${results.maxCount} each). The system does not invent a winner — a tie is displayed openly.</p>
+          </div>
+        </div>
+      `);
+    }
+
+    if (results.total > 0 && !thresholdMet) {
+      const remaining = MIN_PARTICIPATION - results.total;
+      alerts.push(`
+        <div class="alert alert-info">
+          <span class="alert-icon" aria-hidden="true">⏳</span>
+          <div class="alert-content">
+            <strong>More Participation Needed</strong>
+            <p>${remaining} more participant${remaining !== 1 ? 's' : ''} required before a final community decision can be declared. Current leader is provisional.</p>
+          </div>
+        </div>
+      `);
+    }
+
+    if (results.total > 0 && thresholdMet && !results.isTie) {
+      alerts.push(`
+        <div class="alert alert-success">
+          <span class="alert-icon" aria-hidden="true">✓</span>
+          <div class="alert-content">
+            <strong>Final Majority Decision Eligible</strong>
+            <p>The minimum participation threshold has been met. The leading initiative can be declared as the community's choice.</p>
+          </div>
+        </div>
+      `);
+    }
+
+    statusAlert.innerHTML = alerts.join('');
+  }
+
+  /* ---------- RENDER GROUP PARTICIPATION ---------- */
+  function renderGroupParticipation() {
+    const groupData = calculateGroupParticipation();
+    const total = participants.length;
+
+    groupBars.innerHTML = groupData.map(g => {
+      const pct = total > 0 ? g.pct.toFixed(1) : '0.0';
+      return `
+        <div class="group-bar-item">
+          <div class="group-bar-label">
+            <span class="group-dot" style="background:${g.color};color:${g.color};"></span>
+            ${escapeHtml(g.name)}
+          </div>
+          <div class="group-bar-track">
+            <div class="group-bar-fill" style="width:${g.pct}%;background:linear-gradient(90deg,${g.color},${g.color}cc);"></div>
+          </div>
+          <div class="group-bar-count">
+            ${g.count} <span>(${pct}%)</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  /* ---------- ADD PARTICIPANT ---------- */
+  function addParticipant(name, group, initiative) {
+    let valid = true;
+    clearErrors();
+
+    if (!name || name.trim() === '') {
+      setError('nameError', 'Please enter a participant name or ID.');
+      participantName.classList.add('invalid');
+      valid = false;
+    }
+    if (!group) {
+      setError('groupError', 'No community group selected.');
+      participantGroup.classList.add('invalid');
+      valid = false;
+    }
+    if (!initiative) {
+      setError('initiativeError', 'Please select an initiative.');
+      participantInitiative.classList.add('invalid');
+      valid = false;
+    }
+    if (!valid) return false;
+
+    if (participants.some(p => p.name.toLowerCase() === name.trim().toLowerCase())) {
+      setError('nameError', 'Participant already exists.');
+      participantName.classList.add('invalid');
+      showNotification('error', 'Duplicate participant', `"${name.trim()}" is already in the simulation.`);
+      return false;
+    }
+
+    participants.push({ id: nextId++, name: name.trim(), group, initiative });
+    saveState();
+    renderAll();
+    const init = INITIATIVES.find(i => i.id === initiative);
+    showNotification('success', 'Vote added', `${name.trim()} voted for "${init.name}".`);
+    return true;
+  }
+
+  /* ---------- CHANGE VOTE ---------- */
+  function changeVote(id) {
+    const participant = participants.find(p => p.id === id);
+    if (!participant) return;
+
+    participantName.value = participant.name;
+    participantGroup.value = participant.group;
+    participantInitiative.value = participant.initiative;
+
+    const item = participantList.querySelector(`[data-id="${id}"]`);
+    if (item) item.classList.add('removing');
+
+    setTimeout(() => {
+      participants = participants.filter(p => p.id !== id);
+      saveState();
+      renderAll();
+
+      document.getElementById('vote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => participantName.focus(), 450);
+      showNotification('info', 'Editing vote', `Update the form and click "Add Vote" to save changes for ${participant.name}.`);
+    }, 220);
+  }
+
+  /* ---------- REMOVE PARTICIPANT ---------- */
+  function removeParticipant(id) {
+    const participant = participants.find(p => p.id === id);
+    if (!participant) return;
+
+    const item = participantList.querySelector(`[data-id="${id}"]`);
+    if (item) item.classList.add('removing');
+
+    setTimeout(() => {
+      participants = participants.filter(p => p.id !== id);
+      saveState();
+      renderAll();
+      showNotification('warning', 'Vote removed', `${participant.name}'s vote has been removed.`);
+    }, 220);
+  }
+
+  /* ---------- RESET ---------- */
+  function resetVotes() {
+    participants = [];
+    nextId = 1;
+    demoMode = false;
+    previousLeaderId = null;
+    thresholdReachedAnnounced = false;
+    saveState();
+    clearErrors();
+    participantForm.reset();
+    renderAll();
+    updateDemoBanner();
+    showNotification('info', 'All votes reset', 'The simulation has been cleared. Add participants to begin again.');
+  }
+
+  /* ---------- LOAD DEMO ---------- */
+  function loadDemoData() {
+    participants = [];
+    nextId = 1;
+
+    const demoParticipants = [
+      { name:'Amina K.', group:'Women', initiative:'digital-skills' },
+      { name:'Fatima R.', group:'Women', initiative:'digital-skills' },
+      { name:'Zara M.', group:'Women', initiative:'digital-skills' },
+      { name:'Nadia S.', group:'Women', initiative:'inclusive-job-fair' },
+      { name:'Leila H.', group:'Women', initiative:'digital-skills' },
+      { name:'Samira T.', group:'Women', initiative:'safe-transport' },
+      { name:'Rania B.', group:'Women', initiative:'digital-skills' },
+      { name:'Omar J.', group:'Youth', initiative:'inclusive-job-fair' },
+      { name:'Yusuf A.', group:'Youth', initiative:'inclusive-job-fair' },
+      { name:'Lina D.', group:'Youth', initiative:'accessible-learning' },
+      { name:'Khalid N.', group:'Youth', initiative:'inclusive-job-fair' },
+      { name:'Hana P.', group:'Youth', initiative:'digital-skills' },
+      { name:'Participant 13', group:'Persons with Disabilities', initiative:'accessible-learning' },
+      { name:'Participant 14', group:'Persons with Disabilities', initiative:'accessible-learning' },
+      { name:'Mariam W.', group:'Low-income Workers', initiative:'safe-transport' },
+      { name:'Ahmed F.', group:'Low-income Workers', initiative:'inclusive-job-fair' },
+      { name:'Sara L.', group:'Low-income Workers', initiative:'safe-transport' },
+      { name:'Tariq Z.', group:'Low-income Workers', initiative:'accessible-learning' },
+      { name:'Chris B.', group:'General Community', initiative:'inclusive-job-fair' },
+      { name:'Dana M.', group:'General Community', initiative:'digital-skills' },
+      { name:'Alex R.', group:'General Community', initiative:'accessible-learning' },
+      { name:'Jordan K.', group:'General Community', initiative:'safe-transport' },
+      { name:'Taylor S.', group:'General Community', initiative:'inclusive-job-fair' },
+      { name:'Morgan L.', group:'General Community', initiative:'digital-skills' }
+    ];
+
+    demoParticipants.forEach(p => {
+      participants.push({ id: nextId++, ...p });
+    });
+
+    demoMode = true;
+    saveState();
+    renderAll();
+    updateDemoBanner();
+    showNotification('info', 'Demo community loaded', `${participants.length} simulated participants across 5 community groups.`);
+  }
+
+  /* ---------- DEMO BANNER ---------- */
+  function updateDemoBanner() {
+    if (demoMode && participants.length > 0) {
+      demoBanner.classList.remove('hidden');
+    } else {
+      demoBanner.classList.add('hidden');
+    }
+  }
+
+  /* ---------- RENDER ALL ---------- */
+  function renderAll() {
+    renderInitiatives();
+    renderParticipants();
+    renderResults();
+    renderGroupParticipation();
+    updateDemoBanner();
+  }
+
+  /* ---------- NOTIFICATIONS ---------- */
+  function showNotification(type, title, message) {
+    const icons = { success:'✓', warning:'!', error:'✕', info:'i' };
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'status');
+    toast.innerHTML = `
+      <div class="toast-icon-wrap" aria-hidden="true">${icons[type] || 'i'}</div>
+      <div class="toast-content">
+        <div class="toast-title">${escapeHtml(title)}</div>
+        <div class="toast-message">${escapeHtml(message)}</div>
+      </div>
+      <button class="toast-close" aria-label="Dismiss notification" type="button">✕</button>
+      <div class="toast-progress"></div>
+    `;
+    toastContainer.appendChild(toast);
+
+    const closeBtn = toast.querySelector('.toast-close');
+    const dismiss = () => removeToast(toast);
+    closeBtn.addEventListener('click', dismiss);
+
+    const timer = setTimeout(dismiss, 4500);
+    toast.addEventListener('mouseenter', () => clearTimeout(timer));
+    toast.addEventListener('mouseleave', () => setTimeout(dismiss, 1800));
+  }
+
+  function removeToast(toast) {
+    if (!toast.parentNode) return;
+    toast.classList.add('removing');
+    setTimeout(() => {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 300);
+  }
+
+  /* ---------- FORM VALIDATION ---------- */
+  function setError(id, message) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = message;
+  }
+
+  function clearErrors() {
+    ['nameError', 'groupError', 'initiativeError'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+    [participantName, participantGroup, participantInitiative].forEach(el => {
+      el.classList.remove('invalid');
+    });
+  }
+
+  /* ---------- HELPERS ---------- */
+  function getGroupColor(groupName) {
+    const g = GROUPS.find(g => g.name === groupName);
+    return g ? g.color : '#64748b';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = String(str);
+    return div.innerHTML;
+  }
+
+  /* ---------- NAV ---------- */
+  function toggleNav() {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  }
+
+  function closeNav() {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  /* ---------- REVEAL ON SCROLL ---------- */
+  let revealObserver = null;
+  function setupRevealObserver() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    }
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+      if (!el.classList.contains('is-visible')) revealObserver.observe(el);
+    });
+  }
+
+  /* ---------- ACTIVE NAV INDICATOR ---------- */
+  function setupActiveNavObserver() {
+    if (!('IntersectionObserver' in window)) return;
+    const sections = ['home','initiatives','vote','results','fairness','sdg']
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+    if (!sections.length) return;
+    const navAnchors = Array.from(navLinks.querySelectorAll('a[data-nav]'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navAnchors.forEach(a => {
+          const isActive = a.getAttribute('href') === '#' + id;
+          a.classList.toggle('active', isActive);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  }
+
+  /* ---------- MODAL ---------- */
+  let lastFocusedEl = null;
+
+  function openResetModal() {
+    lastFocusedEl = document.activeElement;
+    resetModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => cancelResetBtn.focus(), 60);
+    document.addEventListener('keydown', trapFocus);
+  }
+
+  function closeResetModal() {
+    resetModal.classList.remove('open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', trapFocus);
+    if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
+      lastFocusedEl.focus();
+    }
+  }
+
+  function trapFocus(e) {
+    if (e.key !== 'Tab') return;
+    const focusables = resetModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  /* ---------- EVENT BINDINGS ---------- */
+  function bindEvents() {
+    navToggle.addEventListener('click', toggleNav);
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    participantForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const success = addParticipant(participantName.value, participantGroup.value, participantInitiative.value);
+      if (success) {
+        participantForm.reset();
+        clearErrors();
+        participantName.focus();
+      }
+    });
+
+    [participantName, participantGroup, participantInitiative].forEach(el => {
+      const clearThis = () => {
+        el.classList.remove('invalid');
+        const map = { participantName:'nameError', participantGroup:'groupError', participantInitiative:'initiativeError' };
+        const errEl = document.getElementById(map[el.id]);
+        if (errEl) errEl.textContent = '';
+      };
+      el.addEventListener('input', clearThis);
+      el.addEventListener('change', clearThis);
+    });
+
+    loadDemoBtn.addEventListener('click', loadDemoData);
+    heroDemoBtn.addEventListener('click', () => {
+      loadDemoData();
+      setTimeout(() => {
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    });
+    resetBtn.addEventListener('click', openResetModal);
+    cancelResetBtn.addEventListener('click', closeResetModal);
+    confirmResetBtn.addEventListener('click', () => {
+      closeResetModal();
+      resetVotes();
+    });
+    dismissDemo.addEventListener('click', () => {
+      demoBanner.classList.add('hidden');
+    });
+
+    resetModal.addEventListener('click', (e) => {
+      if (e.target === resetModal) closeResetModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && resetModal.classList.contains('open')) closeResetModal();
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) closeNav();
+    });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn');
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      btn.style.setProperty('--x', x + '%');
+      btn.style.setProperty('--y', y + '%');
+    });
+  }
+
+  /* ---------- START ---------- */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    initializeApp();
+  }
+
+})();
+</script>
+</body>
+</html>
